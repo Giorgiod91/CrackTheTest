@@ -1,5 +1,8 @@
 # CrackTheTest
 
+prototype LandingPage
+![image](https://github.com/user-attachments/assets/52ae49bd-a2a4-43cb-b6de-909f3001f63d)
+
 
 # Why ?
 - i had to take multiple online tests but it wasnt that easy to learn specific content for the given position only expensive ones so i used openai to make my own test
