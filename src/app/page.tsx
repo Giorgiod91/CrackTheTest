@@ -5,6 +5,7 @@ import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
+import Tutorial from "./_components/Tutorial";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -24,6 +25,7 @@ export default async function Home() {
         <section className="flex min-h-screen justify-center">
           <LandingPage />
         </section>
+        <Tutorial />
       </main>
     </HydrateClient>
   );
