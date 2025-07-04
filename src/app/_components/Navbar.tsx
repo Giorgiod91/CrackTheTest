@@ -9,7 +9,7 @@ function Navbar({}: Props) {
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">
           Crack{" "}
-          <span className="bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
             TheTest
           </span>{" "}
         </a>
