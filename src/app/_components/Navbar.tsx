@@ -1,12 +1,18 @@
 import React from "react";
 
 type Props = {};
+//  bg-clip-text to use the color on the test instead of the bg
 
 function Navbar({}: Props) {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">CrackTheTest</a>
+        <a className="btn btn-ghost text-xl">
+          Crack{" "}
+          <span className="bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+            TheTest
+          </span>{" "}
+        </a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
