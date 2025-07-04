@@ -3,7 +3,8 @@
 prototype LandingPage
 
 
-![image](https://github.com/user-attachments/assets/c3fd4d30-5c45-46b0-b9d5-d73fd6908d00)
+![image](https://github.com/user-attachments/assets/4e015b3e-a7ab-4b58-97bc-22a61ec7dbcc)
+
 
 
 
