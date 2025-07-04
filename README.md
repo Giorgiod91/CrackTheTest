@@ -2,7 +2,9 @@
 
 prototype LandingPage
 
-![image](https://github.com/user-attachments/assets/770afeb2-0ef8-40a3-b588-5cf41863ffc8)
+
+![image](https://github.com/user-attachments/assets/83763e48-4a9d-400a-89f1-3eabe819ebcc)
+
 
 
 
