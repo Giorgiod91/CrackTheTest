@@ -16,9 +16,12 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col gap-5 pr-20 pl-20">
-        <Navbar />
-        <section className="flex min-h-screen w-full justify-center">
+      <main className="mx-auto flex min-h-screen max-w-[100rem] flex-col gap-5">
+        <section className="flex justify-center">
+          <Navbar />
+        </section>
+
+        <section className="flex min-h-screen justify-center">
           <LandingPage />
         </section>
       </main>
