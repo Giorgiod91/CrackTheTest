@@ -1,7 +1,11 @@
 # CrackTheTest
 
 prototype LandingPage
-![image](https://github.com/user-attachments/assets/52ae49bd-a2a4-43cb-b6de-909f3001f63d)
+
+![image](https://github.com/user-attachments/assets/2225cb5a-4e2b-41bd-8145-c906c285563f)
+
+
+
 
 
 # Why ?
