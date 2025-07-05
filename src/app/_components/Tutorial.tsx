@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { dimensionValueTypes, easeInOut, motion } from "framer-motion";
+import { Http2ServerRequest } from "http2";
 
 type Props = {};
 
@@ -31,8 +32,11 @@ const steps = [
       "Erhalte direkt Feedback & Auswertungen zur Performance – perfekt zur Vorbereitung.",
   },
 ];
+//::TODO:  fix the on click to not move other parts
 
 function Tutorial({}: Props) {
+  const [hover, setHover] = useState(false);
+  const [selectedStep, setSelectedStep] = useState<number | null>(null);
   return (
     <section className="bg-base-100 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
@@ -59,12 +63,31 @@ function Tutorial({}: Props) {
         </motion.p>
 
         <div>
-          <ul className="steps steps-vertical">
-            <li className="step step-primary">Register</li>
-            <li className="step step-primary">Choose plan</li>
-            <li className="step">Purchase</li>
-            <li className="step">Receive Product</li>
-          </ul>
+          <div className="flex flex-row gap-5">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                onClick={() => setSelectedStep(index)}
+                className="cursor-pointer text-3xl opacity-50 transition hover:opacity-100"
+              >
+                <div className="text-4xl">{step.icon}</div>
+
+                {selectedStep === index && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-base-200 mt-4 rounded-xl p-4 shadow-md"
+                  >
+                    <h3 className="text-xl font-semibold">{step.title}</h3>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+                      {step.description}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
