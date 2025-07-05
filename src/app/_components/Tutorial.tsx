@@ -3,30 +3,36 @@
 import React, { useState } from "react";
 import { dimensionValueTypes, easeInOut, motion } from "framer-motion";
 import { Http2ServerRequest } from "http2";
+import {
+  Cog6ToothIcon,
+  DocumentTextIcon,
+  ArrowUpTrayIcon,
+  ChartBarIcon,
+} from "@heroicons/react/24/outline";
 
 type Props = {};
 
 const steps = [
   {
-    icon: "📝",
+    icon: <DocumentTextIcon className="h-14 w-14 text-black" />,
     title: "1. Thema & Ziel wählen",
     description:
       "Wähle das Fachgebiet, die Zielgruppe und das Schwierigkeitsniveau deines Tests.",
   },
   {
-    icon: "⚙️",
+    icon: <Cog6ToothIcon className="h-14 w-14 text-black" />,
     title: "2. Test generieren",
     description:
       "Unsere KI erstellt automatisch passende Fragen inklusive Antworten & Lösungen.",
   },
   {
-    icon: "📤",
+    icon: <ArrowUpTrayIcon className="h-14 w-14 text-black" />,
     title: "3. Test teilen oder exportieren",
     description:
       "Nutze den Test online oder exportiere ihn als PDF, CSV oder für LMS-Plattformen.",
   },
   {
-    icon: "📊",
+    icon: <ChartBarIcon className="h-14 w-14 text-black" />,
     title: "4. Ergebnisse analysieren",
     description:
       "Erhalte direkt Feedback & Auswertungen zur Performance – perfekt zur Vorbereitung.",
@@ -63,16 +69,20 @@ function Tutorial({}: Props) {
         </motion.p>
 
         <div>
-          <div className="flex flex-row items-start gap-5">
+          <div className="flex flex-row items-start gap-12">
             {steps.map((step, index) => (
               <div
                 key={index}
                 onClick={() => setSelectedStep(index)}
                 className="w-6 cursor-pointer text-3xl opacity-50 transition hover:opacity-100"
               >
-                <div className="flex flex-row items-start text-4xl">
-                  {step.icon}
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-row items-start text-5xl">
+                    {step.icon}
+                  </div>
+                  <p className="text-sm">{step.title}</p>
                 </div>
+
                 {selectedStep === index && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
