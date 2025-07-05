@@ -63,21 +63,22 @@ function Tutorial({}: Props) {
         </motion.p>
 
         <div>
-          <div className="flex flex-row gap-5">
+          <div className="flex flex-row items-start gap-5">
             {steps.map((step, index) => (
               <div
                 key={index}
                 onClick={() => setSelectedStep(index)}
-                className="cursor-pointer text-3xl opacity-50 transition hover:opacity-100"
+                className="w-6 cursor-pointer text-3xl opacity-50 transition hover:opacity-100"
               >
-                <div className="text-4xl">{step.icon}</div>
-
+                <div className="flex flex-row items-start text-4xl">
+                  {step.icon}
+                </div>
                 {selectedStep === index && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-base-200 mt-4 rounded-xl p-4 shadow-md"
+                    className="bg-base-200 mt-4 w-150 rounded-xl p-4 shadow-md"
                   >
                     <h3 className="text-xl font-semibold">{step.title}</h3>
                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
