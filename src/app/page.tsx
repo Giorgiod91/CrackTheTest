@@ -25,7 +25,10 @@ export default async function Home() {
         <section className="flex min-h-screen justify-center">
           <LandingPage />
         </section>
-        <Tutorial />
+        <section id="tutorial">
+          {" "}
+          <Tutorial />
+        </section>
       </main>
     </HydrateClient>
   );

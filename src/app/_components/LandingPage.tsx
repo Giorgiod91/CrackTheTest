@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CardStackDemo } from "./CardStacks";
+import { array } from "zod";
 
 type Props = {};
 const Cards = [
@@ -26,6 +27,9 @@ const Cards = [
     Text: "Wähle Schwierigkeit, Kategorie und Dauer – die KI erstellt passende Tests.",
   },
 ];
+// splitting the array cause i want them to animate seperate
+const firstHalf = Cards.slice(0, Math.ceil(Cards.length / 2));
+const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
 
 function LandingPage({}: Props) {
   return (
@@ -84,8 +88,10 @@ function LandingPage({}: Props) {
       </div>
       {/* made another section with a grid */}
       <div className="mt-16 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {Cards.map((item, index) => (
-          <div
+        {firstHalf.map((item, index) => (
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
             key={index}
             className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
           >
@@ -96,7 +102,24 @@ function LandingPage({}: Props) {
               {item.Heading}
             </h3>
             <p className="text-base-content/70 mt-2 text-sm">{item.Text}</p>
-          </div>
+          </motion.div>
+        ))}
+
+        {secondHalf.map((item, index) => (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            key={index}
+            className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
+          >
+            <div className="text-primary mb-3 text-3xl font-bold">
+              {item.logo}
+            </div>
+            <h3 className="text-base-content text-lg font-semibold">
+              {item.Heading}
+            </h3>
+            <p className="text-base-content/70 mt-2 text-sm">{item.Text}</p>
+          </motion.div>
         ))}
       </div>
     </section>
