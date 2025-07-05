@@ -29,6 +29,10 @@ export default async function Home() {
           {" "}
           <Tutorial />
         </section>
+        <section>
+          <div className="bg-base-200 h-[120px] w-full"></div>
+        </section>
+        <section></section>
       </main>
     </HydrateClient>
   );
