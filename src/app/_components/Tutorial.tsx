@@ -80,7 +80,7 @@ function Tutorial({}: Props) {
                   <div className="flex flex-row items-start text-5xl">
                     {step.icon}
                   </div>
-                  <p className="text-sm">{step.title}</p>
+                  <p className="text-sm hover:text-amber-100">{step.title}</p>
                 </div>
 
                 {selectedStep === index && (
