@@ -6,6 +6,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
 import Tutorial from "./_components/Tutorial";
+import BannerContent from "./_components/BannerContent";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -30,7 +31,11 @@ export default async function Home() {
           <Tutorial />
         </section>
         <section>
-          <div className="bg-base-200 h-[120px] w-full"></div>
+          <div className="bg-base-200 grid h-[140px] w-full grid-cols-2 border-2">
+            <div className="flex">
+              <BannerContent />
+            </div>
+          </div>
         </section>
         <section></section>
       </main>
