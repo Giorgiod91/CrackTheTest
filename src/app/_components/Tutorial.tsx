@@ -68,18 +68,17 @@ function Tutorial({}: Props) {
           flexibel und schnell.
         </motion.p>
 
-        <div>
-          <div className="flex flex-row items-start gap-12">
+        <div className="">
+          <div className="relative mt-12 flex flex-row items-start justify-center gap-12 p-5">
             {steps.map((step, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedStep(index)}
-                className="w-6 cursor-pointer text-3xl opacity-50 transition hover:opacity-100"
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-row items-start text-5xl">
-                    {step.icon}
-                  </div>
+              <div key={index} className="relative flex flex-col items-center">
+                <div
+                  onClick={() =>
+                    setSelectedStep(selectedStep === index ? null : index)
+                  }
+                  className="flex cursor-pointer flex-col items-center text-3xl opacity-50 transition"
+                >
+                  <div className="text-5xl">{step.icon}</div>
                   <p className="text-sm hover:text-amber-100">{step.title}</p>
                 </div>
 
@@ -88,7 +87,7 @@ function Tutorial({}: Props) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-base-200 mt-4 w-150 rounded-xl p-4 shadow-md"
+                    className="flex w-80 cursor-pointer flex-col rounded-2xl border border-black/80 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-5 shadow-xl shadow-orange-300/40 backdrop-blur-md transition dark:shadow-indigo-700/20"
                   >
                     <h3 className="text-xl font-semibold">{step.title}</h3>
                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
