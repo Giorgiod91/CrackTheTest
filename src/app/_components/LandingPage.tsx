@@ -93,7 +93,7 @@ function LandingPage({}: Props) {
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             key={index}
-            className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
+            className="flex cursor-pointer flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
           >
             <div className="text-primary mb-3 text-3xl font-bold">
               {item.logo}
@@ -110,7 +110,7 @@ function LandingPage({}: Props) {
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             key={index}
-            className="flex flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
+            className="flex cursor-pointer flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
           >
             <div className="text-primary mb-3 text-3xl font-bold">
               {item.logo}
