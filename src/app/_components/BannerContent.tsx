@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Typewriter from "./Typewriter";
 
 type Props = {};
 
@@ -17,7 +18,9 @@ function BannerContent({}: Props) {
 
   return (
     <div className="flex items-center">
-      <h1 className="flex text-center text-5xl">{BannerData}</h1>
+      <h1 className="flex text-center text-5xl">
+        <Typewriter />
+      </h1>
     </div>
   );
 }
