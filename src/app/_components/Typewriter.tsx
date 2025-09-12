@@ -1,24 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {};
 
 export default function Typewriter({}: Props) {
-  const [show, setshow] = useState(true);
-  const TextToShow = ["Yea its that easy !"];
+  const [index, setIndex] = useState(0);
+  const TextToShow: string = "Yea its that easy !";
   const moveText = () => {
-    for (var i = 0; i < TextToShow.length; i++) {
-      return (
-        <div>
-          <p>1</p>
-        </div>
-      );
+    if (index < TextToShow.length) {
+      setIndex(index + 1);
     }
   };
+
+  useEffect(() => {
+    moveText();
+  }, [index]);
   return (
     <div>
-      <button onClick={moveText}></button>
-      Hello
+      <h1 className="text-5xl">{TextToShow.slice(0, index)}</h1>
     </div>
   );
 }
