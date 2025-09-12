@@ -16,8 +16,8 @@ function BannerContent({}: Props) {
   }, []);
 
   return (
-    <div>
-      <h1>{BannerData}</h1>
+    <div className="flex items-center">
+      <h1 className="flex text-center text-5xl">{BannerData}</h1>
     </div>
   );
 }
