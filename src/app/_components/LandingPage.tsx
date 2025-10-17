@@ -30,7 +30,7 @@ const Cards = [
 // splitting the array cause i want them to animate seperate
 const firstHalf = Cards.slice(0, Math.ceil(Cards.length / 2));
 const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
-
+// color  from-[#FF705B] to-[#FFB457]
 function LandingPage({}: Props) {
   return (
     <section className="bg-base-100 py-20 sm:py-28">
@@ -69,7 +69,7 @@ function LandingPage({}: Props) {
           >
             <a
               href="#get-started"
-              className="btn bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-6 py-3 text-lg font-semibold transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              className="btn bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-6 py-3 text-lg font-semibold shadow-xl transition-transform duration-200 hover:scale-105 hover:brightness-110"
             >
               Jetzt starten 🚀
             </a>
