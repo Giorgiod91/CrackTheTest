@@ -18,6 +18,14 @@ Generate personalized tests automatically, analyze results, and classify difficu
 # Backend with ML 
 - https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML
 
+# ML
+- Small ML model to classify test difficulty: Leicht, Mittel, Schwer
+- Built with Python and Hugging Face Transformers (pretrained embeddings)
+- Trained on sample questions to predict difficulty levels
+- Integrated into the backend for real-time analysis
+
+
+
 # Why ?
 - i had to take multiple online tests but it wasnt that easy to learn specific content for the given position only expensive ones so i used openai to make my own test
 - this app will also use open ai api and i build a small model that classify the  to get a good user experience just for ppl who want quick test for a low amount of money
