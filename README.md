@@ -28,7 +28,7 @@ Generate personalized tests automatically, analyze results, and classify difficu
 -  Cors
 -  Building and managing an API server with FastAPI
 -  working with pydantic ( create Class and so on)
--  ML-Model Classifaction using embedding (https://medium.com/@juanc.olamendy/unlocking-the-power-of-text-classification-with-embeddings-7bcbb5912790)
+-  ML-Model Classifaction using embedding https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial
 
 
 UI: Layout & Animation mit DaisyUI + Framer Motion + aceternity UI, angepasstes Theme, angepasste Komponenten
@@ -39,5 +39,5 @@ UI: Layout & Animation mit DaisyUI + Framer Motion + aceternity UI, angepasstes 
 - Next Auth for later use
 - Trpc for later use
 - Primsa for later use
-- Small ML classification model (to predict test difficulty)
+- Small ML classification model (to predict test difficulty) https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial
 
