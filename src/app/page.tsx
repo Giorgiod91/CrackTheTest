@@ -13,6 +13,7 @@ import BannerLeft from "./_components/BannerLeft";
 import BannerRight from "./_components/BannerRight";
 import Price from "./_components/Price";
 import Compare from "./_components/Compare";
+import MachineLearning from "./_components/MachineLearning";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -44,7 +45,7 @@ export default async function Home() {
           </div>
         </section>
         <section className="h-screen w-full">
-          <Compare />
+          <MachineLearning />
         </section>
       </main>
     </HydrateClient>
