@@ -21,7 +21,7 @@ Generate personalized tests automatically, analyze results, and classify difficu
 -  How to work with Supabase and PostgreSQL
 -  create my own Python backend and connect this to my Next js frontend and communicate with each other
 -  Cors
--  uilding and managing an API server with FastAPI
+-  Building and managing an API server with FastAPI
 -  working with pydantic ( create Class and so on)
 -  ML-Model Classifaction using embedding (https://medium.com/@juanc.olamendy/unlocking-the-power-of-text-classification-with-embeddings-7bcbb5912790)
 
