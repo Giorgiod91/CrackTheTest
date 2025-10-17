@@ -4,10 +4,14 @@ prototype LandingPage
 
 
 ![image](https://github.com/user-attachments/assets/4e015b3e-a7ab-4b58-97bc-22a61ec7dbcc)
+<img width="1272" height="751" alt="image" src="https://github.com/user-attachments/assets/6b0eebe4-9a9f-44e2-a09a-713a1a3c1fc7" />
+<img width="1224" height="628" alt="image" src="https://github.com/user-attachments/assets/cd3500f8-2233-461e-8b7c-e67bb03bea9d" />
 
 
 
 
+
+Generate personalized tests automatically, analyze results, and classify difficulty with a small ML model.
 
 
 
@@ -21,9 +25,9 @@ prototype LandingPage
 -  How to work with Supabase and PostgreSQL
 -  create my own Python backend and connect this to my Next js frontend and communicate with each other
 -  Cors
--  uilding and managing an API server with FastAPI
+-  Building and managing an API server with FastAPI
 -  working with pydantic ( create Class and so on)
--  ML-Model Classifaction using embedding (https://cookbook.openai.com/examples/classification_using_embeddings)
+-  ML-Model Classifaction using embedding (https://medium.com/@juanc.olamendy/unlocking-the-power-of-text-classification-with-embeddings-7bcbb5912790)
 
 
 UI: Layout & Animation mit DaisyUI + Framer Motion + aceternity UI, angepasstes Theme, angepasste Komponenten
