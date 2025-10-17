@@ -2,8 +2,8 @@ import React from "react";
 
 type Props = {};
 
-function OldText({}: Props) {
+function Compare({}: Props) {
   return <div>OldText</div>;
 }
 
-export default OldText;
+export default Compare;
