@@ -8,6 +8,11 @@ import Navbar from "./_components/Navbar";
 import Tutorial from "./_components/Tutorial";
 import BannerContent from "./_components/BannerContent";
 
+import Forfun from "./_components/Forfun";
+import BannerLeft from "./_components/BannerLeft";
+import BannerRight from "./_components/BannerRight";
+import Price from "./_components/Price";
+
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
@@ -31,13 +36,15 @@ export default async function Home() {
           <Tutorial />
         </section>
         <section>
-          <div className="bg-base-200 grid h-[140px] w-full grid-cols-2 border-2">
-            <div className="flex">
-              <BannerContent />
-            </div>
+          <div className="flex flex-col space-y-10">
+            {" "}
+            <BannerLeft />
+            <BannerRight />
           </div>
         </section>
-        <section></section>
+        <section className="h-screen w-full">
+          <Price />
+        </section>
       </main>
     </HydrateClient>
   );

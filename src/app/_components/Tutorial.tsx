@@ -28,8 +28,7 @@ const steps = [
   {
     icon: <ArrowUpTrayIcon className="h-14 w-14 text-black" />,
     title: "3. Test teilen oder exportieren",
-    description:
-      "Nutze den Test online oder exportiere ihn als PDF, CSV oder für LMS-Plattformen.",
+    description: "Nutze den Test online oder exportiere ihn als PDF",
   },
   {
     icon: <ChartBarIcon className="h-14 w-14 text-black" />,
