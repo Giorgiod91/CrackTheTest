@@ -23,6 +23,7 @@ prototype LandingPage
 -  Cors
 -  uilding and managing an API server with FastAPI
 -  working with pydantic ( create Class and so on)
+-  ML-Model Classifaction using embedding (https://cookbook.openai.com/examples/classification_using_embeddings)
 
 
 UI: Layout & Animation mit DaisyUI + Framer Motion + aceternity UI, angepasstes Theme, angepasste Komponenten
