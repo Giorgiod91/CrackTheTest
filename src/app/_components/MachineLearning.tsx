@@ -55,7 +55,12 @@ function MachineLearning({}: Props) {
 
       <div className="flex flex-col items-center space-y-2">
         {steps.map((step, index) => (
-          <div className="flex flex-col items-center space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.2 }}
+            className="flex flex-col items-center space-y-6"
+          >
             <motion.div
               key={index}
               className="flex min-h-[90px] w-full max-w-3xl min-w-3xl items-center space-x-4 rounded-xl border border-[#FFB457] bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104 hover:border-[#FF705B] hover:shadow-xl"
@@ -74,7 +79,7 @@ function MachineLearning({}: Props) {
             ) : (
               <></>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
