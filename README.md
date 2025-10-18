@@ -1,86 +1,86 @@
 # 🚀 CrackTheTest.ai
 
-**Prototype Landing Page + AI-powered Test Generator**
+**Prototyp Landing Page + KI-gestützter Testgenerator**
 
-Generate personalized tests automatically, analyze results, and classify difficulty using a small custom **ML model** — built with **Python** & **Hugging Face Transformers**.
-
----
-
-## 🧠 Overview
-
-**CrackTheTest.ai** helps users create **AI-generated tests** tailored to their goals and skill level.  
-It integrates **OpenAI** for content generation and a **custom ML classifier** to rate each question’s difficulty (`Leicht`, `Mittel`, `Schwer`).
+Erstelle personalisierte Tests automatisch, analysiere Ergebnisse und klassifiziere die Schwierigkeit mit einem kleinen **ML-Modell** — gebaut mit **Python** & **Hugging Face Transformers**.
 
 ---
 
-## 🎯 Motivation – Why I Built This
+## 🧠 Übersicht
 
-I had to take multiple online assessments while applying for jobs — but most preparation tools were expensive and not personalized.  
-So I decided to build my own platform using **OpenAI** and **Machine Learning**, making it possible for anyone to:
-
-- 🧩 Generate realistic tests based on their desired topic  
-- ⚙️ Automatically analyze and classify question difficulty  
-- 🚀 Learn efficiently without wasting time or money  
+**CrackTheTest.ai** hilft Nutzern, **KI-generierte Tests** zu erstellen, die auf ihre Ziele und ihr Skill-Level zugeschnitten sind.  
+Es integriert **OpenAI** zur Inhaltserstellung und einen **custom ML-Klassifikator**, um die Schwierigkeit jeder Frage zu bewerten (`Leicht`, `Mittel`, `Schwer`).
 
 ---
 
-## 🧩 Features
+## 🎯 Motivation – Warum ich es gebaut habe
 
-- 🧠 **AI-generated test questions** (via OpenAI API)  
-- ⚙️ **ML-based difficulty classification** using Hugging Face Transformers  
-- 💾 **PostgreSQL database** via Supabase for user data & test storage  
-- 🔄 **FastAPI backend** to handle API routes and ML inference  
-- 🪄 **Modern animated UI** with Framer Motion + DaisyUI + Aceternity components  
-- 🔐 **NextAuth**, **Prisma**, and **tRPC** ready for future integration  
+Ich musste mehrere Online-Tests im Rahmen von Bewerbungen absolvieren, aber die meisten Vorbereitungstools waren teuer und unpersonalisiert.  
+Deshalb habe ich beschlossen, meine eigene Plattform zu bauen, die **OpenAI** und **Machine Learning** nutzt, sodass jeder:
+
+- 🧩 Realistische Tests zu gewünschten Themen generieren kann  
+- ⚙️ Automatisch die Schwierigkeit der Fragen analysiert und klassifiziert  
+- 🚀 Effizient lernen kann, ohne Zeit und Geld zu verschwenden  
 
 ---
 
-## 🧰 Tech Stack (T3-style)
+## 🧩 Funktionen
+
+- 🧠 **KI-generierte Testfragen** (über OpenAI API)  
+- ⚙️ **ML-basierte Schwierigkeitsklassifikation** mit Hugging Face Transformers  
+- 💾 **PostgreSQL Datenbank** über Supabase für Nutzer- & Testergebnisse  
+- 🔄 **FastAPI Backend** für API-Routen und ML-Inferenz  
+- 🪄 **Modernes, animiertes UI** mit Framer Motion + DaisyUI + Aceternity Komponenten  
+- 🔐 **NextAuth**, **Prisma** und **tRPC** bereit für zukünftige Integration  
+
+---
+
+## 🧰 Tech Stack (T3-Style)
 
 ### 🖥️ Frontend
-- **Next.js (TypeScript)**
-- **Tailwind CSS + DaisyUI**
-- **Framer Motion** for smooth animations
+- **Next.js (TypeScript)**  
+- **Tailwind CSS + DaisyUI**  
+- **Framer Motion** für flüssige Animationen  
 
 ### ⚙️ Backend
-- **Python + FastAPI**
-- **Supabase (PostgreSQL)**
-- **Pydantic** for schema validation
-- **Hugging Face Transformers** for ML classification
+- **Python + FastAPI**  
+- **Supabase (PostgreSQL)**  
+- **Pydantic** für Schema-Validierung  
+- **Hugging Face Transformers** für ML-Klassifikation  
 
 ### 🤖 Machine Learning
-- Fine-tuned **BERT (German)** model → [`dbmdz/bert-base-german-cased`](https://huggingface.co/dbmdz/bert-base-german-cased)
-- Text classification with three difficulty levels:
-  - `0 → Leicht`
-  - `1 → Mittel`
-  - `2 → Schwer`
-- Based on: [Learn Hugging Face – Text Classification Tutorial](https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial)
+- Feinjustiertes **BERT (Deutsch)** Modell → [`dbmdz/bert-base-german-cased`](https://huggingface.co/dbmdz/bert-base-german-cased)  
+- Textklassifikation mit drei Schwierigkeitsstufen:  
+  - `0 → Leicht`  
+  - `1 → Mittel`  
+  - `2 → Schwer`  
+- Basierend auf: [Learn Hugging Face – Text Classification Tutorial](https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial)  
 
 ---
 
-## 🤖 ML Model Details
+## 🤖 ML-Modell Details
 
-- Small **proof-of-concept** model trained on sample questions  
-- Integrated into backend for **real-time difficulty analysis**  
-- Will later be extended with a larger dataset for improved accuracy  
+- Kleines **Proof-of-Concept**-Modell, trainiert auf Beispiel-Fragen  
+- In Backend integriert für **Echtzeit-Schwierigkeitsanalyse**  
+- Wird später mit größerem Datensatz erweitert, um Genauigkeit zu verbessern  
 
-📂 **Related Repository:**  
+📂 **Verwandtes Repository:**  
 ➡️ [CrackTheTest-Backend-With-ML](https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML)
 
 ---
 
-## 🧑‍💻 What I Learned
+## 🧑‍💻 Was ich gelernt habe
 
-- Building and connecting a **Python backend** to a **Next.js frontend**  
-- Working with **CORS**, **Pydantic models**, and **FastAPI routes**  
-- Creating custom **ML pipelines** with Hugging Face  
-- Structuring **full-stack communication** between services  
-- Deploying and managing **Supabase (PostgreSQL)**  
-- Designing **modern, animated UIs** with Framer Motion  
+- Aufbau und Verbindung eines **Python Backends** mit einem **Next.js Frontend**  
+- Arbeiten mit **CORS**, **Pydantic Modellen** und **FastAPI-Routen**  
+- Erstellen von **ML-Pipelines** mit Hugging Face  
+- Strukturierung der **Full-Stack-Kommunikation** zwischen Diensten  
+- Deployment und Verwaltung von **Supabase (PostgreSQL)**  
+- Designen von **modernen, animierten UIs** mit Framer Motion  
 
 ---
 
-## 🎨 Prototype UI
+## 🎨 Prototyp UI
 
 | LandingPage | Wie Funktioniert es | Banner |
 |------------|-------------------|--------|
@@ -88,21 +88,20 @@ So I decided to build my own platform using **OpenAI** and **Machine Learning**,
 
 | System Flow | Price | Footer |
 |------------|--------|--------|
-|<img width="1238" height="1044" alt="image" src="https://github.com/user-attachments/assets/84278bb4-8535-493f-9a39-856d750a63d6" />
+| <img width="1405" height="1071" alt="image" src="https://github.com/user-attachments/assets/046585ec-0f64-4fea-8aca-b4d9d3bde42e" />
  | <!-- add Price screenshot here --> | <!-- add Footer screenshot here --> |
 
 ---
 
-## 🧭 Next Steps
+## 🧭 Nächste Schritte
 
-- ✅ Finalize ML dataset and training script  
-- 🚀 Connect OpenAI API for automatic question generation  
-- 💬 Add real-time user feedback (via backend)  
-- 🌐 Deploy frontend on **Vercel** and backend on **Render** / **Railway**  
+- ✅ ML-Datensatz und Trainingsskript finalisieren  
+- 🚀 OpenAI API für automatische Fragengenerierung verbinden  
+- 💬 Echtzeit-Nutzerfeedback (über Backend) hinzufügen  
+- 🌐 Frontend auf **Vercel** und Backend auf **Render** / **Railway** deployen  
 
 ---
 
-## ⭐️ Summary
+## ⭐️ Zusammenfassung
 
-CrackTheTest.ai is a full-stack experiment combining:  
-**AI generation**, **ML classification**, and **modern frontend design** — built from scratch to explore how intelligent testing can become smarter, faster, and more accessible.  
+CrackTheTest.ai ist ein Full-Stack-Experiment, das **KI-Generierung**, **ML-Klassifikation** und **modernes Frontend-Design** kombiniert — von Grund auf gebaut, um zu zeigen, wie intelligentes Testen schneller, smarter und zugänglicher werden kann.
