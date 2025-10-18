@@ -15,32 +15,32 @@ function MachineLearning({}: Props) {
     {
       icon: <FaReact className="text-2xl text-sky-400" />,
       title: "Frontend (CrackTheTest.ai)",
-      desc: "User interacts with app & submits a question/test.",
+      desc: "Der Benutzer interagiert mit der App und reicht eine Frage/einen Test ein.",
     },
     {
       icon: <FaPython className="text-2xl text-yellow-400" />,
       title: "Backend (FastAPI / Flask)",
-      desc: "Receives data and routes to AI services.",
+      desc: "Empfängt die Daten und leitet sie an die KI-Services weiter.",
     },
     {
       icon: <SiOpenai className="text-2xl text-green-400" />,
       title: "OpenAI API",
-      desc: "Generates explanations, hints, or question text.",
+      desc: "Generiert Erklärungen, Hinweise oder Frageinhalte.",
     },
     {
       icon: <SiTensorflow className="text-2xl text-orange-400" />,
-      title: "ML Model",
-      desc: "Classifies question difficulty (Leicht / Mittel / Schwer).",
+      title: "ML-Modell",
+      desc: "Klassifiziert die Schwierigkeit der Fragen (Leicht / Mittel / Schwer).",
     },
     {
       icon: <SiMongodb className="text-2xl text-emerald-500" />,
-      title: "Database",
-      desc: "Stores user progress & results.",
+      title: "Datenbank",
+      desc: "Speichert Benutzerfortschritte und Ergebnisse.",
     },
     {
       icon: <FaReact className="text-2xl text-sky-400" />,
       title: "Frontend",
-      desc: "Displays difficulty and recommendations visually.",
+      desc: "Zeigt die Schwierigkeit und Empfehlungen visuell an.",
     },
   ];
 
@@ -51,12 +51,12 @@ function MachineLearning({}: Props) {
         🔍 CrackTheTest.ai – System Flow
       </h2>
 
-      <div className="flex flex-col items-center space-y-6">
+      <div className="flex flex-col items-center space-y-2">
         {steps.map((step, index) => (
           <div className="flex flex-col items-center space-y-6">
             <motion.div
               key={index}
-              className="flex min-h-[100px] w-full max-w-3xl min-w-2xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104"
+              className="flex min-h-[90px] w-full max-w-3xl min-w-3xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
