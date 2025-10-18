@@ -1,51 +1,108 @@
-# CrackTheTest
+# 🚀 CrackTheTest.ai
 
-prototype LandingPage
+**Prototype Landing Page + AI-powered Test Generator**
 
+Generate personalized tests automatically, analyze results, and classify difficulty using a small custom **ML model** — built with **Python** & **Hugging Face Transformers**.
 
-![image](https://github.com/user-attachments/assets/4e015b3e-a7ab-4b58-97bc-22a61ec7dbcc)
-<img width="1272" height="751" alt="image" src="https://github.com/user-attachments/assets/6b0eebe4-9a9f-44e2-a09a-713a1a3c1fc7" />
-<img width="1224" height="628" alt="image" src="https://github.com/user-attachments/assets/cd3500f8-2233-461e-8b7c-e67bb03bea9d" />
+---
 
+## 🧠 Overview
 
+**CrackTheTest.ai** helps users create **AI-generated tests** tailored to their goals and skill level.  
+It integrates **OpenAI** for content generation and a **custom ML classifier** to rate each question’s difficulty (`Leicht`, `Mittel`, `Schwer`).
 
+---
 
+## 🎯 Motivation – Why I Built This
 
-Generate personalized tests automatically, analyze results, and classify difficulty with a small ML model.
+I had to take multiple online assessments while applying for jobs — but most preparation tools were expensive and not personalized.  
+So I decided to build my own platform using **OpenAI** and **Machine Learning**, making it possible for anyone to:
 
+- 🧩 Generate realistic tests based on their desired topic  
+- ⚙️ Automatically analyze and classify question difficulty  
+- 🚀 Learn efficiently without wasting time or money  
 
+---
 
-# Backend with ML 
-- https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML
+## 🧩 Features
 
-# ML
-- Small ML model to classify test difficulty: Leicht, Mittel, Schwer
-- Built with Python and Hugging Face Transformers (pretrained embeddings)
-- Trained on sample questions to predict difficulty levels
-- Integrated into the backend for real-time analysis
+- 🧠 **AI-generated test questions** (via OpenAI API)  
+- ⚙️ **ML-based difficulty classification** using Hugging Face Transformers  
+- 💾 **PostgreSQL database** via Supabase for user data & test storage  
+- 🔄 **FastAPI backend** to handle API routes and ML inference  
+- 🪄 **Modern animated UI** with Framer Motion + DaisyUI + Aceternity components  
+- 🔐 **NextAuth**, **Prisma**, and **tRPC** ready for future integration  
 
+---
 
+## 🧰 Tech Stack (T3-style)
 
-# Why ?
-- i had to take multiple online tests but it wasnt that easy to learn specific content for the given position only expensive ones so i used openai to make my own test
-- this app will also use open ai api and i build a small model that classify the  to get a good user experience just for ppl who want quick test for a low amount of money
+### 🖥️ Frontend
+- **Next.js (TypeScript)**
+- **Tailwind CSS + DaisyUI**
+- **Framer Motion** for smooth animations
 
-# What do i Learn or Learned from this ?
--  How to work with Supabase and PostgreSQL
--  create my own Python backend and connect this to my Next js frontend and communicate with each other
--  Cors
--  Building and managing an API server with FastAPI
--  working with pydantic ( create Class and so on)
--  ML-Model Classifaction using embedding https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial
+### ⚙️ Backend
+- **Python + FastAPI**
+- **Supabase (PostgreSQL)**
+- **Pydantic** for schema validation
+- **Hugging Face Transformers** for ML classification
 
+### 🤖 Machine Learning
+- Fine-tuned **BERT (German)** model → [`dbmdz/bert-base-german-cased`](https://huggingface.co/dbmdz/bert-base-german-cased)
+- Text classification with three difficulty levels:
+  - `0 → Leicht`
+  - `1 → Mittel`
+  - `2 → Schwer`
+- Based on: [Learn Hugging Face – Text Classification Tutorial](https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial)
 
-UI: Layout & Animation mit DaisyUI + Framer Motion + aceternity UI, angepasstes Theme, angepasste Komponenten
-# Tech Stack   T3 stack
-- Next.js
-- Typescript
-- Daysiui
-- Next Auth for later use
-- Trpc for later use
-- Primsa for later use
-- Small ML classification model (to predict test difficulty) https://www.learnhuggingface.com/notebooks/hugging_face_text_classification_tutorial
+---
 
+## 🤖 ML Model Details
+
+- Small **proof-of-concept** model trained on sample questions  
+- Integrated into backend for **real-time difficulty analysis**  
+- Will later be extended with a larger dataset for improved accuracy  
+
+📂 **Related Repository:**  
+➡️ [CrackTheTest-Backend-With-ML](https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML)
+
+---
+
+## 🧑‍💻 What I Learned
+
+- Building and connecting a **Python backend** to a **Next.js frontend**  
+- Working with **CORS**, **Pydantic models**, and **FastAPI routes**  
+- Creating custom **ML pipelines** with Hugging Face  
+- Structuring **full-stack communication** between services  
+- Deploying and managing **Supabase (PostgreSQL)**  
+- Designing **modern, animated UIs** with Framer Motion  
+
+---
+
+## 🎨 Prototype UI
+
+| LandingPage | Wie Funktioniert es | Banner |
+|------------|-------------------|--------|
+| <img src="https://github.com/user-attachments/assets/ad26f75f-761e-45cc-b2a6-23966be6eccd" width="400" /> | <img src="https://github.com/user-attachments/assets/23a070b4-c2ba-466d-b802-6cdadb41ebf7" width="400" /> | <img src="https://github.com/user-attachments/assets/ef2fd387-462e-40f2-b712-20fc7a74b32f" width="400" /> |
+
+| System Flow | Price | Footer |
+|------------|--------|--------|
+|<img width="1238" height="1044" alt="image" src="https://github.com/user-attachments/assets/84278bb4-8535-493f-9a39-856d750a63d6" />
+ | <!-- add Price screenshot here --> | <!-- add Footer screenshot here --> |
+
+---
+
+## 🧭 Next Steps
+
+- ✅ Finalize ML dataset and training script  
+- 🚀 Connect OpenAI API for automatic question generation  
+- 💬 Add real-time user feedback (via backend)  
+- 🌐 Deploy frontend on **Vercel** and backend on **Render** / **Railway**  
+
+---
+
+## ⭐️ Summary
+
+CrackTheTest.ai is a full-stack experiment combining:  
+**AI generation**, **ML classification**, and **modern frontend design** — built from scratch to explore how intelligent testing can become smarter, faster, and more accessible.  
