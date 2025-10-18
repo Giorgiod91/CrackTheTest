@@ -52,14 +52,14 @@ function MachineLearning({}: Props) {
       </h2>
 
       <div className="flex flex-col items-center space-y-6">
-        {steps.map((step, i) => (
-          <div>
+        {steps.map((step, index) => (
+          <div className="flex flex-col items-center space-y-6">
             <motion.div
-              key={i}
-              className="flex w-full max-w-3xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104"
+              key={index}
+              className="flex min-h-[100px] w-full max-w-3xl min-w-2xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.2 }}
+              transition={{ delay: index * 0.2 }}
             >
               {step.icon}
               <div>
@@ -67,7 +67,11 @@ function MachineLearning({}: Props) {
                 <p className="text-sm text-gray-400">{step.desc}</p>
               </div>
             </motion.div>
-            <ArrowDown className="h-9 w-9 animate-bounce text-[#FF705B]" />
+            {index < steps.length - 1 ? (
+              <ArrowDown className="h-9 w-9 animate-bounce text-[#FF705B]" />
+            ) : (
+              <></>
+            )}
           </div>
         ))}
       </div>
