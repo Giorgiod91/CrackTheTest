@@ -10,15 +10,15 @@ function BannerRight({}: Props) {
       initial={{ x: 550, opacity: 0 }}
       whileInView={{ x: 300, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-black/80 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 text-center shadow-xl backdrop-blur-md"
+      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-black/80 bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-6 text-center shadow-xl backdrop-blur-md"
     >
-      <h1 className="text-3xl font-bold text-gray-900">
+      <h1 className="text-3xl font-bold text-white/90">
         📊 Ergebnisse analysieren & optimieren ⚡
       </h1>
-      <p className="mt-2 text-sm text-gray-600">
+      <p className="mt-2 text-sm text-white/70">
         Stärken, Schwächen und Schwierigkeitsgrade direkt erkennen.
       </p>
-      <small className="text-gray-500">
+      <small className="mt-4 text-white/50">
         🧠 ML-Klassifizierer bewertet die Schwierigkeit automatisch
       </small>
     </motion.div>
