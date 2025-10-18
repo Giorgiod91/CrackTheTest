@@ -88,7 +88,8 @@ Deshalb habe ich beschlossen, meine eigene Plattform zu bauen, die **OpenAI** un
 
 | System Flow | Price | Footer |
 |------------|--------|--------|
-| <img width="1238" height="1044" alt="image" src="https://github.com/user-attachments/assets/84278bb4-8535-493f-9a39-856d750a63d6" /> | <!-- add Price screenshot here --> | <!-- add Footer screenshot here --> |
+| <img width="1405" height="1071" alt="image" src="https://github.com/user-attachments/assets/046585ec-0f64-4fea-8aca-b4d9d3bde42e" />
+ | <!-- add Price screenshot here --> | <!-- add Footer screenshot here --> |
 
 ---
 
