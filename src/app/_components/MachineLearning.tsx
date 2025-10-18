@@ -45,6 +45,8 @@ function MachineLearning({}: Props) {
   ];
 
   const Schwierigkeit = "Mittel";
+
+  //TODO: add cool animation
   return (
     <div className="mx-auto max-w-6xl rounded-2xl bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-8 font-mono text-gray-100 shadow-2xl">
       <h2 className="mb-8 text-center text-2xl font-bold text-[#FFB457]">
