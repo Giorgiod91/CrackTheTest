@@ -38,7 +38,7 @@ export default async function Home() {
           <Tutorial />
         </section>
         <section>
-          <div className="flex flex-col space-y-10">
+          <div className="flex h-screen flex-col space-y-10">
             {" "}
             <BannerLeft />
             <BannerRight />
