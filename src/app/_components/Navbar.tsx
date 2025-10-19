@@ -1,9 +1,8 @@
 import React from "react";
 
-type Props = {};
 //  bg-clip-text to use the color on the test instead of the bg
 
-function Navbar({}: Props) {
+function Navbar() {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">

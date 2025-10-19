@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import { set } from "zod";
 
-type Props = {};
-
-function Forfun({}: Props) {
+function Forfun() {
   const [counter, setCounter] = useState(0);
 
   const increCount = (counter: number) => {
