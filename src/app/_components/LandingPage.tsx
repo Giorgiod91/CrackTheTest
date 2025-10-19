@@ -27,6 +27,58 @@ const Cards = [
     Text: "Wähle Schwierigkeit, Kategorie und Dauer – die KI erstellt passende Tests.",
   },
 ];
+
+const arrowContent = [
+  {
+    arrow: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        style={{ fill: "#FD7E14" }}
+      >
+        <path d="M 20.738281 5.9941406 A 1.250125 1.250125 0 0 0 19.878906 6.3730469 L 9 17.234375 L 4.1152344 12.361328 A 1.250125 1.250125 0 1 0 2.3496094 14.130859 L 8.1171875 19.884766 A 1.250125 1.250125 0 0 0 9.8828125 19.884766 L 21.644531 8.140625 A 1.250125 1.250125 0 0 0 20.738281 5.9941406 z"></path>
+      </svg>
+    ),
+    line: "Schnell & Einfach",
+  },
+  {
+    arrow: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        style={{ fill: "#FD7E14" }}
+      >
+        <path d="M 20.738281 5.9941406 A 1.250125 1.250125 0 0 0 19.878906 6.3730469 L 9 17.234375 L 4.1152344 12.361328 A 1.250125 1.250125 0 1 0 2.3496094 14.130859 L 8.1171875 19.884766 A 1.250125 1.250125 0 0 0 9.8828125 19.884766 L 21.644531 8.140625 A 1.250125 1.250125 0 0 0 20.738281 5.9941406 z"></path>
+      </svg>
+    ),
+    line: "Preiswerter als die Konkurrenz",
+  },
+  {
+    arrow: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        style={{ fill: "#FD7E14" }}
+      >
+        <path d="M 20.738281 5.9941406 A 1.250125 1.250125 0 0 0 19.878906 6.3730469 L 9 17.234375 L 4.1152344 12.361328 A 1.250125 1.250125 0 1 0 2.3496094 14.130859 L 8.1171875 19.884766 A 1.250125 1.250125 0 0 0 9.8828125 19.884766 L 21.644531 8.140625 A 1.250125 1.250125 0 0 0 20.738281 5.9941406 z"></path>
+      </svg>
+    ),
+    line: "Mehr Chancen bei Top-Unternehmen",
+  },
+];
+
 // splitting the array cause i want them to animate seperate
 const firstHalf = Cards.slice(0, Math.ceil(Cards.length / 2));
 const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
@@ -74,6 +126,21 @@ function LandingPage({}: Props) {
               Jetzt starten 🚀
             </a>
           </motion.div>
+          {/* added Arrows below the main part flex-wrap makes it look good  */}
+          <div className="mt-3 flex flex-row flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-300">
+            {arrowContent.map((arrow, i) => (
+              <motion.div
+                initial={{ opacity: 0, y: -25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                key={i}
+                className="flex items-center space-x-2"
+              >
+                {arrow.arrow}
+                <p>{arrow.line}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Right side component */}
