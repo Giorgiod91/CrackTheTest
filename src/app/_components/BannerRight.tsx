@@ -2,9 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-type Props = {};
-
-function BannerRight({}: Props) {
+function BannerRight() {
   return (
     <motion.div
       initial={{ x: 550, opacity: 0 }}

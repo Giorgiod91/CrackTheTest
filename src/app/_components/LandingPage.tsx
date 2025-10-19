@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { CardStackDemo } from "./CardStacks";
 import { array } from "zod";
 
-type Props = {};
 const Cards = [
   {
     logo: "📊",
@@ -83,7 +82,7 @@ const arrowContent = [
 const firstHalf = Cards.slice(0, Math.ceil(Cards.length / 2));
 const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
 // color  from-[#FF705B] to-[#FFB457]
-function LandingPage({}: Props) {
+function LandingPage() {
   return (
     <section className="bg-base-100 py-20 sm:py-28">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2 lg:items-center lg:gap-24 lg:px-8">

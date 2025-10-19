@@ -6,9 +6,7 @@ import { FaPython, FaReact } from "react-icons/fa";
 import { SiOpenai, SiMongodb, SiTensorflow } from "react-icons/si";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
-type Props = {};
-
-function MachineLearning({}: Props) {
+function MachineLearning() {
   const [analysieren, setAnalysieren] = React.useState(false);
 
   const steps = [
