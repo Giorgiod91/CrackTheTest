@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 import Typewriter from "./Typewriter";
 import { supabase } from "../../../utils/supabase/server";
 
-type Props = {};
-
 //function to create a new user
 const SendUserToBackend = async (email: string) => {
   const res = await fetch("http://localhost:8000/create-new-user/", {
@@ -15,7 +13,7 @@ const SendUserToBackend = async (email: string) => {
   });
 };
 
-function BannerContent({}: Props) {
+function BannerContent() {
   const [email, setEmail] = useState("");
   const BannerData = "CrackTheTest.ai - Automatisierte Testgenerierung mit KI";
   const [displayBannerData, setDisplayBannerData] = useState(true);

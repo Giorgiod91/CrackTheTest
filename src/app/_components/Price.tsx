@@ -1,10 +1,9 @@
 import React from "react";
 
-type Props = {};
 // price winner color bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10
 // price outside bg-[#2B2B3C]
 
-function Price({}: Props) {
+function Price() {
   return (
     <div className="flex flex-col justify-center">
       <div className="flex flex-col items-center text-center">

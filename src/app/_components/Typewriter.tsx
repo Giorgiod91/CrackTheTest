@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-type Props = {};
-
-export default function Typewriter({}: Props) {
+export default function Typewriter() {
   const [index, setIndex] = useState(0);
   const TextToShow: string = "Yea its that easy !";
   const moveText = () => {
