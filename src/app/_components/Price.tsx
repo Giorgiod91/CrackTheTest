@@ -9,7 +9,7 @@ function Price() {
       <div className="flex flex-col items-center text-center">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           {" "}
-          Waehle deinen Plan
+          Wähle deinen Plan
         </h1>
         <p>
           Starte kostenlos und aboniere sobald du auf das neachste lvl kommen
