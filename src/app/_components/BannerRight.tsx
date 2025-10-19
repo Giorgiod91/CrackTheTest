@@ -10,7 +10,7 @@ function BannerRight({}: Props) {
       initial={{ x: 550, opacity: 0 }}
       whileInView={{ x: 300, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-[#FFB457] bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-6 text-center shadow-xl backdrop-blur-md"
+      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-[#FFB457] bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-6 text-center shadow-xl backdrop-blur-md hover:brightness-105"
     >
       <h1 className="text-3xl font-bold text-white/90">
         📊 Ergebnisse analysieren & optimieren ⚡
