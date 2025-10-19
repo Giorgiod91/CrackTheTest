@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-
-let interval: any;
+// found this to use instead of any for deployment issue with ESLint
+let interval: ReturnType<typeof setInterval>;
 
 type Card = {
   id: number;
@@ -20,8 +20,8 @@ export const CardStack = ({
   offset?: number;
   scaleFactor?: number;
 }) => {
-  const CARD_OFFSET = offset || 10;
-  const SCALE_FACTOR = scaleFactor || 0.06;
+  const CARD_OFFSET = offset ?? 10;
+  const SCALE_FACTOR = scaleFactor ?? 0.06;
   const [cards, setCards] = useState<Card[]>(items);
 
   useEffect(() => {

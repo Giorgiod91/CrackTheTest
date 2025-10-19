@@ -4,9 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-type Props = {};
-
-function Firmen({}: Props) {
+function Firmen() {
   const arrowContentCompanies = [
     {
       arrow: (

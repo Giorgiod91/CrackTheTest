@@ -10,8 +10,6 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/outline";
 
-type Props = {};
-
 const steps = [
   {
     icon: <DocumentTextIcon className="h-14 w-14 text-black" />,
@@ -39,7 +37,7 @@ const steps = [
 ];
 //::TODO:  fix the on click to not move other parts
 
-function Tutorial({}: Props) {
+function Tutorial() {
   const [hover, setHover] = useState(false);
   const [selectedStep, setSelectedStep] = useState<number | null>(null);
   return (

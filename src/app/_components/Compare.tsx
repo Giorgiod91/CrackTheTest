@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-function Compare({}: Props) {
+function Compare() {
   return <div>OldText</div>;
 }
 
