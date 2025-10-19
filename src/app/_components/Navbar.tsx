@@ -24,10 +24,10 @@ function Navbar({}: Props) {
               <summary>Parent</summary>
               <ul className="bg-base-100 rounded-t-none p-2">
                 <li>
-                  <a>Preis</a>
+                  <a href="#price">Preis</a>
                 </li>
                 <li>
-                  <a>Link 2</a>
+                  <a>AI</a>
                 </li>
               </ul>
             </details>
