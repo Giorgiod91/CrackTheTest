@@ -14,7 +14,7 @@ import BannerRight from "./_components/BannerRight";
 import Price from "./_components/Price";
 import Compare from "./_components/Compare";
 import MachineLearning from "./_components/MachineLearning";
-import Companies from "./_components/companies";
+import Companies from "./_components/Firmen";
 import Footer from "./_components/Footer";
 
 export default async function Home() {
