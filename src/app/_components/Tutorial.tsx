@@ -75,6 +75,15 @@ function Tutorial() {
                   }
                   className="flex cursor-pointer flex-col items-center text-3xl opacity-50 transition"
                 >
+                  {" "}
+                  {index == 0 && (
+                    <div
+                      className="tooltip tooltip-open"
+                      data-tip="Mehr erfahren "
+                    >
+                      {" "}
+                    </div>
+                  )}
                   <div className="text-5xl">{step.icon}</div>
                   <p className="text-sm hover:text-amber-100">{step.title}</p>
                 </div>
