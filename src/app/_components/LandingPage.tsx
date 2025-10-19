@@ -120,7 +120,7 @@ function LandingPage({}: Props) {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <a
-              href="#get-started"
+              href="#price"
               className="btn bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-6 py-3 text-lg font-semibold shadow-xl transition-transform duration-200 hover:scale-105 hover:brightness-110"
             >
               Jetzt starten 🚀

@@ -14,7 +14,8 @@ import BannerRight from "./_components/BannerRight";
 import Price from "./_components/Price";
 import Compare from "./_components/Compare";
 import MachineLearning from "./_components/MachineLearning";
-import Companies from "./_components/Companies";
+import Companies from "./_components/companies";
+import Footer from "./_components/Footer";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -40,17 +41,24 @@ export default async function Home() {
           <Tutorial />
         </section>
         <section className="">
-          <div className="flex h-180 flex-col space-y-10">
+          <div className="flex h-180 flex-col space-y-10 py-20">
             {" "}
             <BannerLeft />
             <BannerRight />
           </div>
         </section>
-        <section className="h-screen">
+        <section className="h-screen py-20">
           <MachineLearning />
         </section>
-        <section>
+        <section className="py-20">
           <Companies />
+        </section>
+
+        <section id="price" className="py-20">
+          <Price />
+        </section>
+        <section className="py-20">
+          <Footer />
         </section>
       </main>
     </HydrateClient>

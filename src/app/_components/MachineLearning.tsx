@@ -48,22 +48,27 @@ function MachineLearning({}: Props) {
 
   //TODO: add cool animation
   return (
-    <div className="mx-auto max-w-6xl rounded-2xl bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-8 font-mono text-gray-100 shadow-2xl">
-      <h2 className="mb-8 text-center text-2xl font-bold text-[#FFB457]">
-        🔍 CrackTheTest.ai – System Flow
-      </h2>
+    <div className="mx-auto max-w-6xl rounded-2xl bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-8 font-mono text-gray-100 shadow-2xl">
+      <motion.h2
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mb-8 text-center text-3xl font-extrabold text-black"
+      >
+        <span className="text-[#FF705B]">CrackTheTest.ai</span> – KI im Einsatz
+      </motion.h2>
 
       <div className="flex flex-col items-center space-y-2">
         {steps.map((step, index) => (
           <motion.div
+            key={index}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.2 }}
             className="flex flex-col items-center space-y-6"
           >
             <motion.div
-              key={index}
-              className="flex min-h-[90px] w-full max-w-3xl min-w-3xl items-center space-x-4 rounded-xl border border-[#FFB457] bg-[#2B2B3C] px-5 py-3 shadow-md hover:scale-104 hover:border-[#FF705B] hover:shadow-xl"
+              className="flex min-h-[90px] w-full max-w-3xl min-w-3xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-lg hover:scale-105 hover:border-[#FF705B] hover:shadow-xl"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
