@@ -8,3 +8,16 @@
     var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+/* defining scroll and animate it */
+@keyframes scroll {
+  0% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(-10%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
