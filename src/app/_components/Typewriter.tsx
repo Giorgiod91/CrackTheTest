@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Typewriter() {
   const [index, setIndex] = useState(0);
-  const TextToShow: string = "Yea its that easy !";
+  const TextToShow = "Yea its that easy !";
   const moveText = () => {
     if (index < TextToShow.length) {
       setIndex(index + 1);
