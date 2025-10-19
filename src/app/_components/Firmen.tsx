@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 type Props = {};
 
-function Companies({}: Props) {
+function Firmen({}: Props) {
   const arrowContentCompanies = [
     {
       arrow: (
@@ -118,4 +118,4 @@ function Companies({}: Props) {
   );
 }
 
-export default Companies;
+export default Firmen;
