@@ -1,6 +1,10 @@
 # 🚀 CrackTheTest.ai  
 
 **AI-powered Test Generator + Difficulty Classifier (Custom Binary Logistic Regression Model)**  
+🎯 **Live Demo:** [https://crack-the-test.vercel.app/](https://crack-the-test.vercel.app/)  
+🧩 **Status:** Frontend prototype live — backend (FastAPI + ML) in development  
+
+Backend part  https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML
 
 Create personalized tests with **OpenAI**, automatically predict their difficulty (`Leicht` or `Schwer`) using a **custom logistic regression model built entirely with NumPy**, and explore how core machine learning concepts translate into real-world applications.
 
