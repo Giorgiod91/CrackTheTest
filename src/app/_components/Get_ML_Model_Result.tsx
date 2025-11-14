@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import type { input } from "zod";
 
 type Props = {};
 
 function Get_ML_Model_Result({}: Props) {
   const [user_input, setUser_input] = useState("");
+  const beispiel = [
+    "Erstelle mir einen Ausbildungs Eignungstest von VW fuer Fachinformatiker Anwendugsentwicklung",
+  ];
   const [results, setResults] = useState<{
     label: string;
     probability: number;
@@ -27,7 +31,22 @@ function Get_ML_Model_Result({}: Props) {
     setResults(data);
   };
 
-  return <div>Get_ML_Model_Result</div>;
+  return (
+    <div>
+      <form action="">
+        <h3>Was für einen Test möchten Sie erstellen ?</h3>
+        <p>so koennte es aussehen</p>
+        <p className="text-red-400">{beispiel.join(", ")}</p>
+        <input
+          type="text"
+          value={user_input}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUser_input(e.target.value)
+          }
+        />
+      </form>
+    </div>
+  );
 }
 
 export default Get_ML_Model_Result;
