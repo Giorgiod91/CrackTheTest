@@ -37,8 +37,10 @@ function Get_ML_Model_Result({}: Props) {
     <div>
       <form action="">
         <h3>Was für einen Test möchten Sie erstellen ?</h3>
+
         <p>so koennte es aussehen</p>
         <p className="text-red-400">{beispiel.join(", ")}</p>
+
         <input
           type="text"
           value={user_input}
@@ -47,6 +49,22 @@ function Get_ML_Model_Result({}: Props) {
           }
         />
       </form>
+      <button onClick={() => send_data(user_input)}>Senden</button>
+
+      {results && (
+        <div>
+          <h4>Ergebnis:</h4>
+          <p>
+            Label: {results.label} - Wahrscheinlichkeit: {results.probability}
+          </p>
+        </div>
+      )}
+
+      <div>
+        {error && (
+          <p className="text-red-500">Fehler beim Abrufen der Daten: {error}</p>
+        )}
+      </div>
     </div>
   );
 }
