@@ -27,6 +27,39 @@ function PremiumDahsboard({}: Props) {
     { name: "Settings", icon: <Settings size={28} color="white" /> },
     { name: "Logout", icon: <LogOut size={28} color="white" /> },
   ];
+  // hardcoded data for now later will fetch those from the database for every user
+  const old_prompts = [
+    {
+      title: "Generate Marketing Email",
+      date: "2025-11-20",
+      time: "14:32",
+      difficulty: "Medium",
+    },
+    {
+      title: "Create SEO Keyword List",
+      date: "2025-11-18",
+      time: "09:10",
+      difficulty: "Easy",
+    },
+    {
+      title: "Write Python Script – Data Cleaner",
+      date: "2025-11-15",
+      time: "20:44",
+      difficulty: "Hard",
+    },
+    {
+      title: "Social Media Caption Ideas",
+      date: "2025-11-10",
+      time: "16:22",
+      difficulty: "Easy",
+    },
+    {
+      title: "Sentiment Analysis on Reviews",
+      date: "2025-11-08",
+      time: "11:03",
+      difficulty: "Medium",
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -46,21 +79,42 @@ function PremiumDahsboard({}: Props) {
           <img src="" alt="users avatar" />
         </div>
         {/* analytics part ::TODO: style the part with icons and display ml difficulty */}
-        <div className="flex h-[310px] w-[560px] flex-col border p-5">
-          <h3>Analytics</h3>
-          <div className="flex flex-row space-x-5">
-            <div className="h-[190px] w-[220px] rounded-2xl border bg-gradient-to-r from-red-200 to-red-500 p-5 text-white">
-              <p>hallo</p>
-              <p>2500</p>
-            </div>
-            <div className="h-[190px] w-[220px] rounded-2xl border bg-gray-400 p-5 text-white">
-              <p>hallo</p>
-              <p>2500</p>
+        <div>
+          <div className="flex h-[310px] w-[760px] flex-col p-5">
+            <h3>Analytics</h3>
+            <div className="flex flex-row space-x-5">
+              <div className="h-[190px] w-[298px] rounded-2xl border bg-gradient-to-r from-red-200 to-red-500 p-5 text-white">
+                <p>hallo</p>
+                <p>2500</p>
+              </div>
+              <div className="h-[190px] w-[298px] rounded-2xl border bg-gray-400 p-5 text-white">
+                <p>hallo</p>
+                <p>2500</p>
+              </div>
             </div>
           </div>
+          {/* recent prompts or tests that have been created by the user  */}
+          <div className="flex h-[500px] w-[660px] flex-col space-y-2 p-5">
+            <p>last created tests</p>
+            {old_prompts.map((prompt, index) => (
+              <div className="flex h-[65px] items-center space-x-6 rounded-xl border p-2">
+                <div className="avatar">
+                  <div className="w-16 rounded">
+                    <img
+                      src="https://img.daisyui.com/images/profile/demo/superperson@192.webp"
+                      alt="Tailwind-CSS-Avatar-component"
+                    />
+                  </div>
+                </div>
+                <p>{prompt.title}</p>
+                <p>{prompt.date}</p>
+                <p>{prompt.time}</p>
+                <p>{prompt.difficulty}</p>
+                <p>...</p>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* recent prompts or tests that have been created by the user  */}
-        <div></div>
         <h3>Overview</h3>
         <p>dasdasdads</p>
       </div>
