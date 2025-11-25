@@ -115,8 +115,18 @@ function PremiumDahsboard({}: Props) {
             ))}
           </div>
         </div>
-        <h3>Overview</h3>
-        <p>dasdasdads</p>
+        {/* Top right part not sure yet what i will put there  */}
+        <div className="flex flex-col p-5">
+          <h3>Metrics</h3>
+          <div className="flex flex-row space-x-2">
+            <div className="flex h-[240px] w-[180px] flex-col rounded-xl border"></div>
+            <div className="flex h-[240px] w-[220px] flex-col rounded-xl border"></div>
+          </div>
+          {/* bottom right part some cool graphics  */}
+          <div className="mt-20 flex h-[350px] w-[320px] flex-col rounded-xl border p-5">
+            <p>hey</p>
+          </div>
+        </div>
       </div>
     </div>
   );
