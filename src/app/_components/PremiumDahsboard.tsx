@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -10,11 +11,15 @@ import {
   Home,
   LogOut,
 } from "lucide-react";
+import { useTime } from "motion/react";
 
 type Props = {};
 //::TODO: create modern Dashboard
 
 function PremiumDahsboard({}: Props) {
+  // adding state for the dashbioard
+  const [whichfield, setWhichfield] = useState("overview");
+
   // defining sidebar content later map through to diplay those
   const navliste = [
     { name: "Dashboard", icon: <LayoutDashboard size={28} color="white" /> },
@@ -71,7 +76,7 @@ function PremiumDahsboard({}: Props) {
           <img src="" alt="logo" />
           {navliste.map((item, index) => (
             <div className="text-white">
-              <p className="cursor-pointer rounded-xl hover:bg-gray-400">
+              <p className="cursor-pointer rounded-xl hover:scale-105">
                 {item.icon}
               </p>{" "}
             </div>
