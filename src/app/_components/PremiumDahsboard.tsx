@@ -65,9 +65,9 @@ function PremiumDahsboard({}: Props) {
     <div className="flex flex-col items-center justify-center">
       <h1 className="p-5 text-4xl">Overview</h1>
 
-      <div className="flex h-[850px] w-[1200px] rounded-xl border bg-amber-50 shadow-xl">
+      <div className="bg-base-100 flex h-[850px] w-[1350px] rounded-xl border shadow-xl">
         {/* so here starts the sidebar nav component */}
-        <div className="flex h-[850px] w-[80px] flex-col items-center space-y-6 rounded-xl bg-black">
+        <div className="flex h-[850px] w-[80px] flex-col items-center space-y-6 rounded-xl bg-gradient-to-b from-[#FF705B] to-[#FFB457]">
           <img src="" alt="logo" />
           {navliste.map((item, index) => (
             <div className="text-white">
@@ -83,11 +83,11 @@ function PremiumDahsboard({}: Props) {
           <div className="flex h-[310px] w-[760px] flex-col p-5">
             <h3>Analytics</h3>
             <div className="flex flex-row space-x-5">
-              <div className="h-[190px] w-[298px] rounded-2xl border bg-gradient-to-r from-red-200 to-red-500 p-5 text-white">
+              <div className="h-[190px] w-[298px] rounded-2xl border bg-gradient-to-r from-[#FF705B] to-[#FFB457] p-5 text-white">
                 <p>hallo</p>
                 <p>2500</p>
               </div>
-              <div className="h-[190px] w-[298px] rounded-2xl border bg-gray-400 p-5 text-white">
+              <div className="text-base-content h-[190px] w-[298px] rounded-2xl border bg-[#FF705B]/10 p-5">
                 <p>hallo</p>
                 <p>2500</p>
               </div>
@@ -97,7 +97,7 @@ function PremiumDahsboard({}: Props) {
           <div className="flex h-[500px] w-[660px] flex-col space-y-2 p-5">
             <p>last created tests</p>
             {old_prompts.map((prompt, index) => (
-              <div className="flex h-[65px] items-center space-x-6 rounded-xl border p-2">
+              <div className="flex h-[65px] items-center space-x-6 rounded-xl border bg-[#FF705B]/5 p-2">
                 <div className="avatar">
                   <div className="w-16 rounded">
                     <img
@@ -119,11 +119,11 @@ function PremiumDahsboard({}: Props) {
         <div className="flex flex-col p-5">
           <h3>Metrics</h3>
           <div className="flex flex-row space-x-2">
-            <div className="flex h-[240px] w-[180px] flex-col rounded-xl border"></div>
-            <div className="flex h-[240px] w-[220px] flex-col rounded-xl border"></div>
+            <div className="flex h-[240px] w-[180px] flex-col rounded-xl border bg-[#FF705B]/10"></div>
+            <div className="flex h-[240px] w-[220px] flex-col rounded-xl border bg-[#FF705B]/10"></div>
           </div>
           {/* bottom right part some cool graphics  */}
-          <div className="mt-20 flex h-[350px] w-[320px] flex-col rounded-xl border p-5">
+          <div className="mt-20 flex h-[350px] w-[320px] flex-col rounded-xl border bg-[#FFB457]/10 p-5">
             <p>hey</p>
           </div>
         </div>
