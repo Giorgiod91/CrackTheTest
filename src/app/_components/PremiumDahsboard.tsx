@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -12,13 +12,34 @@ import {
   LogOut,
 } from "lucide-react";
 import { useTime } from "motion/react";
+import { supabase } from "utils/supabase/server";
 
 type Props = {};
 //::TODO: create modern Dashboard
+type Test = {
+  title: string;
+  id: number;
+};
 
 function PremiumDahsboard({}: Props) {
   // adding state for the dashbioard
   const [whichfield, setWhichfield] = useState("overview");
+  const [tests, setTests] = useState<Test[]>([]);
+  // here i will fetch the test data from the db to showcase recent created tests on the dashboard
+  //::TODO: fix that it will display the data
+  useEffect(() => {
+    async function fetchTestData() {
+      try {
+        const { data, error } = await supabase.from("Test").select("title, id");
+
+        // i case the result is Null
+        setTests(data || []);
+      } catch (err) {
+        console.log("error fetching data!");
+      }
+    }
+    fetchTestData();
+  }, []);
 
   // defining sidebar content later map through to diplay those
   const navliste = [
@@ -101,8 +122,11 @@ function PremiumDahsboard({}: Props) {
           {/* recent prompts or tests that have been created by the user  */}
           <div className="flex h-[500px] w-[660px] flex-col space-y-2 p-5">
             <p>last created tests</p>
-            {old_prompts.map((prompt, index) => (
-              <div className="flex h-[65px] items-center space-x-6 rounded-xl border bg-[#FF705B]/5 p-2">
+            {tests.map((test, index) => (
+              <div
+                key={index}
+                className="flex h-[65px] items-center space-x-6 rounded-xl border bg-[#FF705B]/5 p-2"
+              >
                 <div className="avatar">
                   <div className="w-16 rounded">
                     <img
@@ -111,10 +135,10 @@ function PremiumDahsboard({}: Props) {
                     />
                   </div>
                 </div>
-                <p>{prompt.title}</p>
-                <p>{prompt.date}</p>
-                <p>{prompt.time}</p>
-                <p>{prompt.difficulty}</p>
+                <p>{test.title}</p>
+                <p>{test.id}</p>
+                <p>{}</p>
+                <p>{}</p>
                 <p>...</p>
               </div>
             ))}
