@@ -22,7 +22,6 @@ export default function PremiumPage() {
   }, []);
 
   if (!user) return <p>Loading...</p>;
-
   return (
     <div className="flex flex-col items-center justify-center gap-10 py-10">
       <h1 className="text-7xl">Premium</h1>
