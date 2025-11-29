@@ -19,13 +19,13 @@ const userData: Prisma.UserCreateInput[] = [
     tests: {
       create: [
         {
-          title: "Join the Prisma Discord",
-          content: "https://pris.ly/discord",
+          title: "VW Eignungstest",
+          content: "https://www.vw.com/eignungstest",
           published: true,
         },
         {
-          title: "Prisma on YouTube",
-          content: "https://pris.ly/youtube",
+          title: "continental Eignungstest",
+          content: "https://www.continental.com/eignungstest",
         },
       ],
     },
@@ -36,8 +36,8 @@ const userData: Prisma.UserCreateInput[] = [
     tests: {
       create: [
         {
-          title: "Follow Prisma on Twitter",
-          content: "https://www.twitter.com/prisma",
+          title: "Google Eignungstest",
+          content: "https://www.google.com/eignungstest",
           published: true,
         },
       ],
