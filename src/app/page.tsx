@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/auth";
+import { auth } from "~/app/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
