@@ -4,10 +4,11 @@ import { useState } from "react";
 import { supabase } from "../../../../utils/supabase/server";
 
 export default function SignupPage() {
+  // state for signuop
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  // signup function that uses build in supabase function to signup
   async function handleSignup(e: any) {
     e.preventDefault();
 
@@ -17,6 +18,7 @@ export default function SignupPage() {
     });
 
     if (error) return setError(error.message);
+    // redicrect to login after the signup
 
     window.location.href = "/auth/login";
   }
