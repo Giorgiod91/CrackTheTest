@@ -13,12 +13,14 @@ import {
 } from "lucide-react";
 import { useTime } from "motion/react";
 import { supabase } from "utils/supabase/server";
+import CreateTest from "./CreateTest";
 
 type Props = {};
 //::TODO: create modern Dashboard
 type Test = {
   title: string;
   id: number;
+  content: string;
 };
 
 function PremiumDahsboard({}: Props) {
@@ -30,16 +32,22 @@ function PremiumDahsboard({}: Props) {
   useEffect(() => {
     async function fetchTestData() {
       try {
-        const { data, error } = await supabase.from("Test").select("title, id");
-
+        const { data, error } = await supabase
+          .from("Test")
+          .select("title, content, id");
+        console.log(data);
         // i case the result is Null
         setTests(data || []);
+        // to check which points are in the data
+        console.log(tests);
       } catch (err) {
         console.log("error fetching data!");
       }
     }
     fetchTestData();
   }, []);
+
+  console.log(tests);
 
   // defining sidebar content later map through to diplay those
   const navliste = [
@@ -94,15 +102,15 @@ function PremiumDahsboard({}: Props) {
       <div className="bg-base-100 flex h-[850px] w-[1350px] rounded-xl border shadow-xl">
         {/* so here starts the sidebar nav component */}
         <div className="flex h-[850px] w-[80px] flex-col items-center space-y-6 rounded-xl bg-gradient-to-b from-[#FF705B] to-[#FFB457]">
-          <img src="" alt="logo" />
+          <p>image here later</p>
           {navliste.map((item, index) => (
-            <div className="text-white">
+            <div key={index} className="text-white">
               <p className="cursor-pointer rounded-xl hover:scale-105">
                 {item.icon}
               </p>{" "}
             </div>
           ))}
-          <img src="" alt="users avatar" />
+          <p>image here lol</p>
         </div>
         {/* analytics part ::TODO: style the part with icons and display ml difficulty */}
         <div>
@@ -135,10 +143,10 @@ function PremiumDahsboard({}: Props) {
                     />
                   </div>
                 </div>
+                <p className="text-black">{test.title}</p>
                 <p>{test.title}</p>
-                <p>{test.id}</p>
-                <p>{}</p>
-                <p>{}</p>
+                <p>{test.content}</p>
+                <p>ss</p>
                 <p>...</p>
               </div>
             ))}
@@ -157,6 +165,8 @@ function PremiumDahsboard({}: Props) {
           </div>
         </div>
       </div>
+      <h1>test</h1>
+      <CreateTest />
     </div>
   );
 }
