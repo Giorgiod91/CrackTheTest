@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../../../utils/supabase/client";
 
 function CreateTest() {
@@ -17,30 +17,30 @@ function CreateTest() {
       return;
     }
 
-    // Check if user is logged in
+    const pushTest = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/create_test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: 1,
+            title: title,
+            subject: subject,
+            content: content,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Error creating Test!");
+        }
+        const data = await response.json();
+      } catch (error) {
+        console.log("Error ", error);
+      }
+    };
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      alert("You must log in first.");
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from("Test")
-        .insert([{ title, content, authorId: user.id }])
-        .select(); // will give back an object
-
-      if (error) throw error;
-
-      setTitle("");
-      setContent("");
-    } catch (err: any) {
-      console.error("Insert error:", err.message);
-    }
+    pushTest();
   }
 
   return (
