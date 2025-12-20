@@ -6,6 +6,7 @@ import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { useState } from "react";
 import { supabase } from "../../../utils/supabase/server";
 import type { User } from "@supabase/supabase-js";
+import CreateDbUser from "../_components/CreateDbUser";
 
 type Props = {};
 export default function PremiumPage() {
@@ -26,6 +27,7 @@ export default function PremiumPage() {
     <div className="flex flex-col items-center justify-center gap-10 py-10">
       <h1 className="text-7xl">Premium</h1>
       <PremiumDahsboard />
+      <CreateDbUser />
     </div>
   );
 }
