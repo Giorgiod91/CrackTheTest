@@ -1,60 +1,65 @@
 "use client";
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, Shield, ArrowRight } from "lucide-react";
+import type { User } from "@supabase/supabase-js";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-export default function SignupPage() {
+type LoginFormProps = {
+  user: User | null;
+};
+type Mode = "login" | "signup";
+
+export default function LoginForm({ user }: LoginFormProps) {
+  const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const supabase = getSupabaseBrowserClient();
 
-  async function handleSignup(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  // the submit handler
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setLoading(true);
     setError("");
     setStatus("");
 
-    if (password !== confirmPassword) {
-      setError("Passwörter stimmen nicht überein.");
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Passwort muss mindestens 6 Zeichen lang sein.");
-      setLoading(false);
-      return;
-    }
-
     try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-
-      if (signUpError) {
-        setError(signUpError.message);
+      if (mode === "signup") {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        if (signUpError) {
+          setError(signUpError.message);
+        } else {
+          setStatus("Check your email for the login link!");
+        }
       } else {
-        setStatus(
-          "✅ Registrierung erfolgreich! Prüfe deine E-Mails für die Bestätigung.",
-        );
-        setTimeout(() => {
-          router.push("/auth/login");
-        }, 2000);
+        const { data, error: signInError } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+        if (signInError) {
+          setError(signInError.message);
+        } else {
+          // Erfolgreicher Login
+          router.push("/PremiumUsers");
+          router.refresh();
+        }
       }
     } catch (err) {
-      setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
+      setError("Ein Fehler ist aufgetreten");
     } finally {
       setLoading(false);
     }
   }
-
   return (
     <div className="from-base-100 to-base-200 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
       <div className="w-full max-w-md">
@@ -70,7 +75,7 @@ export default function SignupPage() {
             </h1>
           </div>
           <p className="text-base-content/60 text-sm">
-            Erstelle dein sicheres Premium-Konto
+            Sicherer Zugang zu deinem Premium-Konto
           </p>
         </div>
 
@@ -86,7 +91,7 @@ export default function SignupPage() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSignup} className="flex flex-col gap-4">
+            <form onSubmit={handleLogin} className="flex flex-col gap-4">
               {/* Email Input */}
               <div className="form-control w-full">
                 <label className="label">
@@ -123,37 +128,10 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              {/* Confirm Password Input */}
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text font-medium">
-                    Passwort bestätigen
-                  </span>
-                </label>
-                <div className="relative">
-                  <Lock className="text-base-content/40 absolute top-3.5 left-3 h-5 w-5" />
-                  <input
-                    type="password"
-                    placeholder="••••••••"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
-                  />
-                </div>
-              </div>
-
               {/* Error Message */}
               {error && (
                 <div className="alert alert-error rounded-lg p-3">
                   <span className="text-sm">{error}</span>
-                </div>
-              )}
-
-              {/* Success Message */}
-              {status && (
-                <div className="alert alert-success rounded-lg p-3">
-                  <span className="text-sm">{status}</span>
                 </div>
               )}
 
@@ -166,11 +144,11 @@ export default function SignupPage() {
                 {loading ? (
                   <>
                     <span className="loading loading-spinner loading-xs"></span>
-                    Account wird erstellt...
+                    Wird angemeldet...
                   </>
                 ) : (
                   <>
-                    Registrieren
+                    Login
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}
@@ -179,12 +157,32 @@ export default function SignupPage() {
               {/* Divider */}
               <div className="divider my-2"></div>
 
-              {/* Login Link */}
+              {/* Signup Link */}
+
               <p className="text-base-content/60 text-center text-sm">
-                Bereits registriert?{" "}
-                <a href="/auth/login" className="link link-primary font-medium">
-                  Hier anmelden
-                </a>
+                {mode === "login" ? (
+                  <>
+                    Noch kein Account?{" "}
+                    <button
+                      type="button"
+                      onClick={() => setMode("signup")}
+                      className="link link-primary font-medium"
+                    >
+                      Hier registrieren
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    Bereits registriert?{" "}
+                    <button
+                      type="button"
+                      onClick={() => setMode("login")}
+                      className="link link-primary font-medium"
+                    >
+                      Zum Login
+                    </button>
+                  </>
+                )}
               </p>
             </form>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+
 import {
   LayoutDashboard,
   Users,
@@ -20,82 +21,122 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 type Props = {};
 
 type Test = {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  created_at?: string | null;
-  authorid: number;
+  created_at: string;
+  user_id: string;
+  subject?: string;
 };
 
 function PremiumDahsboard({}: Props) {
   const [tests, setTests] = useState<Test[]>([]);
   const [loading, setLoading] = useState(false);
-  const [pushTitle, setPushTitle] = useState("eta");
-  const [pushContent, setPushContent] = useState("ja genau ffff");
-  const [pushSubject, setPushSubject] = useState("math");
-  // creating usetate to display the data from backend that the users wants for example if the user press anaytics then display analytics data
+  const [error, setError] = useState("");
   const [displayData, setDisplayData] = useState<string>("Dashboard");
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    subject: "",
+  });
 
+  const supabase = getSupabaseBrowserClient();
+
+  // Fetch tests from Supabase
   useEffect(() => {
-    // fetch recent tests
-    async function fetchTestData() {
-      setLoading(true);
-
-      try {
-        const response = await fetch("http://127.0.0.1:8000/display_data/1", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error fetching tests");
-        }
-        const data = await response.json();
-        setTests(data);
-      } catch (err) {
-        console.error("Unexpected error fetching tests", err);
-        setTests([]);
-      }
-      setLoading(false);
-    }
-
-    fetchTestData();
+    fetchTests();
   }, []);
 
-  async function deleteTest(id: number) {
+  async function fetchTests() {
+    setLoading(true);
+    setError("");
+
     try {
-      const response = await fetch(`http://127.0.0.1:8000/delete_test/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Error deleting test");
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      console.log("AUTH USER ID:", user?.id);
+
+      if (!user) {
+        setError("User not authenticated");
+        setLoading(false);
+        return;
       }
+
+      const { data, error: fetchError } = await supabase
+        .from("tests")
+        .select("*")
+        .eq("authorid", user.id)
+        .order("created_at", { ascending: false });
+
+      if (fetchError) throw fetchError;
+
+      setTests(data || []);
     } catch (err) {
-      console.error("Unexpected error deleting test", err);
+      console.error("Error fetching tests:", err);
+      setError("Failed to load tests");
+      setTests([]);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function createTest(title: string, content: string, subject: string) {
+    if (!title.trim() || !content.trim()) {
+      setError("Title and content are required");
+      return;
+    }
+
     try {
-      const response = await fetch("http://127.0.0.1:8000/create_test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Error creating new Test !!");
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        setError("User not authenticated");
+        return;
       }
+
+      const { error: insertError } = await supabase.from("tests").insert([
+        {
+          title,
+          content,
+          subject,
+          authorid: user.id,
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+      if (insertError) throw insertError;
+
+      setFormData({ title: "", content: "", subject: "" });
+      setShowCreateModal(false);
+      await fetchTests();
     } catch (err) {
-      console.log("error creating Test", err);
+      console.error("Error creating test:", err);
+      setError("Failed to create test");
+    }
+  }
+
+  async function deleteTest(id: string) {
+    try {
+      const { error: deleteError } = await supabase
+        .from("tests")
+        .delete()
+        .eq("id", id);
+
+      if (deleteError) throw deleteError;
+
+      await fetchTests();
+    } catch (err) {
+      console.error("Error deleting test:", err);
+      setError("Failed to delete test");
     }
   }
 
@@ -115,20 +156,18 @@ function PremiumDahsboard({}: Props) {
     }
 
     tests.forEach((test) => {
-      if (test.created_at) {
-        const testDate = new Date(test.created_at);
-        testDate.setHours(0, 0, 0, 0);
+      const testDate = new Date(test.created_at);
+      testDate.setHours(0, 0, 0, 0);
 
-        chartData.forEach((data) => {
-          if (data.dateObj) {
-            const d = new Date(data.dateObj);
-            d.setHours(0, 0, 0, 0);
-            if (d.getTime() === testDate.getTime()) {
-              data.count++;
-            }
+      chartData.forEach((data) => {
+        if (data.dateObj) {
+          const d = new Date(data.dateObj);
+          d.setHours(0, 0, 0, 0);
+          if (d.getTime() === testDate.getTime()) {
+            data.count++;
           }
-        });
-      }
+        }
+      });
     });
 
     return chartData.map(({ dateObj, ...rest }) => rest);
@@ -200,7 +239,10 @@ function PremiumDahsboard({}: Props) {
                   </button>
                 ))}
                 <div className="mt-4 border-t pt-3">
-                  <button className="btn btn-sm btn-outline w-full gap-2">
+                  <button
+                    onClick={() => setShowCreateModal(true)}
+                    className="btn btn-sm btn-outline w-full gap-2"
+                  >
                     <PlusCircle /> Create
                   </button>
                 </div>
@@ -225,17 +267,16 @@ function PremiumDahsboard({}: Props) {
               </div>
             </div>
 
+            {error && (
+              <div className="alert alert-error mb-4 rounded-lg p-3">
+                <span className="text-sm">{error}</span>
+              </div>
+            )}
+
             <section className="bg-base-100 rounded-xl border p-4 shadow-sm transition hover:shadow-lg">
               {displayData === "Dashboard" ? (
                 <div className="mb-3 flex items-center justify-between">
                   <h3 className="text-lg font-medium">Recent Tests</h3>
-                  <button
-                    onClick={() =>
-                      createTest(pushTitle, pushContent, pushSubject)
-                    }
-                  >
-                    create test
-                  </button>
                 </div>
               ) : (
                 <div className="mb-3 flex items-center justify-between">
@@ -257,46 +298,52 @@ function PremiumDahsboard({}: Props) {
                       </div>
                     )}
 
-                    {tests.map((t) => {
-                      console.log(t);
-
-                      return (
-                        <div
-                          key={t.id}
-                          className="flex transform items-start gap-4 rounded-lg bg-white/60 p-3 transition hover:-translate-y-1 hover:scale-[1.01] hover:bg-white/70 hover:shadow-lg hover:ring-1 hover:ring-[#FF705B]/10"
-                        >
-                          <div className="avatar">
-                            <div className="w-12 rounded">
-                              <img
-                                src={`https://i.pravatar.cc/80?u=${t.id}`}
-                                alt="profile"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <div className="font-semibold">{t.title}</div>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <button className="btn btn-xs btn-ghost">
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => deleteTest(t.id)}
-                                  className="btn btn-xs btn-ghost"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </div>
-                            <div className="text-muted-foreground mt-2 text-sm">
-                              {t.content}
-                            </div>
+                    {tests.map((t) => (
+                      <div
+                        key={t.id}
+                        className="flex transform items-start gap-4 rounded-lg bg-white/60 p-3 transition hover:-translate-y-1 hover:scale-[1.01] hover:bg-white/70 hover:shadow-lg hover:ring-1 hover:ring-[#FF705B]/10"
+                      >
+                        <div className="avatar">
+                          <div className="w-12 rounded">
+                            <img
+                              src={`https://i.pravatar.cc/80?u=${t.user_id}`}
+                              alt="profile"
+                            />
                           </div>
                         </div>
-                      );
-                    })}
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="font-semibold">{t.title}</div>
+                              <div className="text-xs opacity-60">
+                                {new Date(t.created_at).toLocaleDateString()}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button className="btn btn-xs btn-ghost">
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => deleteTest(t.id)}
+                                className="btn btn-xs btn-ghost"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                          <div className="text-muted-foreground mt-2 text-sm">
+                            {t.content}
+                          </div>
+                          {t.subject && (
+                            <div className="mt-2">
+                              <span className="badge badge-sm">
+                                {t.subject}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </>
                 ) : displayData === "Analytics" ? (
                   <div className="h-61 w-full">
@@ -349,7 +396,12 @@ function PremiumDahsboard({}: Props) {
             <div className="bg-base-100 rounded-xl border p-4 shadow-sm">
               <h4 className="font-medium">Quick Actions</h4>
               <div className="mt-3 flex flex-col gap-2">
-                <button className="btn btn-sm">Create Test</button>
+                <button
+                  onClick={() => setShowCreateModal(true)}
+                  className="btn btn-sm"
+                >
+                  Create Test
+                </button>
                 <button className="btn btn-sm btn-outline">Export</button>
                 <button className="btn btn-sm btn-ghost">Settings</button>
               </div>
@@ -357,6 +409,80 @@ function PremiumDahsboard({}: Props) {
           </aside>
         </div>
       </div>
+
+      {/* Create Test Modal */}
+      {showCreateModal && (
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="mb-4 text-lg font-bold">Create New Test</h3>
+
+            <div className="form-control mb-3 w-full">
+              <label className="label">
+                <span className="label-text">Title</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Test title..."
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                className="input input-bordered w-full"
+              />
+            </div>
+
+            <div className="form-control mb-3 w-full">
+              <label className="label">
+                <span className="label-text">Subject</span>
+              </label>
+              <input
+                type="text"
+                placeholder="e.g., Math, Physics..."
+                value={formData.subject}
+                onChange={(e) =>
+                  setFormData({ ...formData, subject: e.target.value })
+                }
+                className="input input-bordered w-full"
+              />
+            </div>
+
+            <div className="form-control mb-4 w-full">
+              <label className="label">
+                <span className="label-text">Content</span>
+              </label>
+              <textarea
+                placeholder="Test content..."
+                value={formData.content}
+                onChange={(e) =>
+                  setFormData({ ...formData, content: e.target.value })
+                }
+                className="textarea textarea-bordered h-32 w-full"
+              />
+            </div>
+
+            <div className="modal-action">
+              <button
+                onClick={() => setShowCreateModal(false)}
+                className="btn btn-ghost"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() =>
+                  createTest(formData.title, formData.content, formData.subject)
+                }
+                className="btn btn-primary"
+              >
+                Create
+              </button>
+            </div>
+          </div>
+          <div
+            className="modal-backdrop"
+            onClick={() => setShowCreateModal(false)}
+          ></div>
+        </div>
+      )}
     </div>
   );
 }
