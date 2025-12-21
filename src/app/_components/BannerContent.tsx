@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Typewriter from "./Typewriter";
-import { supabase } from "../../../utils/supabase/server";
+import { supabase } from "../../../utils/supabase/client";
 
 //function to create a new user
 const SendUserToBackend = async (email: string) => {

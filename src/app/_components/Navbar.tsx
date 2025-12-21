@@ -1,8 +1,17 @@
-import React from "react";
-
-//  bg-clip-text to use the color on the test instead of the bg
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { LogOut, User, Settings, Menu, BookOpen, Sparkles } from "lucide-react";
 
 function Navbar() {
+  const router = useRouter();
+
+  /// function to login so the user will get pushed to auth login
+
+  const userLogin = () => {
+    router.push("/auth/login");
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -16,11 +25,14 @@ function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a href="#tutorial">Wie ?</a>
+            <a>
+              {" "}
+              <button onClick={(e) => userLogin()}>Login</button>
+            </a>
           </li>
           <li>
             <details>
-              <summary>Parent</summary>
+              <summary>Info</summary>
               <ul className="bg-base-100 rounded-t-none p-2">
                 <li>
                   <a href="#price">Preis</a>

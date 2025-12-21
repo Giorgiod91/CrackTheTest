@@ -4,7 +4,7 @@ import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 import PremiumDahsboard from "../_components/PremiumDahsboard";
 
 import { useState } from "react";
-import { supabase } from "../../../utils/supabase/server";
+
 import type { User } from "@supabase/supabase-js";
 import CreateDbUser from "../_components/CreateDbUser";
 import CreateTest from "../_components/CreateTest";

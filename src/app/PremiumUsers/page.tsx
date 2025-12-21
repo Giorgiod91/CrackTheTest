@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { LifeBuoy, Check } from "lucide-react";
-import { supabase } from "../../../utils/supabase/server";
+import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import CreateDbUser from "../_components/CreateDbUser";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 type Props = {};
 export default function PremiumPage() {
@@ -20,6 +21,22 @@ export default function PremiumPage() {
       }
     });
   }, []); */
+  // initialize supabase client
+  const supabase = getSupabaseBrowserClient();
+  // initialize  router
+  const router = useRouter();
+
+  //  function to logout the user
+
+  async function handleLogout() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      router.push("/auth/login");
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  }
 
   //if (!user) return <p>Loading...</p>;
   const currentPlan = "Pro";
@@ -47,6 +64,10 @@ export default function PremiumPage() {
                   Billing
                 </a>
                 <a className="btn btn-ghost btn-sm">Docs</a>
+
+                <button onClick={handleLogout} className="bg-black">
+                  Logout
+                </button>
               </div>
             </div>
 

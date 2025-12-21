@@ -1,46 +1,201 @@
 "use client";
-
 import { useState } from "react";
-import { supabase } from "../../../../utils/supabase/server";
+import { useRouter } from "next/navigation";
+import { Lock, Mail, Shield, ArrowRight } from "lucide-react";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 export default function SignupPage() {
-  // state for signuop
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  // signup function that uses build in supabase function to signup
-  async function handleSignup(e: any) {
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const supabase = getSupabaseBrowserClient();
+
+  async function handleSignup(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    setStatus("");
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    if (password !== confirmPassword) {
+      setError("Passwörter stimmen nicht überein.");
+      setLoading(false);
+      return;
+    }
 
-    if (error) return setError(error.message);
-    // redicrect to login after the signup
+    if (password.length < 6) {
+      setError("Passwort muss mindestens 6 Zeichen lang sein.");
+      setLoading(false);
+      return;
+    }
 
-    window.location.href = "/auth/login";
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (signUpError) {
+        setError(signUpError.message);
+      } else {
+        setStatus(
+          "✅ Registrierung erfolgreich! Prüfe deine E-Mails für die Bestätigung.",
+        );
+        setTimeout(() => {
+          router.push("/auth/login");
+        }, 2000);
+      }
+    } catch (err) {
+      setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <form onSubmit={handleSignup} className="flex flex-col gap-4">
-      <input
-        className="border p-2"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className="border p-2"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {error && <p className="text-red-500">{error}</p>}
+    <div className="from-base-100 to-base-200 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <div className="mb-4 flex items-center justify-center gap-2">
+            <Shield className="text-primary h-8 w-8" />
+            <h1 className="text-3xl font-bold">
+              Crack
+              <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
+                TheTest
+              </span>
+            </h1>
+          </div>
+          <p className="text-base-content/60 text-sm">
+            Erstelle dein sicheres Premium-Konto
+          </p>
+        </div>
 
-      <button className="rounded bg-green-600 py-2 text-white">Sign Up</button>
-    </form>
+        {/* Card */}
+        <div className="card bg-base-100 shadow-2xl">
+          <div className="card-body">
+            {/* Security Badge */}
+            <div className="bg-success/10 border-success/20 mb-6 flex items-center gap-2 rounded-lg border p-3">
+              <Shield className="text-success h-4 w-4" />
+              <span className="text-success text-xs font-medium">
+                Sichere verschlüsselte Verbindung
+              </span>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSignup} className="flex flex-col gap-4">
+              {/* Email Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-medium">E-Mail</span>
+                </label>
+                <div className="relative">
+                  <Mail className="text-base-content/40 absolute top-3.5 left-3 h-5 w-5" />
+                  <input
+                    type="email"
+                    placeholder="deine@email.de"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-medium">Passwort</span>
+                </label>
+                <div className="relative">
+                  <Lock className="text-base-content/40 absolute top-3.5 left-3 h-5 w-5" />
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Confirm Password Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-medium">
+                    Passwort bestätigen
+                  </span>
+                </label>
+                <div className="relative">
+                  <Lock className="text-base-content/40 absolute top-3.5 left-3 h-5 w-5" />
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="alert alert-error rounded-lg p-3">
+                  <span className="text-sm">{error}</span>
+                </div>
+              )}
+
+              {/* Success Message */}
+              {status && (
+                <div className="alert alert-success rounded-lg p-3">
+                  <span className="text-sm">{status}</span>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn btn-primary btn-block mt-2 gap-2 font-medium"
+              >
+                {loading ? (
+                  <>
+                    <span className="loading loading-spinner loading-xs"></span>
+                    Account wird erstellt...
+                  </>
+                ) : (
+                  <>
+                    Registrieren
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </button>
+
+              {/* Divider */}
+              <div className="divider my-2"></div>
+
+              {/* Login Link */}
+              <p className="text-base-content/60 text-center text-sm">
+                Bereits registriert?{" "}
+                <a href="/auth/login" className="link link-primary font-medium">
+                  Hier anmelden
+                </a>
+              </p>
+            </form>
+          </div>
+        </div>
+
+        {/* Security Info Footer */}
+        <div className="text-base-content/50 mt-6 space-y-1 text-center text-xs">
+          <p>🔒 Daten werden verschlüsselt übertragen</p>
+          <p>✓ SSL/TLS Sicherheit</p>
+        </div>
+      </div>
+    </div>
   );
 }
