@@ -1,83 +1,52 @@
-# 🚀 CrackTheTest.ai  
+# 🚀 CrackTheTest.ai
 
-**AI-powered Test Generator + Difficulty Classifier (Custom Binary Logistic Regression Model)**  
-🎯 **Live Demo:** [https://crack-the-test.vercel.app/](https://crack-the-test.vercel.app/)  
-🧩 **Status:** Frontend prototype live — backend (FastAPI + ML) in development  
+**AI-gestützter Test-Generator mit automatischer Schwierigkeitserkennung**
 
-Backend part  https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML
-
-Create personalized tests with **OpenAI**, automatically predict their difficulty (`Leicht` or `Schwer`) using a **custom logistic regression model built entirely with NumPy**, and explore how core machine learning concepts translate into real-world applications.
-
-This project was built to connect **Andrew Ng’s Deep Learning Specialization** theory with **hands-on implementation**.
+🎯 **Live Demo:** [https://crack-the-test.vercel.app/](https://crack-the-test.vercel.app/)
+🧩 **Status:** Frontend live • Backend (FastAPI + ML, optional) in Entwicklung
 
 ---
 
-## 🧠 Overview  
+## Features
 
-**CrackTheTest.ai** allows users to generate AI-created questions and instantly predict how difficult they are — powered by a simple but explainable machine learning model.  
-
-It combines:  
-- **OpenAI API** → to generate domain-specific test questions  
-- **Custom logistic regression model** → written from scratch using NumPy  
-- **TF-IDF vectorization** → to convert text into numerical features  
-- **FastAPI backend** → to expose the model as an API  
-- **Next.js frontend** → for a clean and modern user experience  
+- 🧠 AI-generierte Fragen (OpenAI API)
+- 🤖 Schwierigkeitsprediction (Logistic Regression, optionales Python-Backend)
+- 💻 Modernes Next.js Fullstack-Frontend (App Router, Tailwind, DaisyUI, TypeScript)
+- 💾 Supabase für Auth & Datenbank (direkt aus Next.js)
+- 🔒 Premium-Bereich mit Dashboard & Stripe (in Planung)
 
 ---
 
-## 🎯 Motivation – Why I Built This  
+## Tech Stack
 
-Most online aptitude tools are generic, limited, or expensive.  
-I wanted to build a **personalized learning assistant** that uses AI and ML to create adaptive tests.  
-
-At the same time, I wanted to **practice and understand the fundamentals** of machine learning by implementing everything manually — no PyTorch, no TensorFlow — just NumPy, math, and Andrew Ng’s lectures.  
-
-This helped me truly grasp *how* models learn, not just *how to use them*.
+- **Frontend & Backend:** Next.js (App Router, API-Routen, Server Actions)
+- **Auth & DB:** Supabase (PostgreSQL, Auth)
+- **Styling:** Tailwind CSS, DaisyUI, Framer Motion
+- **AI/ML:** OpenAI API, optional FastAPI-Backend für ML
 
 ---
 
-## 🧩 Core Features  
+## Architektur
 
-- 🧠 **AI-generated test questions** via OpenAI  
-- ⚙️ **Custom logistic regression classifier** (NumPy implementation)  
-- 🧩 **Binary difficulty prediction:**  
-  - `0 → Leicht`  
-  - `1 → Schwer`  
-- 🔡 **TF-IDF text vectorization** using `scikit-learn`  
-- ⚙️ **FastAPI backend** for prediction routes  
-- 💻 **Modern Next.js frontend** with Tailwind + Framer Motion  
-- 💾 **Supabase (PostgreSQL)** database integration  
+Next.js (Frontend + API) ↔ Supabase (DB & Auth)
+Optional: Next.js ↔ FastAPI (ML) ↔ Supabase
 
 ---
 
-## ⚙️ Tech Stack  
+## Premium-Bereich
 
-### 🖥️ Frontend  
-- **Next.js (TypeScript)**  
-- **Tailwind CSS + DaisyUI**  
-- **Framer Motion** for animations  
+- Authentifizierung & User-Management via Supabase (direkt im Next.js-Frontend)
+- Premium-Dashboard mit geschützten Routen
+- Stripe-Integration für Premium-Features (in Planung)
 
-### ⚙️ Backend  
-- **Python + FastAPI**  
-- **Supabase (PostgreSQL)**  
-- **Pydantic** for validation  
-- **OpenAI API** for content generation  
-
-### 🤖 Machine Learning  
-- **Type:** Binary Logistic Regression (from scratch)  
-- **Libraries:** `NumPy`, `scikit-learn` (for TF-IDF only)  
-- **Activation:** Sigmoid function  
-- **Loss:** Binary cross-entropy  
-- **Optimization:** Gradient descent (manual implementation)  
-- **Goal:** Classify test questions into *Leicht* or *Schwer*  
+![Premium Dashboard Vorschau](https://github.com/user-attachments/assets/81934d99-8b7a-44aa-aa72-30ac951823d8)
 
 ---
 
-## 🧠 ML Implementation Journey  
+**Moderner Fullstack-Testgenerator mit Next.js, Supabase und AI – alles in einer App!**
 
-### 1️⃣ Building From Scratch  
-
-Following **Andrew Ng’s Deep Learning Specialization**, I manually implemented:
+**Backend Repo (ML, optional):**
+[Giorgiod91/CrackTheTest-Backend-With-ML](https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML)
 - Parameter initialization (`w`, `b`)  
 - **Sigmoid** activation  
 - **Forward propagation**  
