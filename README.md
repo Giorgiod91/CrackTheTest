@@ -5,6 +5,12 @@
 🎯 **Live Demo:** [https://crack-the-test.vercel.app/](https://crack-the-test.vercel.app/)  
 🧩 **Status:** Frontend live • Backend (FastAPI + ML) in Entwicklung  
 
+** Premium section with Dashboard ** 
+
+https://github.com/user-attachments/assets/81934d99-8b7a-44aa-aa72-30ac951823d8
+
+
+
 **Backend Repo:** [Giorgiod91/CrackTheTest-Backend-With-ML](https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML)
 
 Erstelle personalisierte Tests mit **OpenAI** und lass die Schwierigkeit (`Leicht` oder `Schwer`) automatisch vorhersagen – inklusive eines kleinen, aber lehrreichen **Custom Logistic Regression Models** (inspiriert von Andrew Ng’s Deep Learning Kurs).
