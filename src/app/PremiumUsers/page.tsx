@@ -11,6 +11,8 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 type Props = {};
 export default function PremiumPage() {
   const [member, setMember] = useState<string>("");
+  const [premiumdata, setPremiumdata] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
   // const [user, setUser] = useState<User | null>(null);
   /*
   useEffect(() => {
@@ -34,10 +36,17 @@ export default function PremiumPage() {
         data: { user },
         error,
       } = await supabase.auth.getUser();
-      if (error) {
-        console.error(error);
+      const { data: premiumData, error: fetchError } = await supabase
+        .from("users")
+        .select("*")
+        .eq("real_member_id", user?.id)
+        .single();
+
+      if (fetchError) {
+        console.error("Error fetching premium data:", fetchError);
       } else {
-        setMember(user?.email || "");
+        setPremiumdata(premiumData?.premium || false);
+        setUsername(premiumData.username);
       }
     };
     fetchUser();

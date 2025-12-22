@@ -22,6 +22,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { boolean } from "zod";
 
 type Props = {};
 
@@ -40,6 +41,7 @@ function PremiumDahsboard({}: Props) {
   const [error, setError] = useState("");
   const [displayData, setDisplayData] = useState<string>("Dashboard");
   const [showCreateModal, setShowCreateModal] = useState(false);
+
   // state for delete so i can rerender to see which test are current
   const [userDeleted, setUserDeleted] = useState(false);
   const [formData, setFormData] = useState({
