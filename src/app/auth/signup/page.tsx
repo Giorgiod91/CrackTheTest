@@ -7,6 +7,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
@@ -40,15 +41,43 @@ export default function SignupPage() {
 
       if (signUpError) {
         setError(signUpError.message);
-      } else {
-        setStatus(
-          "✅ Registrierung erfolgreich! Prüfe deine E-Mails für die Bestätigung.",
-        );
-        setTimeout(() => {
-          router.push("/auth/login");
-        }, 2000);
+        setLoading(false);
+        return;
       }
+
+      // hier drekt die user data nehmen damit ich gleich in der users tabelle einen eintrag machen kann
+      const user = data.user;
+      if (!user) {
+        setError("User konnte nicht erstellt werden.");
+        setLoading(false);
+        return;
+      }
+
+      // hier erfolgt der eintrag damit ich speat premium hanbdlen kann
+      const { error: insertError } = await supabase.from("users").insert([
+        {
+          email,
+          username,
+          real_member_id: user.id,
+          premium: false,
+        },
+      ]);
+
+      if (insertError) {
+        setError("Fehler beim Erstellen des User-Profils.");
+        setLoading(false);
+        return;
+      }
+
+      setStatus(
+        "✅ Registrierung erfolgreich! Prüfe deine E-Mails für die Bestätigung.",
+      );
+
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
     } catch (err) {
+      console.error(err);
       setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
     } finally {
       setLoading(false);
@@ -99,6 +128,14 @@ export default function SignupPage() {
                     placeholder="deine@email.de"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
+                  />
+                  <input
+                    type="text"
+                    placeholder="name weahlen"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                     className="input input-bordered focus:ring-primary w-full pl-10 focus:border-transparent focus:ring-2 focus:outline-none"
                   />
