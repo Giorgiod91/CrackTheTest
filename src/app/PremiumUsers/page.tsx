@@ -70,9 +70,6 @@ export default function PremiumPage() {
     }
   }
 
-  //if (!user) return <p>Loading...</p>;
-  const currentPlan = "Pro";
-
   return (
     <div className="w-full">
       {/* Hero */}
@@ -89,7 +86,10 @@ export default function PremiumPage() {
                 features — everything you need to build faster and smarter.
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <a href="/premium/manage" className="btn btn-neutral btn-sm">
+                <a
+                  href="/ManageSubscription"
+                  className="btn btn-neutral btn-sm"
+                >
                   Manage subscription
                 </a>
                 <a href="/premium/billing" className="btn btn-ghost btn-sm">
@@ -170,7 +170,20 @@ export default function PremiumPage() {
         {/* Dashboard container */}
         <div className="mt-8">
           <div className="bg-base-100 rounded-xl border p-4 shadow transition hover:shadow-lg">
-            <PremiumDahsboard />
+            {premiumdata === true ? (
+              <PremiumDahsboard />
+            ) : (
+              <div>
+                <h1>Buy premium to get access to the dashboard</h1>
+                <button
+                  onClick={() => router.push("/ManageSubscription")}
+                  className="btn"
+                >
+                  {" "}
+                  Buy Now
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
