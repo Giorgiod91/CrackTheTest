@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { LifeBuoy, Check } from "lucide-react";
@@ -36,21 +36,27 @@ export default function PremiumPage() {
         data: { user },
         error,
       } = await supabase.auth.getUser();
-      const { data: premiumData, error: fetchError } = await supabase
+      if (!user) {
+        return;
+      }
+
+      const { data, error: fetchError } = await supabase
         .from("users")
         .select("*")
-        .eq("real_member_id", user?.id)
-        .single();
+        .eq("real_member_id", user.id)
+        .maybeSingle();
 
       if (fetchError) {
-        console.error("Error fetching premium data:", fetchError);
-      } else {
-        setPremiumdata(premiumData?.premium || false);
-        setUsername(premiumData.username);
+        console.error("Error fetching user data:", fetchError);
+        return;
       }
+      setUsername(data?.username || "");
+
+      console.log("Fetched user data:", data);
+      setPremiumdata(data?.is_premium || false);
     };
     fetchUser();
-  }, []);
+  }, [router]);
 
   //  function to logout the user
 
@@ -76,7 +82,7 @@ export default function PremiumPage() {
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <h1 className="text-4xl font-extrabold md:text-5xl">
-                Welcome back, {member}
+                Welcome back, {username}
               </h1>
               <p className="mt-2 max-w-xl text-lg opacity-90">
                 You have access to advanced AI models, priority support and team
@@ -101,11 +107,23 @@ export default function PremiumPage() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="w-44 rounded-xl bg-white/10 p-4 text-center text-white">
+              <div className="w-44 rounded-xl bg-white/10 p-4 text-center text-white hover:scale-105">
+                <div className="text-sm opacity-80">Premium Status</div>
+                {premiumdata === true ? (
+                  <div className="mt-1 text-xl font-bold text-green-400">
+                    ✓ Active
+                  </div>
+                ) : (
+                  <div className="mt-1 text-xl font-bold text-red-400">
+                    ✗ Inactive
+                  </div>
+                )}
+              </div>
+              <div className="w-44 rounded-xl bg-white/10 p-4 text-center text-white hover:scale-105">
                 <div className="text-sm opacity-80">Next billing</div>
                 <div className="mt-1 text-xl font-bold">Jan 12, 2026</div>
               </div>
-              <div className="w-44 rounded-xl bg-white/10 p-4 text-center text-white">
+              <div className="w-44 rounded-xl bg-white/10 p-4 text-center text-white hover:scale-105">
                 <div className="text-sm opacity-80">Priority replies</div>
                 <div className="mt-1 text-xl font-bold">~1h</div>
               </div>
