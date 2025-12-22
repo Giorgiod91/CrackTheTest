@@ -9,6 +9,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
+// boilerplate to handle stripe webhooks from stripe itself
 
 export async function POST(req: Request) {
   const rawBody = await req.text();
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
   try {
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err: any) {
-    console.error("❌ Webhook error:", err?.message);
+    console.error(" Webhook error:", err?.message);
     return new Response("Invalid signature", { status: 400 });
   }
 
@@ -36,18 +37,19 @@ export async function POST(req: Request) {
       .select("email, real_member_id")
       .eq("email", email)
       .single();
-
+    // If no user found, create one
     if (error || !user) {
       console.log(
-        `❌ USER NOT FOUND: No user with email ${email} found in DB. user will be created now `,
+        ` USER NOT FOUND: No user with email ${email} found in DB. user will be created now `,
       );
+      // here is the supabase insert code function to create a new user i set the email to be the amail obatined from stripe
       const { data: newUser, error: insertError } = await supabase
         .from("users")
         .insert({ email: email, premium: true })
         .select()
         .single();
       if (insertError) {
-        console.log(`❌ DB ERROR: Could not create user for ${email}`);
+        console.log(` DB ERROR: Could not create user for ${email}`);
       }
     } else {
       // Email matches - activate premium
@@ -57,10 +59,10 @@ export async function POST(req: Request) {
         .eq("real_member_id", user.real_member_id);
 
       if (updateError) {
-        console.log(`❌ DB ERROR: Could not activate premium for ${email}`);
+        console.log(` DB ERROR: Could not activate premium for ${email}`);
       } else {
         console.log(
-          `🎉 PREMIUM ACTIVATED: ${email} (User ID: ${user.real_member_id}) paid $${amount}`,
+          ` PREMIUM ACTIVATED: ${email} (User ID: ${user.real_member_id}) paid $${amount}`,
         );
       }
     }
