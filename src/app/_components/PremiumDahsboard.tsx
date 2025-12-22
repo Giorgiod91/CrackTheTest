@@ -40,6 +40,8 @@ function PremiumDahsboard({}: Props) {
   const [error, setError] = useState("");
   const [displayData, setDisplayData] = useState<string>("Dashboard");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  // state for delete so i can rerender to see which test are current
+  const [userDeleted, setUserDeleted] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -51,7 +53,7 @@ function PremiumDahsboard({}: Props) {
   // Fetch tests from Supabase
   useEffect(() => {
     fetchTests();
-  }, []);
+  }, [userDeleted]);
 
   async function fetchTests() {
     setLoading(true);
@@ -87,7 +89,7 @@ function PremiumDahsboard({}: Props) {
     }
   }
 
-  async function createTest(title: string, content: string, subject: string) {
+  async function createTest(title: string, content: string) {
     if (!title.trim() || !content.trim()) {
       setError("Title and content are required");
       return;
@@ -107,9 +109,8 @@ function PremiumDahsboard({}: Props) {
         {
           title,
           content,
-          subject,
+          //::TODO: add this subject here into test table   subject,
           authorid: user.id,
-          created_at: new Date().toISOString(),
         },
       ]);
 

@@ -82,7 +82,10 @@ export default function PremiumPage() {
                 </a>
                 <a className="btn btn-ghost btn-sm">Docs</a>
 
-                <button onClick={handleLogout} className="bg-black">
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-neutral btn-sm"
+                >
                   Logout
                 </button>
               </div>
