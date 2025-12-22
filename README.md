@@ -12,6 +12,8 @@ Ein kompletter **Next.js Full-Stack** Test-Generator mit:
 - 🧠 **ML Model** für Schwierigkeitsprediction (experimentell)
 - 🔐 **Supabase Auth** mit geschützten Routes & Session Management
 - 💎 **Premium-Bereich** mit Stripe-Integration (in Arbeit)
+  - 📈 Analytics Dashboard (DB-Queries: Tests pro User, Statistiken)
+  - 🎯 User-spezifische Daten aus PostgreSQL fetchen & anzeigen
 - 📊 **PostgreSQL DB** für User & Tests
 - 🎨 **Responsive UI** (Tailwind, DaisyUI)
 
