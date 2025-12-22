@@ -216,11 +216,11 @@ function PremiumDahsboard({}: Props) {
         </div>
       </div>
 
-      <div className="bg-base-100 border-base-200 rounded-xl border p-6 shadow-xl">
+      <div className="rounded-xl border border-white/20 bg-white/10 p-6 shadow-xl backdrop-blur-xl dark:bg-black/10">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
           <aside className="col-span-12 md:col-span-2">
-            <div className="rounded-xl bg-gradient-to-b from-[#FF705B] to-[#FFB457] p-3 text-white shadow-md">
+            <div className="rounded-xl bg-gradient-to-b from-[#FF705B]/90 to-[#FFB457]/90 p-3 text-white shadow-md backdrop-blur-sm">
               <div className="mb-4 flex items-center justify-center">
                 <div className="text-lg font-semibold">Crack</div>
                 <div className="ml-1 bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text font-semibold text-transparent">
@@ -253,14 +253,14 @@ function PremiumDahsboard({}: Props) {
           {/* Main */}
           <main className="col-span-12 md:col-span-7">
             <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="transform rounded-xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] p-4 text-white shadow transition hover:scale-105 hover:shadow-2xl">
+              <div className="transform rounded-xl border border-white/20 bg-gradient-to-r from-[#FF705B]/90 to-[#FFB457]/90 p-4 text-white shadow backdrop-blur-sm transition hover:scale-105 hover:shadow-2xl">
                 <div className="text-sm">Total Tests</div>
                 <div className="text-2xl font-bold">{tests.length}</div>
                 <div className="text-xs opacity-80">
                   since your account creation
                 </div>
               </div>
-              <div className="bg-base-100 transform rounded-xl border p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+              <div className="transform rounded-xl border border-white/20 bg-white/40 p-4 shadow-sm backdrop-blur-md transition hover:-translate-y-1 hover:shadow-md dark:bg-black/20">
                 <div className="text-sm">Active Users</div>
                 <div className="text-2xl font-bold">1,254</div>
                 <div className="text-xs opacity-80">last 30 days</div>
@@ -273,7 +273,7 @@ function PremiumDahsboard({}: Props) {
               </div>
             )}
 
-            <section className="bg-base-100 rounded-xl border p-4 shadow-sm transition hover:shadow-lg">
+            <section className="rounded-xl border border-white/20 bg-white/30 p-4 shadow-sm backdrop-blur-lg transition hover:shadow-lg dark:bg-black/20">
               {displayData === "Dashboard" ? (
                 <div className="mb-3 flex items-center justify-between">
                   <h3 className="text-lg font-medium">Recent Tests</h3>
