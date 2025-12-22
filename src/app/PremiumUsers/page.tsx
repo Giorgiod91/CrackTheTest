@@ -1,15 +1,16 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { LifeBuoy, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
-import type { User } from "@supabase/supabase-js";
+import { AuthClient, type User } from "@supabase/supabase-js";
 import CreateDbUser from "../_components/CreateDbUser";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 type Props = {};
 export default function PremiumPage() {
+  const [member, setMember] = useState<string>("");
   // const [user, setUser] = useState<User | null>(null);
   /*
   useEffect(() => {
@@ -25,6 +26,22 @@ export default function PremiumPage() {
   const supabase = getSupabaseBrowserClient();
   // initialize  router
   const router = useRouter();
+
+  // this function i fetch the User data then i set it to the members state to display the name on the screen
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+      } else {
+        setMember(user?.email || "");
+      }
+    };
+    fetchUser();
+  }, []);
 
   //  function to logout the user
 
@@ -50,7 +67,7 @@ export default function PremiumPage() {
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <h1 className="text-4xl font-extrabold md:text-5xl">
-                Welcome back, Premium member
+                Welcome back, {member}
               </h1>
               <p className="mt-2 max-w-xl text-lg opacity-90">
                 You have access to advanced AI models, priority support and team
