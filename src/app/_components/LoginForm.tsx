@@ -31,15 +31,7 @@ export default function LoginForm({ user }: LoginFormProps) {
 
     try {
       if (mode === "signup") {
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-        if (signUpError) {
-          setError(signUpError.message);
-        } else {
-          setStatus("Check your email for the login link!");
-        }
+        router.push("/signup");
       } else {
         const { data, error: signInError } =
           await supabase.auth.signInWithPassword({
@@ -165,7 +157,7 @@ export default function LoginForm({ user }: LoginFormProps) {
                     Noch kein Account?{" "}
                     <button
                       type="button"
-                      onClick={() => setMode("signup")}
+                      onClick={() => router.push("/auth/signup")}
                       className="link link-primary font-medium"
                     >
                       Hier registrieren
