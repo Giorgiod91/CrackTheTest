@@ -1,48 +1,47 @@
-# 🚀 CrackTheTest.ai
-
 **Full-Stack AI-Test-Generator** | [Live Demo](https://crack-the-test.vercel.app/)
 
----
-<img width="1257" height="1023" alt="Screenshot 2025-12-23 110045" src="https://github.com/user-attachments/assets/0979c506-d164-4863-ac77-1c17705783ea" />
+Erstelle personalisierte Tests mit OpenAI und lass die Schwierigkeit automatisch vorhersagen – mit eigener Full-Stack-Architektur und Premium-Features.
 
-## Premium bereich mit Dashboard fuer Premium users
+### Was ich gebaut habe
 
-## Was ich gebaut habe
+Ein komplettes SaaS-ähnliches Projekt mit:
 
-Ein kompletter **Next.js Full-Stack** Test-Generator mit:
+- 🤖 **OpenAI API** für automatisierte Fragengenerierung
+- 🧠 **ML-Modell** (experimentell) zur Schwierigkeitsprediction
+- 🔐 **Supabase Auth** (E-Mail/Passwort) mit geschützten Routen & Session-Management
+- 💎 **Premium-Bereich** mit Stripe Payment Links (Free → Pro Upgrade)
+  - Status-Wechsel in DB (free → pro)
+  - Stripe Webhooks für Zahlungsbestätigung
+- 📊 **PostgreSQL DB** (Supabase) mit User-spezifischen Daten
+  - Row Level Security (RLS) für sichere Datenisolierung
+  - Mehrere Tabellen fetchen & joinen (z. B. Tests + User)
+- 🎨 **Responsive UI** mit Next.js, Tailwind CSS & DaisyUI
+- **Next.js Server Actions** & API Routes für DB-Verbindung & Logik
+  - User existiert checken, Daten filtern, Auth prüfen
 
-- 🤖 **OpenAI API** für automatische Fragengenerierung
-- 🧠 **ML Model** für Schwierigkeitsprediction (experimentell)
-- 🔐 **Supabase Auth** mit geschützten Routes & Session Management
-- 💎 **Premium-Bereich** mit Stripe-Integration (in Arbeit)
-  - 📈 Analytics Dashboard (DB-Queries: Tests pro User, Statistiken)
-  - 🎯 User-spezifische Daten aus PostgreSQL fetchen & anzeigen
-- 📊 **PostgreSQL DB** für User & Tests
-- 🎨 **Responsive UI** (Tailwind, DaisyUI)
+### Tech Stack & Gelerntes
 
----
+- Next.js (App Router, Server Actions, API Routes)
+- React, TypeScript, Tailwind CSS, DaisyUI
+- Supabase (Auth, DB, RLS, Row Level Security)
+- Stripe (Payment Links, Webhooks, Status-Wechsel)
+- Full-Stack: Frontend → Backend → DB-Verbindung mit Auth & Sicherheit
 
-## Tech Stack & Skills
+### Premium Dashboard (Video-Demo)
 
-**Full-Stack:** Next.js App Router, Server Actions, API Routes  
-**Backend:** Server Components, Middleware, `lib/supabase/server.ts` & `client.ts`  
-**Auth:** Supabase Auth, Session Cookies, Protected Routes  
-**Database:** PostgreSQL (Supabase)  
-**Frontend:** TypeScript, Tailwind CSS, DaisyUI  
-**Deployment:** Vercel
+https://github.com/user-attachments/assets/b581cb41-fef7-4eb4-a75a-f8c0b81f3c91
 
----
+### Wichtigstes Gelerntes durch das Projekt
 
-## Demo & Screenshots
+- RLS & Auth in Supabase (sichere User-Datenisolierung)
+- Stripe Webhooks & Zahlungsstatus in DB
+- Next.js Server Actions für sichere DB-Abfragen
+- User existiert prüfen, Daten filtern & joinen
+- Geschützte Routen & Session-Management
 
-### Login & Auth Flow
+### Demo & Links
 
-![Premium Dashboard](https://github.com/user-attachments/assets/81934d99-8b7a-44aa-aa72-30ac951823d8)
-
-**Video-Demos:**
-
-- Login/Signup Flow
-- Premium Dashboard
-- Test-Generierung
-
----
+- Live: https://crack-the-test.vercel.app/
+- GitHub Frontend: https://github.com/Giorgiod91/CrackTheTest
+- GitHub Backend: https://github.com/Giorgiod91/CrackTheTest-Backend-With-ML
+- Portfolio: https://www.giorgiodettmar.com/
