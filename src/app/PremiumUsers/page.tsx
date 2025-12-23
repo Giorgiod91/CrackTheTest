@@ -53,7 +53,7 @@ export default function PremiumPage() {
       setUsername(data?.username || "");
 
       console.log("Fetched user data:", data);
-      setPremiumdata(data?.is_premium || false);
+      setPremiumdata(data?.premium || false);
     };
     fetchUser();
   }, [router]);
