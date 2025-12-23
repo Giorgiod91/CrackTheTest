@@ -3,6 +3,9 @@
 **Full-Stack AI-Test-Generator** | [Live Demo](https://crack-the-test.vercel.app/)
 
 ---
+<img width="1257" height="1023" alt="Screenshot 2025-12-23 110045" src="https://github.com/user-attachments/assets/0979c506-d164-4863-ac77-1c17705783ea" />
+
+## Premium bereich mit Dashboard fuer Premium users
 
 ## Was ich gebaut habe
 
