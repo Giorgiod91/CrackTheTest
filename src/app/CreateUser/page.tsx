@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 import React, { useEffect } from "react";
 import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 import PremiumDahsboard from "../_components/PremiumDahsboard";
@@ -18,3 +18,5 @@ export default function PremiumPage() {
     </div>
   );
 }
+
+*/
