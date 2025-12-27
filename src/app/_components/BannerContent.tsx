@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState } from "react";
 import Typewriter from "./Typewriter";
@@ -51,3 +51,4 @@ function BannerContent() {
 }
 
 export default BannerContent;
+*/
