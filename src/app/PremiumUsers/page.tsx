@@ -5,10 +5,16 @@ import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { LifeBuoy, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AuthClient, type User } from "@supabase/supabase-js";
-import CreateDbUser from "../_components/CreateDbUser";
+
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-type Props = {};
+interface UserData {
+  username?: string;
+  premium?: boolean;
+  real_member_id?: string;
+  [key: string]: unknown;
+}
+
 export default function PremiumPage() {
   const [member, setMember] = useState<string>("");
   const [premiumdata, setPremiumdata] = useState<boolean>(false);
@@ -49,31 +55,37 @@ export default function PremiumPage() {
   // this function i fetch the User data then i set it to the members state to display the name on the screen
   useEffect(() => {
     const fetchUser = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      if (!user) {
-        return;
+      try {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+        if (!user || error) {
+          return;
+        }
+
+        const { data, error: fetchError } = await supabase
+          .from("users")
+          .select("*")
+          .eq("real_member_id", user.id)
+          .maybeSingle();
+
+        if (fetchError) {
+          console.error("Error fetching user data:", fetchError);
+          return;
+        }
+
+        const userData = data as UserData | null;
+        setUsername(userData?.username ?? "");
+        console.log("Fetched user data:", userData);
+        setPremiumdata(userData?.premium ?? false);
+      } catch (error) {
+        console.error("Error in fetchUser:", error);
       }
-
-      const { data, error: fetchError } = await supabase
-        .from("users")
-        .select("*")
-        .eq("real_member_id", user.id)
-        .maybeSingle();
-
-      if (fetchError) {
-        console.error("Error fetching user data:", fetchError);
-        return;
-      }
-      setUsername(data?.username || "");
-
-      console.log("Fetched user data:", data);
-      setPremiumdata(data?.premium || false);
     };
-    fetchUser();
-  }, [router]);
+
+    void fetchUser();
+  }, [router, supabase]);
 
   //  function to logout the user
 

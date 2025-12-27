@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Check, Zap, Crown, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-type Props = {};
-
-export default function ManageSubscription({}: Props) {
+export default function ManageSubscription() {
   const [selectedPlan, setSelectedPlan] = useState<string>("pro");
   const [userEmail, setUserEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
@@ -15,29 +13,8 @@ export default function ManageSubscription({}: Props) {
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
 
-  // Check if user is logged in
-  useEffect(() => {
-    const checkAuth = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.push("/auth/login");
-        return;
-      }
-
-      // User is logged in
-      await getUserData();
-      console.log("User is logged in:", user);
-      setIsLoading(false);
-    };
-
-    checkAuth();
-  }, [router, supabase]);
-
   // get user data from supabase
-  async function getUserData() {
+  const getUserData = useCallback(async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -57,9 +34,34 @@ export default function ManageSubscription({}: Props) {
       console.error("Error fetching user email:", error);
       return null;
     }
-    setUserEmail(data?.email || "");
+    setUserEmail(data?.email ?? "");
     return data;
-  }
+  }, [supabase]);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        router.push("/auth/login");
+        return;
+      }
+
+      // User is logged in
+      try {
+        await getUserData();
+      } catch (error) {
+        console.error("Error getting user data:", error);
+      }
+      console.log("User is logged in:", user);
+      setIsLoading(false);
+    };
+
+    void checkAuth();
+  }, [router, supabase, getUserData]);
 
   const plans = [
     {

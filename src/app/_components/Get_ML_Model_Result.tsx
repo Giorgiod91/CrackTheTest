@@ -3,34 +3,44 @@
 import React, { useState } from "react";
 import type { input } from "zod";
 
-type Props = {};
+interface MLResult {
+  label: string;
+  probability: number;
+}
 
-function Get_ML_Model_Result({}: Props) {
+function Get_ML_Model_Result() {
   const [user_input, setUser_input] = useState("");
   const beispiel = [
     "Erstelle mir einen Ausbildungs Eignungstest von VW fuer Fachinformatiker Anwendugsentwicklung",
   ];
-  const [results, setResults] = useState<{
-    label: string;
-    probability: number;
-  }>();
-  const [error, setError] = useState(null);
+  const [results, setResults] = useState<MLResult>();
+  const [error, setError] = useState<string | null>(null);
   // function to send the input to the backend so POST method
   const send_data = async (user_input: string) => {
-    const response = await fetch("http://localhost:8000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: user_input,
-      }),
-    });
-    if (!response) {
-      throw new Error("Error retrieving data");
+    try {
+      setError(null);
+      const response = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: user_input,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = (await response.json()) as MLResult;
+      setResults(data);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Unknown error occurred";
+      setError(errorMessage);
+      console.error("Error fetching ML prediction:", err);
     }
-    const data = await response.json();
-    setResults(data);
   };
 
   return (
