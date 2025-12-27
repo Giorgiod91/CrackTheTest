@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object;
     const email = session.customer_details?.email ?? "unknown";
     const amount = (session.amount_total ?? 0) / 100;
 
@@ -44,11 +44,11 @@ export async function POST(req: Request) {
 
     if (error || !user) {
       console.log(`USER NOT FOUND: Creating user for ${email}`);
-      const { data: newUser, error: insertError } = await supabase
+      const { data: newUser, error: insertError } = (await supabase
         .from("users")
         .insert({ email, premium: true })
         .select()
-        .single();
+        .single()) as { data: any; error: any };
 
       if (insertError) {
         console.log(`DB ERROR: Could not create user for ${email}`);
