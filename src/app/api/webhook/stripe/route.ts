@@ -34,7 +34,7 @@ export async function POST(req: Request) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object;
     const email = session.customer_details?.email ?? "unknown";
     const amount = (session.amount_total ?? 0) / 100;
 
