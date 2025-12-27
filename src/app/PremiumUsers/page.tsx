@@ -75,7 +75,7 @@ export default function PremiumPage() {
           return;
         }
 
-        const userData = data as UserData | null;
+        const userData = data;
         setUsername(userData?.username ?? "");
         console.log("Fetched user data:", userData);
         setPremiumdata(userData?.premium ?? false);
