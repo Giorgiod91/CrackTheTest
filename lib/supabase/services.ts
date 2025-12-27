@@ -5,7 +5,7 @@ type ErrorMessage = string;
 // trying to build out a class instead of reusing all the fetch methods all over the app again
 
 class SuperBaseService {
-    async function fetchData(Userid: Number || NULL){
+    async function fetchData(Userid: number | null){
         const my_error : ErrorMessage = "No authenticated !!"
 
         const supabase = getSupabaseBrowserClient();
