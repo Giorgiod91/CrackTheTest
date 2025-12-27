@@ -69,50 +69,139 @@ function Firmen() {
     { name: "Siemens", src: "/Siemens.png" },
   ];
   return (
-    <div className="flex flex-col items-center justify-center space-y-8 rounded-2xl bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 py-16 shadow-2xl">
-      <div className="sapce-y-2 text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-          Übe für Firmen Einstellungstests
-        </h1>
-        <p className="text-sm text-black/90">
-          übe speziell nach Beruf und Firma
-        </p>
-      </div>
-
-      {/* Logos */}
-      <div className="animate-scroll mt-6 flex flex-row flex-wrap justify-center gap-8">
-        {logos.map((logo, i) => (
-          <div
-            key={i}
-            className="relative h-16 w-32 p-2 backdrop-blur-md transition-transform duration-300 hover:scale-105"
-          >
-            <Image
-              src={logo.src}
-              alt={logo.name}
-              title={logo.name}
-              fill
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Arrow Features */}
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
-        {arrowContentCompanies.map((arrow, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: -44 }}
+    <section className="bg-base-100 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="text-center">
+          <motion.h2
+            className="text-base-content text-4xl font-extrabold tracking-tight sm:text-5xl"
+            initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            className="flex items-center gap-2 rounded-2xl bg-[#2B2B3C]/80 p-4 shadow-lg backdrop-blur-md transition-discrete hover:scale-105 hover:border-[#FF705B] hover:shadow-xl"
+            transition={{ duration: 0.6 }}
           >
-            {arrow.arrow}
-            <p className="text-sm font-semibold text-white">{arrow.line}</p>
+            Übe für{" "}
+            <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
+              Firmen
+            </span>{" "}
+            Einstellungstests
+          </motion.h2>
+          <motion.p
+            className="mt-6 text-lg text-neutral-600 dark:text-neutral-300"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Übe speziell nach Beruf und Firma – mit KI-generierten Tests für
+            Top-Unternehmen
+          </motion.p>
+        </div>
+
+        {/* Company Logos */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-16"
+        >
+          <p className="text-base-content/60 mb-8 text-center text-xs tracking-widest uppercase">
+            Vertraut von führenden Unternehmen
+          </p>
+          <div className="relative overflow-hidden">
+            <div className="animate-scroll flex gap-8">
+              {/* First set of logos */}
+              {logos.map((logo, i) => (
+                <div
+                  key={i}
+                  className="group bg-base-200/40 hover:bg-base-200/60 relative flex h-16 w-32 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 p-4 backdrop-blur transition hover:border-orange-300/30"
+                >
+                  <div className="relative h-8 w-20 opacity-70 transition-opacity group-hover:opacity-100">
+                    <Image
+                      src={logo.src}
+                      alt={logo.name}
+                      title={logo.name}
+                      fill
+                      style={{ objectFit: "contain" }}
+                      className="grayscale filter transition-all duration-300 group-hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {logos.map((logo, i) => (
+                <div
+                  key={`duplicate-${i}`}
+                  className="group bg-base-200/40 hover:bg-base-200/60 relative flex h-16 w-32 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 p-4 backdrop-blur transition hover:border-orange-300/30"
+                >
+                  <div className="relative h-8 w-20 opacity-70 transition-opacity group-hover:opacity-100">
+                    <Image
+                      src={logo.src}
+                      alt={logo.name}
+                      title={logo.name}
+                      fill
+                      style={{ objectFit: "contain" }}
+                      className="grayscale filter transition-all duration-300 group-hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        <style jsx>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-100%);
+            }
+          }
+
+          .animate-scroll {
+            animation: scroll 20s linear infinite;
+            width: calc(256px * ${logos.length});
+          }
+
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        {/* Features */}
+        <div className="mt-16 flex flex-wrap justify-center gap-6">
+          {arrowContentCompanies.map((arrow, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-4 shadow-lg backdrop-blur-md transition hover:border-black/80 hover:shadow-xl hover:shadow-orange-300/40 dark:shadow-indigo-700/20"
+            >
+              {arrow.arrow}
+              <p className="text-base-content text-sm font-semibold">
+                {arrow.line}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <a
+              href="#price"
+              className="btn bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-6 py-3 text-lg font-semibold shadow-xl transition-transform duration-200 hover:scale-105 hover:brightness-110"
+            >
+              Firmentests starten 🏢
+            </a>
           </motion.div>
-        ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
