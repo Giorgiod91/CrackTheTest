@@ -68,7 +68,7 @@ export default function PremiumPage() {
           .from("users")
           .select("*")
           .eq("real_member_id", user.id)
-          .maybeSingle();
+          .maybeSingle<UserData>();
 
         if (fetchError) {
           console.error("Error fetching user data:", fetchError);

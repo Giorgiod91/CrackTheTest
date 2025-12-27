@@ -28,8 +28,8 @@ export default function ManageSubscription() {
     const { data, error } = await supabase
       .from("users")
       .select("email")
-      .eq("real_member_id", user?.id)
-      .maybeSingle();
+      .eq("real_member_id", user.id)
+      .maybeSingle<{ email: string | null }>();
     if (error) {
       console.error("Error fetching user email:", error);
       return null;
