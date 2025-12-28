@@ -13,6 +13,29 @@ export default function ManageSubscription() {
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
 
+  // get user data from supabase
+  const getUserData = React.useCallback(async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return null;
+
+    const { data, error } = await supabase
+      .from("users")
+      .select("email")
+      .eq("real_member_id", user.id)
+      .maybeSingle<{ email: string | null }>();
+
+    if (error) {
+      console.error("Error fetching user email:", error);
+      return null;
+    }
+
+    setUserEmail(data?.email ?? "");
+    return data;
+  }, [supabase]);
+
   // Check if user is logged in
   useEffect(() => {
     const checkAuth = async () => {
@@ -31,33 +54,8 @@ export default function ManageSubscription() {
       setIsLoading(false);
     };
 
-    checkAuth();
-  }, [router, supabase]);
-
-  // get user data from supabase
-  async function getUserData() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      console.error("No user logged in");
-      return null;
-    }
-
-    // also get the user email so i can prefill the stripe checkout
-    const { data, error } = await supabase
-      .from("users")
-      .select("email")
-      .eq("real_member_id", user?.id)
-      .maybeSingle();
-    if (error) {
-      console.error("Error fetching user email:", error);
-      return null;
-    }
-    setUserEmail(data?.email ?? "");
-    return data;
-  }
+    void checkAuth();
+  }, [router, supabase, getUserData]);
 
   const plans = [
     {

@@ -50,29 +50,32 @@ export default function PremiumPage() {
     const fetchUser = async () => {
       const {
         data: { user },
-        error,
       } = await supabase.auth.getUser();
-      if (!user) {
-        return;
-      }
 
-      const { data, error: fetchError } = await supabase
+      if (!user) return;
+
+      type DbUser = {
+        username: string | null;
+        premium: boolean | null;
+      };
+
+      const { data, error } = await supabase
         .from("users")
-        .select("*")
+        .select("username, premium")
         .eq("real_member_id", user.id)
-        .maybeSingle();
+        .maybeSingle<DbUser>();
 
-      if (fetchError) {
-        console.error("Error fetching user data:", fetchError);
+      if (error) {
+        console.error("Error fetching user data:", error);
         return;
       }
-      setUsername(data?.username ?? "");
 
-      console.log("Fetched user data:", data);
+      setUsername(data?.username ?? "");
       setPremiumdata(data?.premium ?? false);
     };
-    fetchUser();
-  }, [router]);
+
+    void fetchUser();
+  }, [supabase]);
 
   //  function to logout the user
 

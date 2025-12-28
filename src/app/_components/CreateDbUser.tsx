@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 
-type Props = {};
+type CreateUserResponse = {
+  message?: string;
+  error?: string;
+};
 
-export default function CreateDbUser({}: Props) {
+export default function CreateDbUser() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("");
 
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const response = await fetch("http://127.0.0.1:8000/create-new-user/", {
         method: "POST",
@@ -17,17 +21,19 @@ export default function CreateDbUser({}: Props) {
         },
         body: JSON.stringify({ email, username }),
       });
-      const data = await response.json();
+
+      const data: CreateUserResponse = await response.json();
 
       if (response.ok) {
-        setStatus("User succecsfull created!");
+        setStatus(data.message ?? "User successfully created!");
       } else {
-        setStatus("error couldnt create user!");
+        setStatus(data.error ?? "Error: couldn't create user!");
       }
     } catch (err) {
-      setStatus("connection error with backend!");
+      setStatus("Connection error with backend!");
     }
   };
+
   return (
     <div>
       <form onSubmit={handleCreateUser}>
@@ -39,10 +45,10 @@ export default function CreateDbUser({}: Props) {
           required
         />
         <input
-          type="name"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="welchen username"
+          placeholder="Welcher Username?"
           required
         />
         <button type="submit">User anlegen</button>
