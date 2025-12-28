@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState } from "react";
 import type { input } from "zod";
@@ -70,3 +70,6 @@ function Get_ML_Model_Result({}: Props) {
 }
 
 export default Get_ML_Model_Result;
+
+
+*/ // for later use
