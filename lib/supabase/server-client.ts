@@ -28,7 +28,7 @@ export async function createSupabaseServerClient() {
         return cookieStore.getAll();
       },
       // update those cookies
-      setAll(cookiesToSet: any[]) {
+      setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) => {
             cookieStore.set({ name, value, ...options });

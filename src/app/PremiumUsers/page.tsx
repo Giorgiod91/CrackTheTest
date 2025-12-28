@@ -1,6 +1,6 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
-import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
+
 import PremiumDahsboard from "../_components/PremiumDahsboard";
 import { LifeBuoy, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,6 @@ import { AuthClient, type User } from "@supabase/supabase-js";
 import CreateDbUser from "../_components/CreateDbUser";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-type Props = {};
 export default function PremiumPage() {
   const [member, setMember] = useState<string>("");
   const [premiumdata, setPremiumdata] = useState<boolean>(false);
@@ -67,10 +66,10 @@ export default function PremiumPage() {
         console.error("Error fetching user data:", fetchError);
         return;
       }
-      setUsername(data?.username || "");
+      setUsername(data?.username ?? "");
 
       console.log("Fetched user data:", data);
-      setPremiumdata(data?.premium || false);
+      setPremiumdata(data?.premium ?? false);
     };
     fetchUser();
   }, [router]);
