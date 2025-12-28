@@ -1,4 +1,4 @@
-import { getSupabaseBrowserClient } from "./browser-client";
+/*import { getSupabaseBrowserClient } from "./browser-client";
 
 type ErrorMessage = string;
 
@@ -26,3 +26,5 @@ class SuperBaseService {
     fetchData(Userid);
 
     }
+
+    */
