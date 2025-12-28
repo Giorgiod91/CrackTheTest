@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 import React, { useEffect, useState } from "react";
 
 function CreateTest() {
@@ -70,3 +70,6 @@ function CreateTest() {
 }
 
 export default CreateTest;
+
+
+*/ // will use this route maybe later  isntead of build in nextjs api routes

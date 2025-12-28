@@ -4,9 +4,7 @@ import { Check, Zap, Crown, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-type Props = {};
-
-export default function ManageSubscription({}: Props) {
+export default function ManageSubscription() {
   const [selectedPlan, setSelectedPlan] = useState<string>("pro");
   const [userEmail, setUserEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +55,7 @@ export default function ManageSubscription({}: Props) {
       console.error("Error fetching user email:", error);
       return null;
     }
-    setUserEmail(data?.email || "");
+    setUserEmail(data?.email ?? "");
     return data;
   }
 

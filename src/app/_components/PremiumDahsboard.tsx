@@ -11,7 +11,7 @@ import {
   Bell,
   PlusCircle,
 } from "lucide-react";
-import CreateTest from "./CreateTest";
+
 import {
   BarChart,
   Bar,
@@ -24,8 +24,6 @@ import {
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { boolean } from "zod";
 
-type Props = {};
-
 type Test = {
   id: string;
   title: string;
@@ -35,7 +33,7 @@ type Test = {
   subject?: string;
 };
 
-function PremiumDahsboard({}: Props) {
+function PremiumDahsboard() {
   const [tests, setTests] = useState<Test[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -54,7 +52,7 @@ function PremiumDahsboard({}: Props) {
 
   // Fetch tests from Supabase
   useEffect(() => {
-    fetchTests();
+    void fetchTests();
   }, [userDeleted]);
 
   async function fetchTests() {
