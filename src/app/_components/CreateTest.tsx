@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../../utils/supabase/client";
 
 function CreateTest() {
   const [title, setTitle] = useState("");
