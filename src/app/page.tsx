@@ -6,7 +6,6 @@ import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
 import Tutorial from "./_components/Tutorial";
-import BannerContent from "./_components/BannerContent";
 
 import Forfun from "./_components/Forfun";
 import BannerLeft from "./_components/BannerLeft";
