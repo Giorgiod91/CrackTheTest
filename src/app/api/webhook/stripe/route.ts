@@ -32,10 +32,8 @@ export async function POST(req: Request) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
-
-    const email = session.customer_details?.email ?? "unknown";
-    const amount = (session.amount_total ?? 0) / 100;
+    const email = event.data.object.customer_details?.email ?? "unknown";
+    const amount = (event.data.object.amount_total ?? 0) / 100;
 
     const { data: user, error } = await supabase
       .from("users")
