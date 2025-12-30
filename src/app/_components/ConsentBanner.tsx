@@ -39,7 +39,7 @@ function ConsentBanner() {
       {consentGiven && (
         <>
           <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-XXXXX"
+            src="https://www.googletagmanager.com/gtag/js?id=G-5FGM5E8TL2"
             strategy="afterInteractive"
           />
           <Script id="gtag-init" strategy="afterInteractive">
