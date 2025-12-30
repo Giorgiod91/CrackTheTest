@@ -84,7 +84,7 @@ const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
 // color  from-[#FF705B] to-[#FFB457]
 function LandingPage() {
   return (
-    <section className="bg-base-100 py-20 sm:py-28">
+    <section className="bg-base-100 sm:py-28">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2 lg:items-center lg:gap-24 lg:px-8">
         {/* Left Content */}
         <div className="space-y-6">

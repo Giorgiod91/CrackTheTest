@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { AuthClient, type User } from "@supabase/supabase-js";
 import CreateDbUser from "../_components/CreateDbUser";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import ConsentBanner from "../_components/ConsentBanner";
 
 export default function PremiumPage() {
   const [member, setMember] = useState<string>("");
@@ -91,7 +92,7 @@ export default function PremiumPage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Hero */}
+      {/* Hero */} <ConsentBanner />
       <div className="mx-auto max-w-7xl p-6">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FF705B] via-[#FF8C73] to-[#FFB457] p-10 text-white shadow-2xl">
           <div className="absolute -top-20 -right-20 h-64 w-64 animate-pulse rounded-full bg-white/20 opacity-40 blur-3xl" />
