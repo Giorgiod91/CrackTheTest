@@ -1,24 +1,23 @@
 # 🚀 CrackTheTest.ai
 
-**Full-Stack AI-Test-Generator** | [Live Demo](https://crack-the-test.vercel.app/)
+**Full-Stack AI Test Generator** | [Live Demo](https://crack-the-test.vercel.app/)
 
 ---
-<img width="1257" height="1023" alt="Screenshot 2025-12-23 110045" src="https://github.com/user-attachments/assets/0979c506-d164-4863-ac77-1c17705783ea" />
 
-## Premium bereich mit Dashboard fuer Premium users
+## Premium Area – Dashboard for Premium Users
 
-## Was ich gebaut habe
+## What I Built
 
-Ein kompletter **Next.js Full-Stack** Test-Generator mit:
+A complete **Next.js full-stack** test generator featuring:
 
-- 🤖 **OpenAI API** für automatische Fragengenerierung
-- 🧠 **ML Model** für Schwierigkeitsprediction (experimentell)
-- 🔐 **Supabase Auth** mit geschützten Routes & Session Management
-- 💎 **Premium-Bereich** mit Stripe-Integration (in Arbeit)
-  - 📈 Analytics Dashboard (DB-Queries: Tests pro User, Statistiken)
-  - 🎯 User-spezifische Daten aus PostgreSQL fetchen & anzeigen
-- 📊 **PostgreSQL DB** für User & Tests
-- 🎨 **Responsive UI** (Tailwind, DaisyUI)
+- 🤖 **OpenAI API** for automatic question generation
+- 🧠 **ML model** for difficulty prediction (experimental)
+- 🔐 **Supabase Auth** with protected routes & session management
+- 💎 **Premium area** with Stripe integration (in progress)
+  - 📈 Analytics dashboard (DB queries: tests per user, statistics)
+  - 🎯 User-specific data fetched from PostgreSQL
+- 📊 **PostgreSQL database** for users & tests
+- 🎨 **Responsive UI** (Tailwind CSS, DaisyUI)
 
 ---
 
@@ -26,7 +25,7 @@ Ein kompletter **Next.js Full-Stack** Test-Generator mit:
 
 **Full-Stack:** Next.js App Router, Server Actions, API Routes  
 **Backend:** Server Components, Middleware, `lib/supabase/server.ts` & `client.ts`  
-**Auth:** Supabase Auth, Session Cookies, Protected Routes  
+**Auth:** Supabase Auth, session cookies, protected routes  
 **Database:** PostgreSQL (Supabase)  
 **Frontend:** TypeScript, Tailwind CSS, DaisyUI  
 **Deployment:** Vercel
@@ -35,14 +34,18 @@ Ein kompletter **Next.js Full-Stack** Test-Generator mit:
 
 ## Demo & Screenshots
 
-### Login & Auth Flow
+### Login & Authentication Flow
 
-![Premium Dashboard](https://github.com/user-attachments/assets/81934d99-8b7a-44aa-aa72-30ac951823d8)
-
-**Video-Demos:**
-
-- Login/Signup Flow
-- Premium Dashboard
-- Test-Generierung
+**Video Demos:**
+- Login / Signup flow
+- Premium dashboard
+- Test generation
 
 ---
+
+## Development Notes
+
+- Focus on clean full-stack architecture and maintainable code
+- UI/UX refined iteratively with a focus on clarity and modern design
+- AI tools were used as support for styling and layout improvements
+- Core application logic, data flow, and architecture were implemented manually
