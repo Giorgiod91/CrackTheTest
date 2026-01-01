@@ -21,18 +21,37 @@ function CreateTest() {
       return;
     }
 
-    // API call to OpenAI
-const response = await openai.responses.create({
-    model: "gpt-5-nano",
-    input: `Create a realistic company-style test for:
-    Title: ${input.title}
-    Subject: ${input.subject}
-    Content: ${input.content}`,
-  });
+    // API call to FastAPI backend
+    try {
+      const response = await fetch("http://localhost:8000/create-test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          subject: subject,
+          content: content,
+        }),
+      });
 
-     // saving the test here
-    let test = resonse.output_text;
-    console.log(test)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // saving the test here
+      let test = data.output_text;
+      console.log(test);
+      
+      // Optional: Handle success (e.g., show message, clear form, etc.)
+      alert("Test created successfully!");
+      
+    } catch (error) {
+      console.error("Error creating test:", error);
+      alert("Failed to create test. Please try again.");
+    }
 
   
 
