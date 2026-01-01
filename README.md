@@ -10,7 +10,7 @@
 
 A complete **Next.js full-stack** test generator featuring:
 
-- 🤖 **OpenAI API** for automatic question generation
+- 🤖 **OpenAI API** for automatic question generation (handled via a separate Python FastAPI backend)
 - 🧠 **ML model** for difficulty prediction (experimental)
 - 🔐 **Supabase Auth** with protected routes & session management
 - 💎 **Premium area** with Stripe integration (in progress)
