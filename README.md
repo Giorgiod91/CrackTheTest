@@ -49,3 +49,4 @@ A complete **Next.js full-stack** test generator featuring:
 - UI/UX refined iteratively with a focus on clarity and modern design
 - AI tools were used as support for styling and layout improvements
 - Core application logic, data flow, and architecture were implemented manually
+- Plans to implement server-side caching to reuse AI results for identical inputs and reduce API calls
