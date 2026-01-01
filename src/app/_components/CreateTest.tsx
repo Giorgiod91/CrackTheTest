@@ -16,30 +16,22 @@ function CreateTest() {
       return;
     }
 
-    const pushTest = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/create_test", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: 1,
-            title: title,
-            subject: subject,
-            content: content,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error("Error creating Test!");
-        }
-        const data = await response.json();
-      } catch (error) {
-        console.log("Error ", error);
-      }
-    };
+    // API call to OpenAI
+    const response = await client.responses.create({
+            model: "gpt-5-nano",
+            input:  `Create a full realistic Test for the users need like a real company Einstellungstest for the topic${title}
+            and content should be about${content} and all of this should prepare the user to work at the company who gives out tests like those`
+    })
 
-    pushTest();
+     // saving the test here
+    let test = resonse.output_text;
+    console.log(test)
+
+  
+
+  
+
+ 
   }
 
   return (
