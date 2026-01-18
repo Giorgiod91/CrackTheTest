@@ -280,7 +280,7 @@ function PremiumDahsboard() {
                 ))}
                 <div className="mt-4 border-t border-white/20 pt-4">
                   <button
-                    onClick={() => setShowCreateModal(true)}
+                    onClick={() => (window.location.href = "/Test_openAi")}
                     className="btn btn-sm w-full gap-2 border-white/30 bg-white/10 text-white transition-all hover:scale-105 hover:bg-white/20"
                   >
                     <PlusCircle size={18} />{" "}
@@ -484,7 +484,7 @@ function PremiumDahsboard() {
               </h4>
               <div className="flex flex-col gap-2.5">
                 <button
-                  onClick={() => setShowCreateModal(true)}
+                  onClick={() => (window.location.href = "/Test_openAi")}
                   className="btn btn-sm border-none bg-gradient-to-r from-[#FF705B] to-[#FFB457] text-white shadow-md transition-transform hover:scale-105"
                 >
                   <PlusCircle size={16} /> Create Test
