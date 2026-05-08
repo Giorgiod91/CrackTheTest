@@ -1,71 +1,49 @@
 "use client";
 import React, { useState } from "react";
-import {
-  LayoutDashboard,
-  Users,
-  Settings,
-  BarChart3,
-  MessageSquare,
-  Calendar,
-  Bell,
-  PlusCircle,
-} from "lucide-react";
+import { Bell } from "lucide-react";
 
-export default function page() {
+interface TestResponse {
+  test_text: string;
+  questions?: string[];
+}
+
+interface PredictionResult {
+  difficulty: string;
+  confidence: number;
+}
+
+export default function CreateTestPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [subject, setSubject] = useState("");
-  // anzahl der Fragen kann der User wahelern aber default ist 20
   const [anzahl, setAnzahl] = useState(20);
-  const [displayData, setDisplayData] = useState<string>("Create Test");
-
-  const [mlprediction, setMlprediction] = useState<
-    Array<{ difficulty: string; confidence: number }>
-  >([]);
-
+  const [mlprediction, setMlprediction] = useState<PredictionResult[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  // the tests that come back from the backend will be saved here for now
   const [test, setTest] = useState<string>("");
 
-  const sendTest = async (title: string, content: string, subject: string) => {
+  const sendTest = async (t: string, s: string, c: string) => {
     try {
-      // Step 1: Get the test from backend
       const response = await fetch("../api/openai/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          subject: subject,
-          content: content,
-          anzahl: anzahl,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: t, subject: s, content: c, anzahl }),
       });
-      if (!response.ok) {
-        throw new Error("Error creating Test");
-      }
-      const data = await response.json();
+      if (!response.ok) throw new Error("Error creating Test");
+
+      const data = (await response.json()) as TestResponse;
       setTest(data.test_text);
 
-      // Step 2: Predict difficulty for each question using the separate API
-      const questions = data.questions || [];
-      const predictions = [];
+      const questions = data.questions ?? [];
+      const predictions: PredictionResult[] = [];
 
       for (const question of questions) {
         const predictionResponse = await fetch("/api/predict-difficulty", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: question,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: question }),
         });
-
         if (predictionResponse.ok) {
-          const prediction = await predictionResponse.json();
+          const prediction = (await predictionResponse.json()) as PredictionResult;
           predictions.push(prediction);
         }
       }
@@ -78,7 +56,6 @@ export default function page() {
 
   return (
     <div className="mx-auto w-full max-w-7xl p-6">
-      {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="bg-gradient-to-r from-[#FF705B] to-[#FFB457] bg-clip-text text-4xl font-bold text-transparent">
@@ -111,9 +88,6 @@ export default function page() {
 
       <div className="rounded-xl border border-white/20 bg-white/10 p-6 shadow-xl backdrop-blur-xl dark:bg-black/10">
         <div className="grid grid-cols-12 gap-6">
-          {/* Sidebar */}
-
-          {/* Main Content */}
           <main className="col-span-12 md:col-span-10">
             <div className="rounded-2xl bg-white p-8 shadow-sm">
               <form className="space-y-6">
@@ -124,9 +98,7 @@ export default function page() {
                   <input
                     type="text"
                     value={title}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setTitle(e.target.value)
-                    }
+                    onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g. Volkswagen Aptitude Test"
                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus:border-[#FF705B] focus:bg-white focus:ring-2 focus:ring-[#FF705B]/20"
                   />
@@ -138,10 +110,8 @@ export default function page() {
                   </label>
                   <input
                     type="text"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setSubject(e.target.value)
-                    }
                     value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. IT Application Development"
                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus:border-[#FF705B] focus:bg-white focus:ring-2 focus:ring-[#FF705B]/20"
                   />
@@ -153,13 +123,12 @@ export default function page() {
                   </label>
                   <textarea
                     value={content}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                      setContent(e.target.value)
-                    }
+                    onChange={(e) => setContent(e.target.value)}
                     placeholder="e.g. Include questions about Java loops, SQL joins, and logical reasoning puzzles."
                     className="min-h-[120px] w-full resize-y rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus:border-[#FF705B] focus:bg-white focus:ring-2 focus:ring-[#FF705B]/20"
                   />
                 </div>
+
                 <div>
                   <div className="mb-2 flex items-center justify-between">
                     <label className="text-sm font-bold text-gray-700">
@@ -174,9 +143,7 @@ export default function page() {
                     min="1"
                     max="100"
                     value={anzahl}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setAnzahl(parseInt(e.target.value))
-                    }
+                    onChange={(e) => setAnzahl(parseInt(e.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#FF705B]"
                   />
                   <div className="mt-1 flex justify-between text-xs text-gray-400">
@@ -225,7 +192,7 @@ export default function page() {
                     </div>
                   </div>
 
-                  {mlprediction && mlprediction.length > 0 && (
+                  {mlprediction.length > 0 && (
                     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
                       <div className="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6">
                         <h2 className="text-2xl font-bold text-gray-900">
@@ -248,15 +215,11 @@ export default function page() {
                                 </div>
                                 <span
                                   className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold tracking-wide uppercase ${
-                                    prediction.difficulty.toLowerCase() ===
-                                      "easy" ||
-                                    prediction.difficulty.toLowerCase() ===
-                                      "leicht"
+                                    prediction.difficulty.toLowerCase() === "easy" ||
+                                    prediction.difficulty.toLowerCase() === "leicht"
                                       ? "bg-green-100 text-green-700"
-                                      : prediction.difficulty.toLowerCase() ===
-                                            "medium" ||
-                                          prediction.difficulty.toLowerCase() ===
-                                            "mittel"
+                                      : prediction.difficulty.toLowerCase() === "medium" ||
+                                          prediction.difficulty.toLowerCase() === "mittel"
                                         ? "bg-yellow-100 text-yellow-700"
                                         : "bg-red-100 text-red-700"
                                   }`}
@@ -270,26 +233,20 @@ export default function page() {
                                 </span>
                                 <span className="text-2xl font-bold text-gray-900">
                                   {(prediction.confidence * 100).toFixed(0)}
-                                  <span className="ml-0.5 text-sm text-gray-400">
-                                    %
-                                  </span>
+                                  <span className="ml-0.5 text-sm text-gray-400">%</span>
                                 </span>
                               </div>
                               <div
                                 className={`absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transform transition-all duration-500 group-hover:scale-x-100 ${
-                                  prediction.difficulty.toLowerCase() ===
-                                    "easy" ||
-                                  prediction.difficulty.toLowerCase() ===
-                                    "leicht"
+                                  prediction.difficulty.toLowerCase() === "easy" ||
+                                  prediction.difficulty.toLowerCase() === "leicht"
                                     ? "bg-green-500"
-                                    : prediction.difficulty.toLowerCase() ===
-                                          "medium" ||
-                                        prediction.difficulty.toLowerCase() ===
-                                          "mittel"
+                                    : prediction.difficulty.toLowerCase() === "medium" ||
+                                        prediction.difficulty.toLowerCase() === "mittel"
                                       ? "bg-yellow-500"
                                       : "bg-red-500"
                                 }`}
-                              ></div>
+                              />
                             </div>
                           ))}
                         </div>

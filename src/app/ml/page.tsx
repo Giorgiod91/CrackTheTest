@@ -1,9 +1,7 @@
 import React from "react";
 import Get_ML_Model_Result from "../_components/Get_ML_Model_Result";
 
-type Props = {};
-
-export default function page({}: Props) {
+export default function MlPage() {
   return (
     <div>
       <h1>predict</h1>

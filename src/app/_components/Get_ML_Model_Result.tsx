@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import type { input } from "zod";
+interface MLResult {
+  label: string;
+  probability: number;
+  difficulty: string;
+  confidence: number;
+}
 
 function Get_ML_Model_Result() {
   const [user_input, setUser_input] = useState("");
   const beispiel = [
     "Erstelle mir einen Ausbildungs Eignungstest von VW fuer Fachinformatiker Anwendugsentwicklung",
   ];
-  const [results, setResults] = useState<{
-    label: string;
-    probability: number;
-    difficulty: string;
-    confidence: number;
-  }>();
+  const [results, setResults] = useState<MLResult>();
   const [error, setError] = useState<string | null>(null);
   // function to send the input to the backend so POST method
   const send_data = async (user_input: string) => {
@@ -30,7 +30,7 @@ function Get_ML_Model_Result() {
       if (!response.ok) {
         throw new Error("Error retrieving data");
       }
-      const data = await response.json();
+      const data = (await response.json()) as MLResult;
       setResults(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
