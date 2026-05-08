@@ -12,7 +12,7 @@ function Get_ML_Model_Result() {
     label: string;
     probability: number;
   }>();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   // function to send the input to the backend so POST method
   const send_data = async (user_input: string) => {
     try {
