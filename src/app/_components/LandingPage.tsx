@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CardStackDemo } from "./CardStacks";
-import { array } from "zod";
 
 const Cards = [
   {
@@ -84,12 +83,20 @@ const secondHalf = Cards.slice(Math.ceil(Cards.length / 2));
 // color  from-[#FF705B] to-[#FFB457]
 function LandingPage() {
   return (
-    <section className="bg-base-100 sm:py-28">
+    <section className="bg-base-100 py-16 sm:py-28">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2 lg:items-center lg:gap-24 lg:px-8">
         {/* Left Content */}
         <div className="space-y-6">
+          <motion.div
+            className="inline-flex items-center gap-2 rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1.5 text-sm font-medium text-orange-400"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            ✨ Powered by GPT-4
+          </motion.div>
           <motion.h1
-            className="text-base-content text-5xl leading-tight font-extrabold tracking-tight sm:text-6xl"
+            className="text-base-content text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -152,8 +159,8 @@ function LandingPage() {
           <CardStackDemo />
         </motion.div>
       </div>
-      {/* made another section with a grid */}
-      <div className="mt-16 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Feature cards grid */}
+      <div className="mx-auto mt-16 grid max-w-7xl grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         {firstHalf.map((item, index) => (
           <motion.div
             initial={{ opacity: 0, x: -100 }}

@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { dimensionValueTypes, easeInOut, motion } from "framer-motion";
-import { Http2ServerRequest } from "http2";
+import { motion } from "framer-motion";
 import {
   Cog6ToothIcon,
   DocumentTextIcon,
@@ -12,34 +11,35 @@ import {
 
 const steps = [
   {
-    icon: <DocumentTextIcon className="h-14 w-14 text-black" />,
-    title: "1. Thema & Ziel wählen",
+    icon: <DocumentTextIcon className="h-10 w-10 text-base-content" />,
+    number: "01",
+    title: "Thema & Ziel wählen",
     description:
       "Wähle das Fachgebiet, die Zielgruppe und das Schwierigkeitsniveau deines Tests.",
   },
   {
-    icon: <Cog6ToothIcon className="h-14 w-14 text-black" />,
-    title: "2. Test generieren",
+    icon: <Cog6ToothIcon className="h-10 w-10 text-base-content" />,
+    number: "02",
+    title: "Test generieren",
     description:
       "Unsere KI erstellt automatisch passende Fragen inklusive Antworten & Lösungen.",
   },
   {
-    icon: <ArrowUpTrayIcon className="h-14 w-14 text-black" />,
-    title: "3. Test teilen oder exportieren",
-    description: "Nutze den Test online oder exportiere ihn als PDF",
+    icon: <ArrowUpTrayIcon className="h-10 w-10 text-base-content" />,
+    number: "03",
+    title: "Teilen oder exportieren",
+    description: "Nutze den Test online oder exportiere ihn als PDF.",
   },
   {
-    icon: <ChartBarIcon className="h-14 w-14 text-black" />,
-    title: "4. Ergebnisse analysieren",
+    icon: <ChartBarIcon className="h-10 w-10 text-base-content" />,
+    number: "04",
+    title: "Ergebnisse analysieren",
     description:
       "Erhalte direkt Feedback & Auswertungen zur Performance – perfekt zur Vorbereitung.",
   },
 ];
-//::TODO:  fix the on click to not move other parts
 
 function Tutorial() {
-  const [hover, setHover] = useState(false);
-  const [selectedStep, setSelectedStep] = useState<number | null>(null);
   return (
     <section className="bg-base-100 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
@@ -65,45 +65,31 @@ function Tutorial() {
           flexibel und schnell.
         </motion.p>
 
-        <div className="">
-          <div className="relative mt-12 flex flex-row items-start justify-center gap-12 p-5">
-            {steps.map((step, index) => (
-              <div key={index} className="relative flex flex-col items-center">
-                <div
-                  onClick={() =>
-                    setSelectedStep(selectedStep === index ? null : index)
-                  }
-                  className="flex cursor-pointer flex-col items-center text-3xl opacity-50 transition"
-                >
-                  {" "}
-                  {index == 0 && (
-                    <div
-                      className="tooltip tooltip-open"
-                      data-tip="Mehr erfahren "
-                    >
-                      {" "}
-                    </div>
-                  )}
-                  <div className="text-5xl">{step.icon}</div>
-                  <p className="text-sm hover:text-amber-100">{step.title}</p>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex flex-col items-start rounded-2xl border border-white/10 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 text-left shadow-lg backdrop-blur-md transition hover:border-orange-400/50 hover:shadow-xl hover:shadow-orange-300/20"
+            >
+              <div className="mb-4 flex w-full items-center justify-between">
+                <div className="rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] p-2.5">
+                  {step.icon}
                 </div>
-
-                {selectedStep === index && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex w-80 cursor-pointer flex-col rounded-2xl border border-black/80 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-5 shadow-xl shadow-orange-300/40 backdrop-blur-md transition dark:shadow-indigo-700/20"
-                  >
-                    <h3 className="text-xl font-semibold">{step.title}</h3>
-                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-                      {step.description}
-                    </p>
-                  </motion.div>
-                )}
+                <span className="text-3xl font-black text-orange-400/20">
+                  {step.number}
+                </span>
               </div>
-            ))}
-          </div>
+              <h3 className="text-base-content text-lg font-semibold">
+                {step.title}
+              </h3>
+              <p className="text-base-content/60 mt-2 text-sm leading-relaxed">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
