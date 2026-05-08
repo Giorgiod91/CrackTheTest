@@ -7,7 +7,7 @@ let interval: ReturnType<typeof setInterval>;
 type Card = {
   id: number;
   name: string;
-  designation: string;
+  designation?: string;
   content: React.ReactNode;
 };
 
