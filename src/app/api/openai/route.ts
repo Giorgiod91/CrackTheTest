@@ -1,8 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+
+interface CreateTestBody {
+  user_id?: number;
+  title: string;
+  content: string;
+  subject: string;
+  anzahl: number;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const data = (await request.json()) as CreateTestBody;
 
     const response = await fetch("http://localhost:8000/create_test", {
       method: "POST",
@@ -10,7 +19,7 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user_id: data.user_id || 1, // TODO: Get from auth session
+        user_id: data.user_id ?? 1,
         title: data.title,
         content: data.content,
         subject: data.subject,
@@ -22,7 +31,7 @@ export async function POST(request: NextRequest) {
       throw new Error(`FastAPI returned ${response.status}`);
     }
 
-    const result = await response.json();
+    const result: unknown = await response.json();
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error:", error);

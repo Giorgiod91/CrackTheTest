@@ -1,23 +1,16 @@
-import Link from "next/link";
-
-import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/app/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
 import Tutorial from "./_components/Tutorial";
-
-import Forfun from "./_components/Forfun";
 import BannerLeft from "./_components/BannerLeft";
 import BannerRight from "./_components/BannerRight";
 import Price from "./_components/Price";
-import Compare from "./_components/Compare";
 import MachineLearning from "./_components/MachineLearning";
 import Companies from "./_components/Firmen";
 import Footer from "./_components/Footer";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
 
   if (session?.user) {

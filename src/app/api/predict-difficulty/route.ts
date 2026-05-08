@@ -1,8 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+
+interface PredictBody {
+  text: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const data = (await request.json()) as PredictBody;
 
     const response = await fetch("http://localhost:8000/predict-difficulty", {
       method: "POST",
@@ -18,7 +23,7 @@ export async function POST(request: NextRequest) {
       throw new Error(`FastAPI returned ${response.status}`);
     }
 
-    const result = await response.json();
+    const result: unknown = await response.json();
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error:", error);
