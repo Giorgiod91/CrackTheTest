@@ -11,6 +11,8 @@ function Get_ML_Model_Result() {
   const [results, setResults] = useState<{
     label: string;
     probability: number;
+    difficulty: string;
+    confidence: number;
   }>();
   const [error, setError] = useState<string | null>(null);
   // function to send the input to the backend so POST method
