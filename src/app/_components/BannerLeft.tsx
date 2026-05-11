@@ -5,21 +5,24 @@ import { motion } from "framer-motion";
 function BannerLeft() {
   return (
     <motion.div
-      initial={{ x: -250, opacity: 0 }}
-      whileInView={{ x: 300, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-black/80 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-6 text-center shadow-xl backdrop-blur-md"
+      initial={{ x: "-60%", opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="mx-auto flex w-full max-w-4xl flex-col justify-center gap-2 rounded-2xl border border-orange-300/40 bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 px-8 py-8 shadow-xl backdrop-blur-md"
     >
-      <h3 className="text-3xl font-bold text-gray-900">
-        🤖 Automatisch generierte Fragen und Antworten 📝
-      </h3>
-      <p className="mt-2 text-sm text-gray-600">
-        Erstelle Tests automatisch für jedes Fachgebiet und
-        Schwierigkeitsniveau.
+      <div className="flex items-center gap-3">
+        <span className="rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] p-2 text-2xl shadow-md">🤖</span>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Automatisch generierte Fragen und Antworten 📝
+        </h3>
+      </div>
+      <p className="pl-14 text-base text-gray-600 dark:text-gray-300">
+        Erstelle Tests automatisch für jedes Fachgebiet und Schwierigkeitsniveau.
       </p>
-      <small className="mt-2 block text-gray-500">
+      <p className="pl-14 text-sm font-medium text-orange-500">
         💡 Spar Zeit und erhalte sofort fertige Testsets
-      </small>
+      </p>
     </motion.div>
   );
 }

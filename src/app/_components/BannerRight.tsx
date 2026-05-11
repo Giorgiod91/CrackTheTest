@@ -5,20 +5,24 @@ import { motion } from "framer-motion";
 function BannerRight() {
   return (
     <motion.div
-      initial={{ x: 550, opacity: 0 }}
-      whileInView={{ x: 300, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="flex h-64 w-[1000px] flex-col justify-center rounded-2xl border border-[#FFB457] bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 p-6 text-center shadow-xl backdrop-blur-md hover:brightness-105"
+      initial={{ x: "60%", opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="mx-auto flex w-full max-w-4xl flex-col justify-center gap-2 rounded-2xl border border-[#FFB457]/50 bg-gradient-to-br from-[#2B2B3C]/90 to-[#1E1E2F]/90 px-8 py-8 shadow-xl shadow-orange-500/10 backdrop-blur-md"
     >
-      <h1 className="text-3xl font-bold text-white/90">
-        📊 Ergebnisse analysieren & optimieren ⚡
-      </h1>
-      <p className="mt-2 text-sm text-white/70">
+      <div className="flex items-center gap-3">
+        <span className="rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] p-2 text-2xl shadow-md">📊</span>
+        <h3 className="text-2xl font-bold text-white/90">
+          Ergebnisse analysieren & optimieren ⚡
+        </h3>
+      </div>
+      <p className="pl-14 text-base text-white/70">
         Stärken, Schwächen und Schwierigkeitsgrade direkt erkennen.
       </p>
-      <small className="mt-4 text-white/50">
+      <p className="pl-14 text-sm font-medium text-orange-400">
         🧠 ML-Klassifizierer bewertet die Schwierigkeit automatisch
-      </small>
+      </p>
     </motion.div>
   );
 }

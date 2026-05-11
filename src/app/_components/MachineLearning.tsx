@@ -44,43 +44,51 @@ function MachineLearning() {
 
   const Schwierigkeit = "Mittel";
 
-  //TODO: add cool animation
   return (
-    <div className="mx-auto max-w-6xl rounded-2xl bg-gradient-to-br from-[#FF705B]/10 to-[#FFB457]/10 p-8 font-mono text-gray-100 shadow-2xl">
-      <motion.h2
+    <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <motion.div
         initial={{ opacity: 0, y: -10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-8 text-center text-3xl font-extrabold text-black"
+        className="mb-10 text-center"
       >
-        <span className="text-[#FF705B]">CrackTheTest.ai</span> – KI im Einsatz
-      </motion.h2>
+        <span className="mb-3 inline-block rounded-full border border-orange-400/30 bg-orange-400/10 px-4 py-1 text-sm font-medium text-orange-400">
+          Wie es funktioniert
+        </span>
+        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+          <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">CrackTheTest.ai</span> – KI im Einsatz
+        </h2>
+      </motion.div>
 
-      <div className="flex flex-col items-center space-y-2">
+      <div className="relative flex flex-col items-center">
+        {/* vertical line */}
+        <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-[#FF705B]/40 via-[#FFB457]/40 to-transparent" />
+
         {steps.map((step, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.2 }}
-            className="flex flex-col items-center space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.15, duration: 0.5 }}
+            className="relative z-10 mb-4 w-full max-w-xl"
           >
-            <motion.div
-              className="flex min-h-[90px] w-full max-w-3xl min-w-3xl items-center space-x-4 rounded-xl border border-white/10 bg-[#2B2B3C] px-5 py-3 shadow-lg hover:scale-105 hover:border-[#FF705B] hover:shadow-xl"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.2 }}
-            >
-              {step.icon}
-              <div>
-                <p className="text-lg font-semibold text-white">{step.title}</p>
-                <p className="text-sm text-gray-400">{step.desc}</p>
+            <div className="flex items-start gap-4 rounded-2xl border border-white/10 bg-[#2B2B3C] px-5 py-4 shadow-lg transition hover:border-[#FF705B]/50 hover:shadow-orange-500/10">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF705B]/20 to-[#FFB457]/20 shadow-inner">
+                {step.icon}
               </div>
-            </motion.div>
-            {index < steps.length - 1 ? (
-              <ArrowDown className="h-9 w-9 animate-bounce text-[#FF705B]" />
-            ) : (
-              <></>
+              <div>
+                <p className="font-semibold text-white">{step.title}</p>
+                <p className="mt-0.5 text-sm text-gray-400">{step.desc}</p>
+              </div>
+              <span className="ml-auto shrink-0 text-xs font-bold text-white/20">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+            {index < steps.length - 1 && (
+              <div className="my-1 flex justify-center">
+                <ArrowDown className="h-5 w-5 text-[#FF705B]/60" />
+              </div>
             )}
           </motion.div>
         ))}
