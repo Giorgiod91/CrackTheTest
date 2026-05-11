@@ -4,7 +4,11 @@
 
 ---
 
+
 ## Premium Area – Dashboard for Premium Users
+
+<img width="1322" height="882" alt="image" src="https://github.com/user-attachments/assets/c549d2d3-1ead-4666-9e02-fa04f553857e" />
+
 
 ## What I Built
 
