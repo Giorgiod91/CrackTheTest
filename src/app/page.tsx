@@ -2,6 +2,7 @@ import { auth } from "~/app/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
+import PremiumPreview from "./_components/PremiumPreview";
 import Tutorial from "./_components/Tutorial";
 import BannerLeft from "./_components/BannerLeft";
 import BannerRight from "./_components/BannerRight";
@@ -28,6 +29,10 @@ export default async function Home() {
           <LandingPage />
         </section>
 
+        <section id="dashboard-preview" className="py-20">
+          <PremiumPreview />
+        </section>
+
         <section id="tutorial" className="">
           {" "}
           <Tutorial />
@@ -42,7 +47,7 @@ export default async function Home() {
         <section className="h-screen py-20">
           <MachineLearning />
         </section>
-        <section className="py-20">
+        <section id="companies" className="py-20">
           <Companies />
         </section>
 

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { CardStackDemo } from "./CardStacks";
+import { HeroBrowserMockup } from "./HeroBrowserMockup";
 
 const Cards = [
   {
@@ -156,7 +156,7 @@ function LandingPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <CardStackDemo />
+          <HeroBrowserMockup />
         </motion.div>
       </div>
       {/* Feature cards grid */}
