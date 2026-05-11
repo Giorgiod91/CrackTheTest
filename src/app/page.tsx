@@ -37,14 +37,13 @@ export default async function Home() {
           {" "}
           <Tutorial />
         </section>
-        <section className="">
-          <div className="flex h-180 flex-col space-y-10 py-20">
-            {" "}
+        <section className="overflow-hidden py-20">
+          <div className="flex flex-col gap-8 px-6 lg:px-8">
             <BannerLeft />
             <BannerRight />
           </div>
         </section>
-        <section className="h-screen py-20">
+        <section className="py-20">
           <MachineLearning />
         </section>
         <section id="companies" className="py-20">
