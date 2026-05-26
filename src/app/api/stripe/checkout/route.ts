@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-// Map plan IDs to Stripe Price IDs (set these in your .env.local / Vercel env vars)
+// Map plan IDs to Stripe Price IDs
+// Env vars override hardcoded values (set in Vercel for flexibility)
 const PRICE_IDS: Record<string, string | undefined> = {
-  starter: process.env.STRIPE_PRICE_STARTER,
-  pro: process.env.STRIPE_PRICE_PRO,
-  enterprise: process.env.STRIPE_PRICE_ENTERPRISE,
+  starter: process.env.STRIPE_PRICE_STARTER ?? "price_1TbH4QLwhF7s81bJ0tCj6kRS",
+  pro:     process.env.STRIPE_PRICE_PRO     ?? "price_1TbH4wLwhF7s81bJzGohnZbW",
+  enterprise: process.env.STRIPE_PRICE_ENTERPRISE, // coming soon
 };
 
 export async function POST(req: Request) {
