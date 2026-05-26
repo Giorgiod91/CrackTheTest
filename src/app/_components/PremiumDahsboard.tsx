@@ -24,6 +24,15 @@ type Test = {
 
 type NavItem = "dashboard" | "tests" | "analytics" | "settings";
 
+type TestResult = {
+  id: string;
+  test_id: string;
+  score: number;
+  correct_count: number;
+  total_count: number;
+  completed_at: string;
+};
+
 const CAT_EMOJI: Record<string, string> = {
   Technik: "⚙️", Logik: "🧠", Mathe: "📐",
   Sprache: "📝", default: "📄",
@@ -31,6 +40,7 @@ const CAT_EMOJI: Record<string, string> = {
 
 export default function PremiumDahsboard() {
   const [tests, setTests]           = useState<Test[]>([]);
+  const [results, setResults]       = useState<TestResult[]>([]);
   const [loading, setLoading]       = useState(true);
   const [nav, setNav]               = useState<NavItem>("dashboard");
   const [username, setUsername]     = useState("User");
@@ -48,13 +58,15 @@ export default function PremiumDahsboard() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push("/auth/login"); return; }
 
-    const [{ data: dbUser }, { data: testsData }] = await Promise.all([
+    const [{ data: dbUser }, { data: testsData }, { data: resultsData }] = await Promise.all([
       supabase.from("users").select("username").eq("real_member_id", user.id).maybeSingle<{ username: string | null }>(),
       supabase.from("tests").select("*").eq("authorid", user.id).order("created_at", { ascending: false }),
+      supabase.from("test_results").select("*").eq("user_id", user.id).order("completed_at", { ascending: false }).limit(50),
     ]);
 
     setUsername(dbUser?.username ?? "User");
     setTests(testsData ?? []);
+    setResults(resultsData ?? []);
     setLoading(false);
   }, [supabase, router]);
 
@@ -271,7 +283,11 @@ export default function PremiumDahsboard() {
               ) : (
                 <div className="space-y-2">
                   {recent.map((t) => (
-                    <div key={t.id} className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/3 px-4 py-3 transition hover:bg-white/6">
+                    <div
+                      key={t.id}
+                      className="group flex cursor-pointer items-center justify-between rounded-xl border border-white/5 bg-white/3 px-4 py-3 transition hover:bg-white/6 hover:border-orange-500/20"
+                      onClick={() => router.push(`/PremiumUsers/test/${t.id}`)}
+                    >
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-sm">
                           {CAT_EMOJI[t.subject ?? ""] ?? CAT_EMOJI.default}
@@ -284,13 +300,18 @@ export default function PremiumDahsboard() {
                           </p>
                         </div>
                       </div>
-                      <button
-                        onClick={() => void deleteTest(t.id)}
-                        disabled={deletingId === t.id}
-                        className="ml-3 shrink-0 rounded-lg p-1.5 text-white/20 opacity-0 transition group-hover:opacity-100 hover:bg-red-500/20 hover:text-red-400"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
+                      <div className="ml-3 flex shrink-0 items-center gap-1 opacity-0 transition group-hover:opacity-100">
+                        <span className="rounded-lg bg-orange-500/10 px-2 py-1 text-[9px] font-semibold text-orange-400">
+                          Üben →
+                        </span>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); void deleteTest(t.id); }}
+                          disabled={deletingId === t.id}
+                          className="rounded-lg p-1.5 text-white/20 hover:bg-red-500/20 hover:text-red-400"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -344,7 +365,8 @@ export default function PremiumDahsboard() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="group flex items-start justify-between rounded-2xl border border-white/6 bg-white/5 p-4 transition hover:bg-white/8"
+                    className="group flex cursor-pointer items-start justify-between rounded-2xl border border-white/6 bg-white/5 p-4 transition hover:bg-white/8 hover:border-orange-500/20"
+                    onClick={() => router.push(`/PremiumUsers/test/${t.id}`)}
                   >
                     <div className="flex items-start gap-3 min-w-0">
                       <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-base">
@@ -356,15 +378,18 @@ export default function PremiumDahsboard() {
                           {t.subject && <span className="mr-2 rounded-full bg-orange-500/10 px-2 py-0.5 text-orange-400">{t.subject}</span>}
                           {new Date(t.created_at).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
                         </p>
-                        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/30">{t.content}</p>
+                        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/30">{t.content?.slice(0, 120)}…</p>
                       </div>
                     </div>
                     <div className="ml-4 flex shrink-0 items-center gap-1 opacity-0 transition group-hover:opacity-100">
-                      <button className="rounded-lg p-2 text-white/30 hover:bg-blue-500/15 hover:text-blue-400">
-                        <ExternalLink className="h-3.5 w-3.5" />
+                      <button
+                        onClick={(e) => { e.stopPropagation(); router.push(`/PremiumUsers/test/${t.id}`); }}
+                        className="flex items-center gap-1 rounded-xl bg-orange-500/10 px-3 py-1.5 text-xs font-semibold text-orange-400 hover:bg-orange-500/20"
+                      >
+                        <ExternalLink className="h-3 w-3" /> Üben
                       </button>
                       <button
-                        onClick={() => void deleteTest(t.id)}
+                        onClick={(e) => { e.stopPropagation(); void deleteTest(t.id); }}
                         disabled={deletingId === t.id}
                         className="rounded-lg p-2 text-white/30 hover:bg-red-500/15 hover:text-red-400"
                       >
@@ -386,6 +411,7 @@ export default function PremiumDahsboard() {
             transition={{ duration: 0.35 }}
             className="space-y-5"
           >
+            {/* Stat cards row 1 — tests */}
             <div className="grid grid-cols-3 gap-4">
               {[
                 { label: "Gesamt Tests",   value: tests.length,          unit: "Tests"     },
@@ -400,6 +426,37 @@ export default function PremiumDahsboard() {
               ))}
             </div>
 
+            {/* Stat cards row 2 — scores */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                {
+                  label: "Test-Versuche",
+                  value: results.length,
+                  unit: "gesamt",
+                  color: "text-white",
+                },
+                {
+                  label: "Bestes Ergebnis",
+                  value: results.length > 0 ? `${Math.max(...results.map(r => r.score))}%` : "—",
+                  unit: "aller Zeit",
+                  color: "text-emerald-400",
+                },
+                {
+                  label: "Ø Ergebnis",
+                  value: results.length > 0 ? `${Math.round(results.reduce((a, r) => a + r.score, 0) / results.length)}%` : "—",
+                  unit: "Durchschnitt",
+                  color: "text-orange-400",
+                },
+              ].map((s) => (
+                <div key={s.label} className="rounded-2xl border border-white/6 bg-white/5 p-5">
+                  <p className="text-[11px] text-white/40">{s.label}</p>
+                  <p className={`mt-2 text-4xl font-bold ${s.color}`}>{loading ? "—" : s.value}</p>
+                  <p className="mt-1 text-[10px] text-white/25">{s.unit}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Activity chart */}
             <div className="rounded-2xl border border-white/6 bg-white/5 p-5">
               <p className="mb-4 text-xs font-semibold text-white/60">Test-Aktivität (14 Tage)</p>
               <div className="h-52">
@@ -424,6 +481,40 @@ export default function PremiumDahsboard() {
                 </ResponsiveContainer>
               </div>
             </div>
+
+            {/* Recent results */}
+            {results.length > 0 && (
+              <div className="rounded-2xl border border-white/6 bg-white/5 p-5">
+                <p className="mb-3 text-xs font-semibold text-white/60">Letzte Ergebnisse</p>
+                <div className="space-y-2">
+                  {results.slice(0, 8).map((r) => {
+                    const testTitle = tests.find(t => t.id === r.test_id)?.title ?? "Test";
+                    const pct = r.score;
+                    const col = pct >= 80 ? "bg-emerald-500" : pct >= 60 ? "bg-yellow-500" : pct >= 40 ? "bg-orange-500" : "bg-red-500";
+                    const textCol = pct >= 80 ? "text-emerald-400" : pct >= 60 ? "text-yellow-400" : pct >= 40 ? "text-orange-400" : "text-red-400";
+                    return (
+                      <div key={r.id} className="flex items-center gap-3 rounded-xl bg-white/3 px-4 py-2.5">
+                        <div className="flex-1 min-w-0">
+                          <p className="truncate text-xs font-medium text-white/70">{testTitle}</p>
+                          <p className="text-[10px] text-white/25">
+                            {new Date(r.completed_at).toLocaleDateString("de-DE", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                          </p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <span className={`text-sm font-bold ${textCol}`}>{pct}%</span>
+                          <p className="text-[10px] text-white/25">{r.correct_count}/{r.total_count}</p>
+                        </div>
+                        <div className="w-16 shrink-0">
+                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                            <div className={`h-full rounded-full ${col}`} style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
 
