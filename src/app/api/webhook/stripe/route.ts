@@ -102,7 +102,7 @@ export async function POST(req: Request) {
     event.type === "customer.subscription.deleted" ||
     event.type === "customer.subscription.updated"
   ) {
-    const subscription = event.data.object as Stripe.Subscription;
+    const subscription = event.data.object;
     if (
       event.type === "customer.subscription.deleted" ||
       subscription.status === "canceled" ||
