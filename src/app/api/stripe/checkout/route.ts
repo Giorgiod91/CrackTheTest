@@ -44,11 +44,14 @@ export async function POST(req: Request) {
     .maybeSingle<{ email: string | null }>();
 
   const customerEmail = dbUser?.email ?? user.email ?? undefined;
+  // Priority: explicit env var → auto Vercel URL → production domain → localhost
   const appUrl =
     process.env.NEXT_PUBLIC_APP_URL ??
     (process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000");
+      : process.env.NODE_ENV === "production"
+        ? "https://crack-the-test.vercel.app"
+        : "http://localhost:3000");
 
   // Create Stripe Checkout Session
   const session = await stripe.checkout.sessions.create({
