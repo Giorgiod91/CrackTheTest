@@ -47,6 +47,13 @@ export default function ManageSubscription() {
 
   // Start checkout via our API (passes userId → reliable premium activation)
   const handleCheckout = async (planId: string) => {
+    // Guard: ensure user is logged in before calling API
+    const { data: { user } } = await getSupabaseBrowserClient().auth.getUser();
+    if (!user) {
+      router.push("/auth/login?redirect=/ManageSubscription");
+      return;
+    }
+
     setCheckoutLoading(planId);
     setErrorMsg(null);
     try {
@@ -55,8 +62,12 @@ export default function ManageSubscription() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ planId }),
       });
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (!res.ok || !data.url) throw new Error(data.error ?? "Fehler");
+
+      // Safe JSON parse — avoids "Unexpected end of JSON input"
+      const text = await res.text();
+      const data = text ? (JSON.parse(text) as { url?: string; error?: string }) : {};
+
+      if (!res.ok || !data.url) throw new Error(data.error ?? "Checkout fehlgeschlagen.");
       window.location.href = data.url;
     } catch (err) {
       setErrorMsg(
