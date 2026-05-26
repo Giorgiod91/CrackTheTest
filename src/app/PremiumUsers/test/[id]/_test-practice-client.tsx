@@ -45,13 +45,13 @@ function parseQuestions(raw: string): ParsedQuestion[] {
 
     for (const line of lines.slice(1)) {
       // Option lines: A) ..., B) ..., C) ..., D) ...
-      const optMatch = line.match(/^([A-D])\)\s*(.+)$/);
+      const optMatch = /^([A-D])\)\s*(.+)$/.exec(line);
       if (optMatch) {
         options.push({ label: optMatch[1]!, text: optMatch[2]! });
         continue;
       }
       // Correct answer line: ✓ Richtige Antwort: A  or  Richtige Antwort: A
-      const ansMatch = line.match(/(?:✓\s*)?[Rr]ichtige\s+[Aa]ntwort[:\s]+([A-D])/);
+      const ansMatch = /(?:✓\s*)?[Rr]ichtige\s+[Aa]ntwort[:\s]+([A-D])/.exec(line);
       if (ansMatch) {
         correct = ansMatch[1]!;
       }
