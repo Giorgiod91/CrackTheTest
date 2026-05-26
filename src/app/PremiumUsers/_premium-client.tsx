@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import React, { useEffect, useState } from "react";
 
 import PremiumDahsboard from "../_components/PremiumDahsboard";
+import FeedbackWidget from "../_components/FeedbackWidget";
 import { LifeBuoy, Check, CheckCircle2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
@@ -146,12 +147,6 @@ export default function PremiumPage() {
                   💳 Manage subscription
                 </a>
 
-                <a
-                  href="/premium/feedback"
-                  className="btn btn-ghost text-white transition-all hover:scale-105 hover:bg-white/10"
-                >
-                  📄 Feedback
-                </a>
                 <a className="btn btn-ghost text-white transition-all hover:scale-105 hover:bg-white/10">
                   📚 Docs
                 </a>
@@ -308,9 +303,9 @@ export default function PremiumPage() {
           </div>
         </div>
 
-        {/* Support floating button */}
+        {/* Support floating button (bottom-right) */}
         <a
-          href="mailto:support@crackthetest.example"
+          href="mailto:support@crackthetest.de"
           className="fixed right-6 bottom-6 z-50 hidden items-center gap-3 rounded-full border-2 border-[#FF705B]/20 bg-white px-6 py-3 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-[#FF705B] hover:shadow-[0_0_30px_rgba(255,112,91,0.3)] md:flex dark:bg-gray-800"
         >
           <LifeBuoy className="h-5 w-5 animate-pulse text-[#FF705B]" />
@@ -318,6 +313,9 @@ export default function PremiumPage() {
             Support
           </span>
         </a>
+
+        {/* Feedback widget (bottom-left) */}
+        <FeedbackWidget />
       </div>
     </div>
   );
