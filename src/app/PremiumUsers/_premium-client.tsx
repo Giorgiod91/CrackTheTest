@@ -1,12 +1,10 @@
 "use client";
 export const dynamic = "force-dynamic";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PremiumDahsboard from "../_components/PremiumDahsboard";
-import { LifeBuoy, Check } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { AuthClient, type User } from "@supabase/supabase-js";
-import CreateDbUser from "../_components/CreateDbUser";
+import { LifeBuoy, Check, CheckCircle2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import ConsentBanner from "../_components/ConsentBanner";
 
@@ -15,8 +13,20 @@ export default function PremiumPage() {
   const [premiumdata, setPremiumdata] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [showFeedbackPopup, setShowFeedbackPopup] = useState<boolean>(false);
+  const [showSuccessBanner, setShowSuccessBanner] = useState<boolean>(false);
 
-  // i will create a deplay to show a popou for the feedback buttont and with a timeout to hide it after 10 seconds
+  const searchParams = useSearchParams();
+
+  // Show success banner if redirected from Stripe checkout
+  useEffect(() => {
+    if (searchParams.get("checkout") === "success") {
+      setShowSuccessBanner(true);
+      const t = setTimeout(() => setShowSuccessBanner(false), 8000);
+      return () => clearTimeout(t);
+    }
+  }, [searchParams]);
+
+  // Show feedback popup after 3s, hide after 10s
   useEffect(() => {
     const showTimer = setTimeout(() => {
       setShowFeedbackPopup(true);
@@ -93,7 +103,17 @@ export default function PremiumPage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Hero */} <ConsentBanner />
+      <ConsentBanner />
+
+      {/* Stripe Checkout Success Banner */}
+      {showSuccessBanner && (
+        <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-4 text-white shadow-lg">
+          <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
+          <span className="font-semibold">
+            🎉 Zahlung erfolgreich! Dein Premium-Status wird in wenigen Sekunden aktiviert. Seite neu laden falls nötig.
+          </span>
+        </div>
+      )}
       <div className="mx-auto max-w-7xl p-6">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FF705B] via-[#FF8C73] to-[#FFB457] p-10 text-white shadow-2xl">
           <div className="absolute -top-20 -right-20 h-64 w-64 animate-pulse rounded-full bg-white/20 opacity-40 blur-3xl" />
