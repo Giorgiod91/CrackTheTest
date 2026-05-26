@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
@@ -10,42 +11,35 @@ interface CreateTestBody {
   anzahl: number;
 }
 
+const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
 export async function POST(request: NextRequest) {
-  // ── 1. Auth check ────────────────────────────────────────────────────────
+  // ── 1. Auth ───────────────────────────────────────────────────────────────
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
 
   if (authError ?? !user) {
-    return NextResponse.json(
-      { error: "Nicht eingeloggt. Bitte melde dich an." },
-      { status: 401 },
-    );
+    return NextResponse.json({ error: "Nicht eingeloggt." }, { status: 401 });
   }
 
-  // ── 2. Premium check ─────────────────────────────────────────────────────
+  // ── 2. Premium ────────────────────────────────────────────────────────────
   const { data: dbUser } = await supabase
-    .from("users")
-    .select("premium")
+    .from("users").select("premium")
     .eq("real_member_id", user.id)
     .maybeSingle<{ premium: boolean | null }>();
 
   if (!dbUser?.premium) {
     return NextResponse.json(
-      { error: "Diese Funktion ist nur für Premium-Mitglieder verfügbar." },
+      { error: "Nur für Premium-Mitglieder verfügbar." },
       { status: 403 },
     );
   }
 
   // ── 3. Rate limit ─────────────────────────────────────────────────────────
   const rl = await checkRateLimit(user.id, "openai");
-  if (!rl.allowed) {
-    return rateLimitResponse(rl);
-  }
+  if (!rl.allowed) return rateLimitResponse(rl);
 
-  // ── 4. Validate input ────────────────────────────────────────────────────
+  // ── 4. Validate ───────────────────────────────────────────────────────────
   let data: CreateTestBody;
   try {
     data = (await request.json()) as CreateTestBody;
@@ -60,40 +54,58 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const anzahl = Math.min(Math.max(1, data.anzahl ?? 10), 100);
+  const anzahl = Math.min(Math.max(1, data.anzahl ?? 10), 50);
 
-  // ── 5. Forward to FastAPI backend ────────────────────────────────────────
+  // ── 5. Claude API ─────────────────────────────────────────────────────────
   try {
-    const backendUrl =
-      process.env.FASTAPI_BACKEND_URL ?? "http://localhost:8000";
+    const prompt = `Du bist ein Experte für Einstellungstests und Eignungsprüfungen.
 
-    const response = await fetch(`${backendUrl}/create_test`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: user.id,
-        title: data.title,
-        content: data.content ?? "",
-        subject: data.subject,
-        anzahl,
-      }),
+Erstelle einen professionellen Test mit genau ${anzahl} Fragen.
+
+Test-Titel: ${data.title}
+Fach / Thema: ${data.subject}
+${data.content ? `Zusätzliche Anforderungen: ${data.content}` : ""}
+
+Format für jede Frage:
+**Frage [Nummer]:** [Fragetext]
+A) [Antwort A]
+B) [Antwort B]
+C) [Antwort C]
+D) [Antwort D]
+✓ Richtige Antwort: [Buchstabe]
+
+Erstelle ${anzahl} abwechslungsreiche, realistische Fragen die einem echten Einstellungstest entsprechen.
+Antworte NUR mit den Fragen, keine Einleitung oder Schlusstext.`;
+
+    const message = await client.messages.create({
+      model: "claude-haiku-4-5",
+      max_tokens: 4000,
+      messages: [{ role: "user", content: prompt }],
     });
 
-    if (!response.ok) {
-      throw new Error(`FastAPI returned ${response.status}`);
-    }
+    const testText =
+      message.content[0]?.type === "text" ? message.content[0].text : "";
 
-    const result: unknown = await response.json();
-    return NextResponse.json(result, {
-      headers: {
-        "X-RateLimit-Remaining": String(rl.remaining),
-        "X-RateLimit-Limit": String(rl.limit),
-      },
-    });
-  } catch (error) {
-    console.error("OpenAI/FastAPI error:", error);
+    // Extract individual questions for difficulty prediction
+    const questions = testText
+      .split(/\*\*Frage \d+:\*\*/)
+      .slice(1)
+      .map((q) => q.split("\n")[0]?.trim() ?? "")
+      .filter(Boolean);
+
     return NextResponse.json(
-      { error: "Test konnte nicht erstellt werden. Bitte versuche es später." },
+      { test_text: testText, questions },
+      {
+        headers: {
+          "X-RateLimit-Remaining": String(rl.remaining),
+          "X-RateLimit-Limit": String(rl.limit),
+        },
+      },
+    );
+  } catch (error) {
+    console.error("Claude API error:", error);
+    return NextResponse.json(
+      { error: "Test konnte nicht generiert werden. Prüfe den ANTHROPIC_API_KEY." },
       { status: 500 },
     );
   }
