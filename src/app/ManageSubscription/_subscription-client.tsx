@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Check, Zap, Sparkles, Loader2, Crown } from "lucide-react";
+import { Check, Zap, Sparkles, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
@@ -103,24 +103,6 @@ export default function ManageSubscription() {
       popular: true,
       color: "from-orange-500 to-pink-500",
       available: true,
-    },
-    {
-      id: "enterprise",
-      name: "Enterprise",
-      price: "Demnächst",
-      period: "",
-      description: "Für Teams & Unternehmen",
-      features: [
-        "Unbegrenzte KI-Tests",
-        "Team-Verwaltung",
-        "API Zugang",
-        "Dedicated Support",
-        "Custom Integrationen",
-      ],
-      icon: <Crown className="h-6 w-6" />,
-      popular: false,
-      color: "from-purple-500 to-pink-500",
-      available: false,
     },
   ];
 
