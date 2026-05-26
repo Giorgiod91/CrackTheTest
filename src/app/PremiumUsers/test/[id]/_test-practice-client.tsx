@@ -193,38 +193,38 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
   // ─────────────────────────────────────────────────────────────────────────────
   if (phase === "results") {
     return (
-      <div className="min-h-screen bg-[#1a1835] p-4 md:p-8">
-        {/* Back */}
-        <button
-          onClick={() => router.push("/PremiumUsers")}
-          className="mb-6 flex items-center gap-2 text-sm text-white/40 hover:text-white/70"
-        >
-          <ChevronLeft className="h-4 w-4" /> Dashboard
-        </button>
+      <div className="min-h-screen overflow-y-auto bg-[#1a1835]">
+        <div className="mx-auto w-full max-w-lg px-4 py-8">
+          {/* Back */}
+          <button
+            onClick={() => router.push("/PremiumUsers")}
+            className="mb-6 flex items-center gap-2 text-sm text-white/40 hover:text-white/70"
+          >
+            <ChevronLeft className="h-4 w-4" /> Dashboard
+          </button>
 
-        <div className="mx-auto max-w-2xl">
           {/* Score card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mb-6 rounded-3xl border border-white/8 bg-[#12112a] p-8 text-center"
+            className="mb-4 rounded-3xl border border-white/8 bg-[#12112a] p-6 text-center"
           >
-            <Trophy className="mx-auto mb-4 h-12 w-12 text-orange-400" />
-            <h1 className="mb-1 text-2xl font-bold text-white">{test?.title}</h1>
-            <p className="mb-6 text-sm text-white/40">Test abgeschlossen</p>
+            <Trophy className="mx-auto mb-3 h-10 w-10 text-orange-400" />
+            <h1 className="mb-1 truncate text-xl font-bold text-white">{test?.title}</h1>
+            <p className="mb-5 text-xs text-white/40">Test abgeschlossen</p>
 
             {/* Big score */}
-            <div className="mb-4 inline-flex h-32 w-32 items-center justify-center rounded-full border-4 border-orange-500/30 bg-orange-500/10">
-              <span className={`text-4xl font-black ${sc.text}`}>{score}%</span>
+            <div className="mb-3 inline-flex h-28 w-28 items-center justify-center rounded-full border-4 border-orange-500/30 bg-orange-500/10">
+              <span className={`text-3xl font-black ${sc.text}`}>{score}%</span>
             </div>
 
-            <p className={`mb-2 text-lg font-bold ${sc.text}`}>{sc.label}</p>
+            <p className={`mb-1 text-base font-bold ${sc.text}`}>{sc.label}</p>
             <p className="text-sm text-white/50">
               {correctCount} von {totalQ} Fragen richtig
             </p>
 
             {/* Progress bar */}
-            <div className="mt-6 h-2 w-full overflow-hidden rounded-full bg-white/5">
+            <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-white/5">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${sc.bg}`}
                 style={{ width: `${score}%` }}
@@ -232,13 +232,9 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
             </div>
 
             {/* Action buttons */}
-            <div className="mt-6 flex gap-3">
+            <div className="mt-5 flex gap-3">
               <button
-                onClick={() => {
-                  setAnswers({});
-                  setCurrent(0);
-                  setPhase("practice");
-                }}
+                onClick={() => { setAnswers({}); setCurrent(0); setPhase("practice"); }}
                 className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 py-3 text-sm text-white/60 hover:bg-white/5"
               >
                 <RotateCcw className="h-4 w-4" /> Nochmal
@@ -247,7 +243,7 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
                 onClick={() => setPhase("review")}
                 className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-3 text-sm font-bold text-white"
               >
-                <BookOpen className="h-4 w-4" /> Lösungen ansehen
+                <BookOpen className="h-4 w-4" /> Lösungen
               </button>
             </div>
           </motion.div>
@@ -255,9 +251,9 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
           {/* Quick breakdown */}
           <div className="grid grid-cols-3 gap-3">
             {[
-              { label: "Richtig",  value: correctCount,           color: "text-emerald-400" },
-              { label: "Falsch",   value: totalQ - correctCount,  color: "text-red-400"     },
-              { label: "Gesamt",   value: totalQ,                 color: "text-white"       },
+              { label: "Richtig", value: correctCount,          color: "text-emerald-400" },
+              { label: "Falsch",  value: totalQ - correctCount, color: "text-red-400"     },
+              { label: "Gesamt",  value: totalQ,                color: "text-white"       },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-white/6 bg-white/5 p-4 text-center">
                 <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
@@ -275,7 +271,7 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
   // ─────────────────────────────────────────────────────────────────────────────
   if (phase === "review") {
     return (
-      <div className="min-h-screen bg-[#1a1835] p-4 md:p-8">
+      <div className="min-h-screen overflow-y-auto bg-[#1a1835] px-4 py-8">
         {/* Back */}
         <button
           onClick={() => setPhase("results")}
@@ -284,8 +280,8 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
           <ChevronLeft className="h-4 w-4" /> Zurück zu Ergebnissen
         </button>
 
-        <div className="mx-auto max-w-2xl">
-          <h1 className="mb-6 text-xl font-bold text-white">📖 Lösungen — {test?.title}</h1>
+        <div className="mx-auto w-full max-w-2xl">
+          <h1 className="mb-6 truncate text-xl font-bold text-white">📖 Lösungen — {test?.title}</h1>
 
           <div className="space-y-4">
             {questions.map((q, idx) => {
@@ -409,7 +405,7 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
       </div>
 
       {/* ── QUESTION AREA ── */}
-      <main className="flex flex-1 flex-col items-center justify-center px-4 py-8">
+      <main className="flex flex-1 flex-col items-center overflow-y-auto px-4 py-8">
         <div className="w-full max-w-xl">
 
           {/* Question counter */}
@@ -470,25 +466,44 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
             <button
               onClick={() => setCurrent((c) => Math.max(0, c - 1))}
               disabled={current === 0}
-              className="flex items-center gap-1.5 rounded-xl border border-white/8 bg-white/5 px-4 py-2.5 text-sm text-white/50 disabled:opacity-30 hover:bg-white/8"
+              className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/8 bg-white/5 px-4 py-2.5 text-sm text-white/50 disabled:opacity-30 hover:bg-white/8"
             >
               <ArrowLeft className="h-4 w-4" /> Zurück
             </button>
 
-            <div className="flex flex-1 items-center justify-center gap-1">
-              {questions.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrent(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === current
-                      ? "w-6 bg-orange-400"
-                      : answers[idx] !== undefined
-                        ? "w-2 bg-emerald-500/60"
-                        : "w-2 bg-white/15 hover:bg-white/30"
-                  }`}
-                />
-              ))}
+            {/* Progress dots — compact for many questions */}
+            <div className="flex flex-1 flex-col items-center gap-1.5 overflow-hidden">
+              {totalQ <= 12 ? (
+                /* Dots for short tests */
+                <div className="flex flex-wrap items-center justify-center gap-1">
+                  {questions.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrent(idx)}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === current
+                          ? "w-5 bg-orange-400"
+                          : answers[idx] !== undefined
+                            ? "w-2 bg-emerald-500/60"
+                            : "w-2 bg-white/15 hover:bg-white/30"
+                      }`}
+                    />
+                  ))}
+                </div>
+              ) : (
+                /* Bar + counter for long tests */
+                <>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-[#FF705B] to-[#FFB457] transition-all duration-300"
+                      style={{ width: `${((current + 1) / totalQ) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] text-white/30">
+                    {answered} von {totalQ} beantwortet
+                  </span>
+                </>
+              )}
             </div>
 
             {current < totalQ - 1 ? (
