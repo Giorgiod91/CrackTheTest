@@ -193,74 +193,79 @@ export default function TestPracticeClient({ testId }: { testId: string }) {
   // ─────────────────────────────────────────────────────────────────────────────
   if (phase === "results") {
     return (
-      <div className="min-h-screen overflow-y-auto bg-[#1a1835]">
-        <div className="mx-auto w-full max-w-lg px-4 py-8">
+      <div style={{ minHeight: "100vh", backgroundColor: "#1a1835", overflowY: "auto", overflowX: "hidden" }}>
+        <div style={{ maxWidth: 480, margin: "0 auto", padding: "32px 16px" }}>
+
           {/* Back */}
           <button
             onClick={() => router.push("/PremiumUsers")}
-            className="mb-6 flex items-center gap-2 text-sm text-white/40 hover:text-white/70"
+            style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24, background: "none", border: "none", cursor: "pointer" }}
           >
-            <ChevronLeft className="h-4 w-4" /> Dashboard
+            <ChevronLeft style={{ width: 16, height: 16 }} /> Dashboard
           </button>
 
           {/* Score card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mb-4 rounded-3xl border border-white/8 bg-[#12112a] p-6 text-center"
+            style={{ background: "#12112a", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: 24, textAlign: "center", marginBottom: 16 }}
           >
-            <Trophy className="mx-auto mb-3 h-10 w-10 text-orange-400" />
-            <h1 className="mb-1 truncate text-xl font-bold text-white">{test?.title}</h1>
-            <p className="mb-5 text-xs text-white/40">Test abgeschlossen</p>
+            <Trophy style={{ width: 40, height: 40, color: "#FB923C", margin: "0 auto 12px" }} />
+            <p style={{ fontSize: 18, fontWeight: 700, color: "white", marginBottom: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {test?.title}
+            </p>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginBottom: 20 }}>Test abgeschlossen</p>
 
-            {/* Big score */}
-            <div className="mb-3 inline-flex h-28 w-28 items-center justify-center rounded-full border-4 border-orange-500/30 bg-orange-500/10">
-              <span className={`text-3xl font-black ${sc.text}`}>{score}%</span>
+            {/* Score circle */}
+            <div style={{ width: 112, height: 112, borderRadius: "50%", border: "4px solid rgba(249,115,22,0.3)", background: "rgba(249,115,22,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+              <span style={{ fontSize: 30, fontWeight: 900, color: score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : score >= 40 ? "#fb923c" : "#f87171" }}>
+                {score}%
+              </span>
             </div>
 
-            <p className={`mb-1 text-base font-bold ${sc.text}`}>{sc.label}</p>
-            <p className="text-sm text-white/50">
+            <p style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : score >= 40 ? "#fb923c" : "#f87171" }}>
+              {sc.label}
+            </p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 20 }}>
               {correctCount} von {totalQ} Fragen richtig
             </p>
 
             {/* Progress bar */}
-            <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-white/5">
-              <div
-                className={`h-full rounded-full transition-all duration-1000 ${sc.bg}`}
-                style={{ width: `${score}%` }}
-              />
+            <div style={{ height: 8, width: "100%", background: "rgba(255,255,255,0.05)", borderRadius: 99, overflow: "hidden", marginBottom: 20 }}>
+              <div style={{ height: "100%", width: `${score}%`, background: score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : score >= 40 ? "#fb923c" : "#f87171", borderRadius: 99, transition: "width 1s ease" }} />
             </div>
 
-            {/* Action buttons */}
-            <div className="mt-5 flex gap-3">
+            {/* Buttons */}
+            <div style={{ display: "flex", gap: 10 }}>
               <button
                 onClick={() => { setAnswers({}); setCurrent(0); setPhase("practice"); }}
-                className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 py-3 text-sm text-white/60 hover:bg-white/5"
+                style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)", padding: "12px 0", fontSize: 13, color: "rgba(255,255,255,0.6)", background: "none", cursor: "pointer" }}
               >
-                <RotateCcw className="h-4 w-4" /> Nochmal
+                <RotateCcw style={{ width: 15, height: 15 }} /> Nochmal
               </button>
               <button
                 onClick={() => setPhase("review")}
-                className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-3 text-sm font-bold text-white"
+                style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, borderRadius: 16, background: "linear-gradient(to right, #FF705B, #FFB457)", padding: "12px 0", fontSize: 13, fontWeight: 700, color: "white", border: "none", cursor: "pointer" }}
               >
-                <BookOpen className="h-4 w-4" /> Lösungen
+                <BookOpen style={{ width: 15, height: 15 }} /> Lösungen
               </button>
             </div>
           </motion.div>
 
-          {/* Quick breakdown */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* Breakdown — 3 columns with inline flex so it always works */}
+          <div style={{ display: "flex", gap: 10 }}>
             {[
-              { label: "Richtig", value: correctCount,          color: "text-emerald-400" },
-              { label: "Falsch",  value: totalQ - correctCount, color: "text-red-400"     },
-              { label: "Gesamt",  value: totalQ,                color: "text-white"       },
+              { label: "Richtig", value: correctCount,          color: "#34d399" },
+              { label: "Falsch",  value: totalQ - correctCount, color: "#f87171" },
+              { label: "Gesamt",  value: totalQ,                color: "white"   },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border border-white/6 bg-white/5 p-4 text-center">
-                <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-                <p className="mt-1 text-[11px] text-white/35">{s.label}</p>
+              <div key={s.label} style={{ flex: 1, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "16px 8px", textAlign: "center" }}>
+                <p style={{ fontSize: 24, fontWeight: 700, color: s.color, margin: 0 }}>{s.value}</p>
+                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>{s.label}</p>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     );
