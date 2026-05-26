@@ -5,7 +5,6 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
-import Script from "next/script";
 import ConsentBanner from "./_components/ConsentBanner";
 
 export const metadata: Metadata = {
