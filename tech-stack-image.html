@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tech Stack</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0d0c1e;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Background glow blobs */
+  .blob1 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,112,91,0.12) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    pointer-events: none;
+  }
+  .blob2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
+    bottom: -80px; right: 50px;
+    pointer-events: none;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header .name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 8px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FF705B, #FFB457);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+    padding: 0 40px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: var(--glow);
+    opacity: 0;
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .card-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+  }
+
+  .footer {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #FF705B;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="blob1"></div>
+<div class="blob2"></div>
+
+<div class="header">
+  <div class="name">Giorgio · Full-Stack Developer</div>
+  <h1>Tech Stack</h1>
+</div>
+
+<div class="grid">
+
+  <!-- Next.js -->
+  <div class="card" style="--bg: rgba(255,255,255,0.07);">
+    <div class="icon" style="--bg: rgba(255,255,255,0.07);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+        <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/>
+      </svg>
+    </div>
+    <div class="card-name">Next.js 15</div>
+    <div class="card-tag">Framework</div>
+  </div>
+
+  <!-- React -->
+  <div class="card" style="--bg: rgba(97,218,251,0.08);">
+    <div class="icon" style="background: rgba(97,218,251,0.1);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#61DAFB">
+        <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.096-.278zm-.005 1.09c.275 0 .519.047.73.163.799.46.974 2.393.536 4.923-.137.75-.34 1.537-.587 2.34a22.01 22.01 0 0 0-2.772-.588 22.053 22.053 0 0 0-1.677-2.193c.518-.498 1.034-.956 1.539-1.362 1.166-.93 2.27-1.284 2.23-1.284zm-9.56.237c-.04 0 1.062.348 2.23 1.28.501.405 1.02.86 1.536 1.357a21.917 21.917 0 0 0-1.675 2.19 21.877 21.877 0 0 0-2.774.587 20.963 20.963 0 0 1-.59-2.33c-.434-2.512-.258-4.44.539-4.9.21-.116.455-.183.734-.183zm4.773 4.17c.386.475.765.984 1.13 1.518a23.22 23.22 0 0 1-2.26 0 22.66 22.66 0 0 1 1.13-1.518zm-4.222 2.707a21.877 21.877 0 0 0-1.63 3.147A21.836 21.836 0 0 0 4.43 12c.326-.36.672-.71 1.034-1.047zm8.453 0c.36.336.707.687 1.033 1.047a21.77 21.77 0 0 0-2.353 1.14 21.928 21.928 0 0 0-1.628-3.148 22.09 22.09 0 0 1 2.948.96zm-5.005 2.49a22.013 22.013 0 0 0 1.27 1.93 22.013 22.013 0 0 1-2.54 0 22.013 22.013 0 0 0 1.27-1.93zm-6.27.456c.48.264.995.504 1.537.716a22.02 22.02 0 0 0 .589 2.33c.435 2.515.26 4.443-.538 4.904a.976.976 0 0 1-.734.183c-1.167-.068-2.274-1.44-2.274-1.44-.54-2.51-.36-4.44.538-4.9zm12.547 0c.896.46 1.075 2.39.54 4.9 0 0-1.107 1.372-2.274 1.44a.976.976 0 0 1-.734-.183c-.798-.461-.973-2.389-.538-4.904.15-.757.348-1.543.588-2.33a22.02 22.02 0 0 0 1.536-.716a22.08 22.08 0 0 1 .882-.207zm-6.284 5.024a22.013 22.013 0 0 0 2.54 0 22.013 22.013 0 0 1-1.27 1.928 22.013 22.013 0 0 1-1.27-1.928z"/>
+      </svg>
+    </div>
+    <div class="card-name">React</div>
+    <div class="card-tag">UI Library</div>
+  </div>
+
+  <!-- TypeScript -->
+  <div class="card">
+    <div class="icon" style="background: rgba(49,120,198,0.15);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3178C6">
+        <path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/>
+      </svg>
+    </div>
+    <div class="card-name">TypeScript</div>
+    <div class="card-tag">Language</div>
+  </div>
+
+  <!-- Tailwind -->
+  <div class="card">
+    <div class="icon" style="background: rgba(6,182,212,0.1);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#06B6D4">
+        <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/>
+      </svg>
+    </div>
+    <div class="card-name">Tailwind CSS</div>
+    <div class="card-tag">Styling</div>
+  </div>
+
+  <!-- Supabase -->
+  <div class="card">
+    <div class="icon" style="background: rgba(62,207,142,0.1);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3ECF8E">
+        <path d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.015.985 1.259 1.408 1.874.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.58L11.9 1.036z"/>
+      </svg>
+    </div>
+    <div class="card-name">Supabase</div>
+    <div class="card-tag">Auth + Database</div>
+  </div>
+
+  <!-- Stripe -->
+  <div class="card">
+    <div class="icon" style="background: rgba(99,91,255,0.12);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#635BFF">
+        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"/>
+      </svg>
+    </div>
+    <div class="card-name">Stripe</div>
+    <div class="card-tag">Payments</div>
+  </div>
+
+  <!-- Claude AI -->
+  <div class="card">
+    <div class="icon" style="background: rgba(255,180,87,0.12);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="rgba(255,180,87,0.2)" stroke="#FFB457" stroke-width="1.5"/>
+        <path d="M8 12.5c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#FFB457" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="14" r="2" fill="#FFB457"/>
+        <path d="M12 7V9" stroke="#FFB457" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="card-name">Claude AI</div>
+    <div class="card-tag">AI Integration</div>
+  </div>
+
+  <!-- Vercel -->
+  <div class="card">
+    <div class="icon" style="background: rgba(255,255,255,0.07);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+        <path d="M24 22.525H0l12-21.05 12 21.05z"/>
+      </svg>
+    </div>
+    <div class="card-name">Vercel</div>
+    <div class="card-tag">Deployment</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-dot"></div>
+  <div class="footer-text">crack-the-test.vercel.app · giorgiodettmar.com</div>
+</div>
+
+</body>
+</html>
