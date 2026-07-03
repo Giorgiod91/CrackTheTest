@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Check, Zap, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 const PAKET_FEATURES = [
@@ -218,18 +219,18 @@ export default function ManageSubscription() {
 
         {/* Legal links */}
         <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs text-slate-500">
-          <a href="/agb" className="hover:text-slate-300">
+          <Link href="/agb" className="hover:text-slate-300">
             AGB
-          </a>
-          <a href="/widerruf" className="hover:text-slate-300">
+          </Link>
+          <Link href="/widerruf" className="hover:text-slate-300">
             Widerrufsbelehrung
-          </a>
-          <a href="/datenschutz" className="hover:text-slate-300">
+          </Link>
+          <Link href="/datenschutz" className="hover:text-slate-300">
             Datenschutz
-          </a>
-          <a href="/impressum" className="hover:text-slate-300">
+          </Link>
+          <Link href="/impressum" className="hover:text-slate-300">
             Impressum
-          </a>
+          </Link>
         </div>
       </div>
     </div>

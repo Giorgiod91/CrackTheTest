@@ -1,4 +1,5 @@
 ﻿import React from "react";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -19,27 +20,27 @@ function Footer() {
           <p className="font-bold">
             Crack The Test
             <br />
-            KI-gestÃ¼tztes Lernen fÃ¼r deinen Karrierestart
+            KI-gestütztes Lernen für deinen Karrierestart
           </p>
           <p>Copyright © {new Date().getFullYear()} - All rights reserved</p>
         </aside>
         <nav>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <a href="/eignungstest" className="link link-hover">
+            <Link href="/eignungstest" className="link link-hover">
               Eignungstests üben
-            </a>
-            <a href="/impressum" className="link link-hover">
+            </Link>
+            <Link href="/impressum" className="link link-hover">
               Impressum
-            </a>
-            <a href="/datenschutz" className="link link-hover">
+            </Link>
+            <Link href="/datenschutz" className="link link-hover">
               Datenschutz
-            </a>
-            <a href="/agb" className="link link-hover">
+            </Link>
+            <Link href="/agb" className="link link-hover">
               AGB
-            </a>
-            <a href="/widerruf" className="link link-hover">
+            </Link>
+            <Link href="/widerruf" className="link link-hover">
               Widerruf
-            </a>
+            </Link>
           </div>
         </nav>
       </footer>
