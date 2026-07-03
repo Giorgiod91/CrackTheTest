@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-// Map plan IDs to Stripe Price IDs
-// Env vars override hardcoded values (set in Vercel for flexibility)
-const PRICE_IDS: Record<string, string | undefined> = {
-  starter: process.env.STRIPE_PRICE_STARTER ?? "price_1TbH4QLwhF7s81bJ0tCj6kRS",
-  pro:     process.env.STRIPE_PRICE_PRO     ?? "price_1TbH4wLwhF7s81bJzGohnZbW",
-  enterprise: process.env.STRIPE_PRICE_ENTERPRISE, // coming soon
+// One-time products (no subscription). Prices in cents (EUR).
+const PRODUCTS: Record<string, { name: string; amount: number } | undefined> = {
+  paket: {
+    name: "CrackTheTest Prüfungspaket – dauerhafter Zugang",
+    amount: 1499,
+  },
 };
 
 export async function POST(req: Request) {
@@ -37,9 +37,9 @@ export async function POST(req: Request) {
     }
 
     const { planId } = body;
-    const priceId = PRICE_IDS[planId];
+    const product = PRODUCTS[planId];
 
-    if (!priceId) {
+    if (!product) {
       return NextResponse.json(
         { error: `Kein Preis für Plan "${planId}" konfiguriert.` },
         { status: 400 },
@@ -63,13 +63,29 @@ export async function POST(req: Request) {
           ? "https://crack-the-test.vercel.app"
           : "http://localhost:3000");
 
-    // Create Stripe Checkout Session
+    // Create Stripe Checkout Session (one-time payment, no subscription).
+    // consent_collection + custom_text: required for German law — the buyer
+    // must confirm the early loss of the withdrawal right for digital content.
     const session = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      payment_method_types: ["card"],
-      line_items: [{ price: priceId, quantity: 1 }],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "eur",
+            unit_amount: product.amount,
+            product_data: { name: product.name },
+          },
+          quantity: 1,
+        },
+      ],
       customer_email: customerEmail ?? undefined,
       metadata: { userId: user.id, planId },
+      consent_collection: { terms_of_service: "required" },
+      custom_text: {
+        terms_of_service_acceptance: {
+          message: `Ich stimme den [AGB](${appUrl}/agb) zu und verlange ausdrücklich, dass mit der Bereitstellung der digitalen Inhalte sofort begonnen wird. Mir ist bekannt, dass mein [Widerrufsrecht](${appUrl}/widerruf) damit erlischt.`,
+        },
+      },
       success_url: `${appUrl}/PremiumUsers?checkout=success`,
       cancel_url:  `${appUrl}/ManageSubscription?checkout=canceled`,
     });
