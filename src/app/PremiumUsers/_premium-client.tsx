@@ -65,16 +65,28 @@ export default function PremiumPage() {
             <span className="text-2xl">🔒</span>
           </div>
           <h1 className="mb-2 bg-gradient-to-r from-[#FF705B] to-[#FFB457] bg-clip-text text-2xl font-bold text-transparent">
-            Premium erforderlich
+            Schalte dein Prüfungspaket frei
           </h1>
-          <p className="mb-8 text-sm leading-relaxed text-white/40">
-            Schalte das vollständige Dashboard mit KI-Tests, Analytik und unbegrenzten Features frei.
+          <p className="mb-6 text-sm leading-relaxed text-white/40">
+            Unbegrenzte KI-Übungstests, sofortige Auswertung und dein
+            persönliches Analytics-Dashboard — alles für deinen Eignungstest.
           </p>
+          <ul className="mb-8 space-y-2 text-left text-sm text-white/60">
+            <li>✓ Unbegrenzte KI-generierte Übungstests</li>
+            <li>✓ Sofortige Auswertung &amp; Schwierigkeitsanalyse</li>
+            <li>✓ Einmal zahlen — dauerhafter Zugang, kein Abo</li>
+          </ul>
           <button
             onClick={() => router.push("/ManageSubscription")}
             className="w-full rounded-2xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-3.5 font-bold text-white shadow-lg shadow-orange-500/25 transition hover:brightness-110"
           >
-            🚀 Jetzt upgraden — ab 4,99€/Monat
+            🚀 Freischalten — 14,99€ einmalig
+          </button>
+          <button
+            onClick={() => router.push("/Test_openAi")}
+            className="mt-3 w-full rounded-2xl border border-orange-400/40 py-3 text-sm font-semibold text-orange-300 transition hover:bg-orange-400/10"
+          >
+            🎁 Erst ausprobieren — 3 Tests gratis
           </button>
           <button
             onClick={() => router.push("/")}
