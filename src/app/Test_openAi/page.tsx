@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 interface TestResponse {
   test_text: string;
   questions?: string[];
+  free_remaining?: number | null;
 }
 
 interface PredictionResult {
@@ -29,6 +30,7 @@ export default function CreateTestPage() {
   // Auth state
   const [authChecked, setAuthChecked] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [freeRemaining, setFreeRemaining] = useState(3);
 
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
@@ -47,11 +49,15 @@ export default function CreateTestPage() {
 
       const { data } = await supabase
         .from("users")
-        .select("premium")
+        .select("premium, free_tests_used")
         .eq("real_member_id", user.id)
-        .maybeSingle<{ premium: boolean | null }>();
+        .maybeSingle<{
+          premium: boolean | null;
+          free_tests_used: number | null;
+        }>();
 
       setIsPremium(data?.premium === true);
+      setFreeRemaining(Math.max(0, 3 - (data?.free_tests_used ?? 0)));
       setAuthChecked(true);
     };
 
@@ -70,15 +76,28 @@ export default function CreateTestPage() {
     setSaved(false);
 
     try {
-      const response = await fetch("../api/openai/", {
+      const response = await fetch("/api/openai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: t, subject: s, content: c, anzahl }),
       });
-      if (!response.ok) throw new Error("Fehler beim Erstellen des Tests");
+
+      if (!response.ok) {
+        const errBody = (await response.json().catch(() => ({}))) as {
+          error?: string;
+          code?: string;
+        };
+        if (errBody.code === "FREE_LIMIT_REACHED") {
+          setFreeRemaining(0);
+        }
+        throw new Error(errBody.error ?? "Fehler beim Erstellen des Tests");
+      }
 
       const data = (await response.json()) as TestResponse;
       setTest(data.test_text);
+      if (typeof data.free_remaining === "number") {
+        setFreeRemaining(data.free_remaining);
+      }
 
       const questions = data.questions ?? [];
       const predictions: PredictionResult[] = [];
@@ -152,8 +171,8 @@ export default function CreateTestPage() {
     );
   }
 
-  // Not premium – show upgrade wall
-  if (!isPremium) {
+  // Free limit reached – show upgrade wall
+  if (!isPremium && freeRemaining <= 0 && !test) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6">
         <div className="max-w-md w-full text-center rounded-3xl border border-gray-200 bg-white p-12 shadow-2xl dark:border-gray-700 dark:bg-gray-800">
@@ -161,17 +180,17 @@ export default function CreateTestPage() {
             <Lock className="h-10 w-10 text-white" />
           </div>
           <h1 className="mb-3 bg-gradient-to-r from-[#FF705B] to-[#FFB457] bg-clip-text text-3xl font-bold text-transparent">
-            Premium erforderlich
+            Deine 3 Gratis-Tests sind aufgebraucht
           </h1>
           <p className="mb-8 text-gray-500 dark:text-gray-400">
-            Die KI-Testerstellung ist exklusiv für Premium-Mitglieder. Upgrade
-            jetzt und erstelle unbegrenzt KI-generierte Tests.
+            Dir hat das Üben geholfen? Schalte jetzt unbegrenzte KI-Tests,
+            Auswertung und Analytics frei — einmal zahlen, kein Abo.
           </p>
           <button
             onClick={() => router.push("/ManageSubscription")}
             className="w-full rounded-full bg-gradient-to-r from-[#FF705B] to-[#FFB457] px-8 py-4 font-bold text-white shadow-lg shadow-orange-500/30 transition hover:scale-105"
           >
-            🚀 Jetzt upgraden
+            🚀 Freischalten — 14,99€ einmalig
           </button>
           <button
             onClick={() => router.push("/PremiumUsers")}
@@ -186,6 +205,22 @@ export default function CreateTestPage() {
 
   return (
     <div className="mx-auto w-full max-w-7xl p-6">
+      {/* Free tier counter */}
+      {!isPremium && (
+        <div className="mb-6 flex flex-col items-center justify-between gap-3 rounded-xl border border-orange-400/40 bg-gradient-to-r from-[#FF705B]/10 to-[#FFB457]/10 p-4 sm:flex-row">
+          <p className="text-sm font-semibold">
+            🎁 Kostenlose Tests übrig:{" "}
+            <span className="text-orange-500">{freeRemaining} von 3</span>
+          </p>
+          <button
+            onClick={() => router.push("/ManageSubscription")}
+            className="rounded-full bg-gradient-to-r from-[#FF705B] to-[#FFB457] px-5 py-2 text-sm font-bold text-white shadow transition hover:brightness-110"
+          >
+            Unbegrenzt üben — 14,99€ einmalig →
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
