@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "AGB",
@@ -44,7 +45,7 @@ export default function AgbPage() {
       <h2>§ 5 Widerrufsrecht</h2>
       <p>
         Verbrauchern steht ein gesetzliches Widerrufsrecht zu. Einzelheiten
-        ergeben sich aus der <a href="/widerruf">Widerrufsbelehrung</a>. Das
+        ergeben sich aus der <Link href="/widerruf">Widerrufsbelehrung</Link>. Das
         Widerrufsrecht erlischt bei digitalen Inhalten, wenn der Anbieter mit
         der Ausführung begonnen hat, nachdem der Nutzer ausdrücklich
         zugestimmt und seine Kenntnis vom Erlöschen des Widerrufsrechts
