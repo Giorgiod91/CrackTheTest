@@ -6,23 +6,23 @@ import { HeroBrowserMockup } from "./HeroBrowserMockup";
 const Cards = [
   {
     logo: "📊",
-    Heading: "Schwächen sofort erkennen",
-    Text: "Nach jedem Test zeigt dir die KI, wo du Punkte liegen lässt – und was du üben solltest.",
+    Heading: "Du siehst deinen Stand",
+    Text: "Prüfungsreife in Prozent, Fortschritt pro Thema und eine Notenprognose nach IHK-Schlüssel.",
   },
   {
     logo: "🧠",
-    Heading: "Aufgaben wie im echten Test",
-    Text: "Logik, Mathe, Konzentration – genau die Aufgabentypen, die in Eignungstests drankommen.",
+    Heading: "Aufgaben wie in der AP1",
+    Text: "Subnetting, Angebotsvergleich, Stromkosten, Backups, Pseudocode. Genau die Typen, die jedes Jahr kommen.",
   },
   {
-    logo: "🚀",
-    Heading: "Unbegrenzt üben",
-    Text: "Neue Tests auf Knopfdruck, so oft du willst – keine abgegriffenen Fragenkataloge.",
+    logo: "⏱️",
+    Heading: "90-Minuten-Simulation",
+    Text: "4 Handlungsschritte, 100 Punkte, Timer. Damit dich am Prüfungstag nichts mehr überrascht.",
   },
   {
-    logo: "🛠️",
-    Heading: "Passt sich dir an",
-    Text: "Wähle Thema und Schwierigkeit – die KI erstellt Tests auf deinem Niveau.",
+    logo: "💡",
+    Heading: "Tipps von jemandem, der durch ist",
+    Text: "Zu jeder Aufgabe der Rechenweg und die Fallen, über die die meisten stolpern.",
   },
 ];
 
@@ -41,7 +41,7 @@ const arrowContent = [
         <path d="M 20.738281 5.9941406 A 1.250125 1.250125 0 0 0 19.878906 6.3730469 L 9 17.234375 L 4.1152344 12.361328 A 1.250125 1.250125 0 1 0 2.3496094 14.130859 L 8.1171875 19.884766 A 1.250125 1.250125 0 0 0 9.8828125 19.884766 L 21.644531 8.140625 A 1.250125 1.250125 0 0 0 20.738281 5.9941406 z"></path>
       </svg>
     ),
-    line: "Schnell & Einfach",
+    line: "Alle Fachrichtungen",
   },
   {
     arrow: (
@@ -73,7 +73,7 @@ const arrowContent = [
         <path d="M 20.738281 5.9941406 A 1.250125 1.250125 0 0 0 19.878906 6.3730469 L 9 17.234375 L 4.1152344 12.361328 A 1.250125 1.250125 0 1 0 2.3496094 14.130859 L 8.1171875 19.884766 A 1.250125 1.250125 0 0 0 9.8828125 19.884766 L 21.644531 8.140625 A 1.250125 1.250125 0 0 0 20.738281 5.9941406 z"></path>
       </svg>
     ),
-    line: "Mehr Chancen bei Top-Unternehmen",
+    line: "15 € einmalig, kein Abo",
   },
 ];
 
@@ -93,7 +93,7 @@ function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            ✨ Für VW, Deutsche Bahn, Polizei, Bundeswehr &amp; mehr
+            🎓 Geh in die AP1 und wisse, dass du es kannst
           </motion.div>
           <motion.h1
             className="text-base-content text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
@@ -101,12 +101,12 @@ function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Besteh deinen
+            Deine
             <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
               {" "}
-              Eignungstest{" "}
+              AP1 Prüfungsvorbereitung{" "}
             </span>
-            beim ersten Versuch 🎯
+            für Fachinformatiker 🎯
           </motion.h1>
 
           <motion.p
@@ -115,10 +115,10 @@ function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Dein Einstellungstest steht an? Mit{" "}
-            <strong>CrackTheTest</strong> übst du mit KI-generierten Aufgaben,
-            die sich deinem Niveau anpassen — und gehst vorbereitet in den
-            Test, während andere Bewerber raten.
+            Gebaut von einem Fachinformatiker-Azubi, der die AP1 selbst gut
+            bestanden hat. Mit <strong>AP1 Ready</strong> übst du genau
+            die Aufgabentypen, die drankommen, siehst jederzeit deinen Stand
+            und schreibst vorher Probeprüfungen unter Echtbedingungen.
           </motion.p>
 
           <motion.div
@@ -130,7 +130,7 @@ function LandingPage() {
               href="#price"
               className="btn bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-6 py-3 text-lg font-semibold shadow-xl transition-transform duration-200 hover:scale-105 hover:brightness-110"
             >
-              Jetzt starten 🚀
+              Für 15 € starten 🚀
             </a>
           </motion.div>
           {/* added Arrows below the main part flex-wrap makes it look good  */}

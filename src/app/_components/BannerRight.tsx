@@ -14,14 +14,14 @@ function BannerRight() {
       <div className="flex items-center gap-3">
         <span className="rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] p-2 text-2xl shadow-md">📊</span>
         <h3 className="text-2xl font-bold text-white/90">
-          Ergebnisse analysieren & optimieren ⚡
+          Unbegrenzt Nachschub mit KI
         </h3>
       </div>
       <p className="pl-14 text-base text-white/70">
-        Stärken, Schwächen und Schwierigkeitsgrade direkt erkennen.
+        Thema durch? Die KI erstellt dir neue Aufgaben im AP1-Stil, so viele du willst.
       </p>
       <p className="pl-14 text-sm font-medium text-orange-400">
-        🧠 ML-Klassifizierer bewertet die Schwierigkeit automatisch
+        🧠 Mit Schwierigkeitsanalyse für jede Frage
       </p>
     </motion.div>
   );

@@ -1,11 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
-import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
-
-const FREE_TEST_LIMIT = 3;
 
 interface CreateTestBody {
   title: string;
@@ -25,22 +22,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Nicht eingeloggt." }, { status: 401 });
   }
 
-  // ── 2. Premium or free tier (3 free tests total) ─────────────────────────
+  // ── 2. Prüfungspaket required ────────────────────────────────────────────
   const { data: dbUser } = await supabase
-    .from("users").select("premium, free_tests_used")
+    .from("users").select("premium")
     .eq("real_member_id", user.id)
-    .maybeSingle<{ premium: boolean | null; free_tests_used: number | null }>();
+    .maybeSingle<{ premium: boolean | null }>();
 
-  const isPremium = dbUser?.premium === true;
-  const freeUsed = dbUser?.free_tests_used ?? 0;
-
-  if (!isPremium && freeUsed >= FREE_TEST_LIMIT) {
+  if (dbUser?.premium !== true) {
     return NextResponse.json(
-      {
-        error:
-          "Deine 3 kostenlosen Tests sind aufgebraucht. Schalte das Prüfungspaket frei, um unbegrenzt zu üben.",
-        code: "FREE_LIMIT_REACHED",
-      },
+      { error: "KI-Tests sind Teil des Prüfungspakets.", code: "PREMIUM_REQUIRED" },
       { status: 403 },
     );
   }
@@ -68,7 +58,7 @@ export async function POST(request: NextRequest) {
 
   // ── 5. Claude API ─────────────────────────────────────────────────────────
   try {
-    const prompt = `Du bist ein Experte für Einstellungstests und Eignungsprüfungen.
+    const prompt = `Du bist ein erfahrener IHK-Prüfer für die AP1 der Fachinformatiker ("Einrichten eines IT-gestützten Arbeitsplatzes").
 
 Erstelle einen professionellen Test mit genau ${anzahl} Fragen.
 
@@ -84,7 +74,7 @@ C) [Antwort C]
 D) [Antwort D]
 ✓ Richtige Antwort: [Buchstabe]
 
-Erstelle ${anzahl} abwechslungsreiche, realistische Fragen die einem echten Einstellungstest entsprechen.
+Erstelle ${anzahl} abwechslungsreiche, realistische Fragen im Stil der AP1: praxisnahe Situationen aus einem IT-Betrieb, gerne mit Rechenaufgaben (z. B. Subnetting, Bezugspreis, Stromkosten, Datenmengen). Bei Rechenaufgaben müssen die vier Antwortoptionen Zahlenwerte sein, genau eine davon korrekt.
 Antworte NUR mit den Fragen, keine Einleitung oder Schlusstext.`;
 
     const message = await client.messages.create({
@@ -103,25 +93,8 @@ Antworte NUR mit den Fragen, keine Einleitung oder Schlusstext.`;
       .map((q) => q.split("\n")[0]?.trim() ?? "")
       .filter(Boolean);
 
-    // Count the free test after successful generation (service role: RLS-safe)
-    let freeRemaining: number | null = null;
-    if (!isPremium) {
-      const admin = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      );
-      const { error: countError } = await admin
-        .from("users")
-        .update({ free_tests_used: freeUsed + 1 })
-        .eq("real_member_id", user.id);
-      if (countError) {
-        console.error("Could not increment free_tests_used:", countError);
-      }
-      freeRemaining = Math.max(0, FREE_TEST_LIMIT - (freeUsed + 1));
-    }
-
     return NextResponse.json(
-      { test_text: testText, questions, free_remaining: freeRemaining },
+      { test_text: testText, questions },
       {
         headers: {
           "X-RateLimit-Remaining": String(rl.remaining),

@@ -13,29 +13,29 @@ const steps = [
   {
     icon: <DocumentTextIcon className="h-10 w-10 text-base-content" />,
     number: "01",
-    title: "Thema & Ziel wählen",
+    title: "Freischalten & Termin eintragen",
     description:
-      "Wähle das Fachgebiet, die Zielgruppe und das Schwierigkeitsniveau deines Tests.",
+      "Registrieren, Prüfungspaket freischalten, AP1-Termin eintragen. Ab dann zählt dein Dashboard die Tage runter.",
   },
   {
     icon: <Cog6ToothIcon className="h-10 w-10 text-base-content" />,
     number: "02",
-    title: "Test generieren",
+    title: "Themen durcharbeiten",
     description:
-      "Unsere KI erstellt automatisch passende Fragen inklusive Antworten & Lösungen.",
+      "Aufgabe lösen, sofort Feedback, Rechenweg und Prüfungstipp. Falsche Aufgaben kommen automatisch wieder.",
   },
   {
     icon: <ArrowUpTrayIcon className="h-10 w-10 text-base-content" />,
     number: "03",
-    title: "Teilen oder exportieren",
-    description: "Nutze den Test online oder exportiere ihn als PDF.",
+    title: "Stand checken",
+    description: "Prüfungsreife, Fortschritt pro Thema und dein schwächstes Thema als nächster Schritt.",
   },
   {
     icon: <ChartBarIcon className="h-10 w-10 text-base-content" />,
     number: "04",
-    title: "Ergebnisse analysieren",
+    title: "Probeprüfung schreiben",
     description:
-      "Erhalte direkt Feedback & Auswertungen zur Performance – perfekt zur Vorbereitung.",
+      "90 Minuten, 4 Handlungsschritte, Note nach IHK-Schlüssel. So oft, bis du sicher bestehst.",
   },
 ];
 
@@ -61,8 +61,7 @@ function Tutorial() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          In nur vier Schritten zur perfekten Eignungsprüfung – KI-gestützt,
-          flexibel und schnell.
+          Vier Schritte von „keine Ahnung, wo ich stehe“ bis „ich bin bereit“.
         </motion.p>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

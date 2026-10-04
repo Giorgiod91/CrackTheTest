@@ -6,13 +6,12 @@ import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 const PAKET_FEATURES = [
-  "Unbegrenzte KI-generierte Übungstests",
-  "ML Schwierigkeitsanalyse",
-  "Vollständiges Analytics Dashboard",
-  "Tests speichern & verwalten",
-  "Sofortige Auswertung & Ergebnisse",
-  "Schwierigkeit anpassbar",
-  "Priority Support",
+  "Alle 9 AP1-Themen mit Rechenwegen und Prüfungstipps",
+  "Unbegrenzte 90-Minuten-Prüfungssimulationen",
+  "Notenprognose nach IHK-Schlüssel",
+  "Fortschritt pro Thema & Prüfungscountdown",
+  "Unbegrenzte KI-Zusatzaufgaben",
+  "Dauerhafter Zugang, kein Abo",
 ];
 
 export default function ManageSubscription() {
@@ -133,11 +132,11 @@ export default function ManageSubscription() {
 
             <h3 className="text-2xl font-bold text-white">Prüfungspaket</h3>
             <p className="mt-2 text-sm text-slate-400">
-              Alles, was du für deinen Eignungstest brauchst
+              Alles, was du für die AP1 brauchst
             </p>
 
             <div className="mt-6 flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-white">14,99€</span>
+              <span className="text-4xl font-bold text-white">15 €</span>
               <span className="text-slate-400">einmalig</span>
             </div>
 
@@ -184,8 +183,8 @@ export default function ManageSubscription() {
                 Ist das ein Abo?
               </h3>
               <p className="text-sm text-slate-400">
-                Nein. Du zahlst einmalig 14,99€ und behältst dauerhaft Zugang —
-                es gibt keine wiederkehrenden Kosten.
+                Nein. Du zahlst einmalig 15 € und behältst dauerhaft Zugang.
+                Es gibt keine wiederkehrenden Kosten.
               </p>
             </div>
             <div>
@@ -207,11 +206,11 @@ export default function ManageSubscription() {
             </div>
             <div>
               <h3 className="mb-2 font-semibold text-white">
-                Kann ich vorher testen?
+                Kann ich mir vorher Aufgaben ansehen?
               </h3>
               <p className="text-sm text-slate-400">
-                Ja, mit dem kostenlosen Basiszugang kannst du die Plattform
-                ausprobieren, bevor du kaufst.
+                Ja. Auf den AP1-Themenseiten gibt es zu jedem Thema
+                Beispielaufgaben mit Lösung.
               </p>
             </div>
           </div>

@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import PremiumDahsboard from "../_components/PremiumDahsboard";
+import Ap1Dashboard from "../_components/Ap1Dashboard";
 import FeedbackWidget from "../_components/FeedbackWidget";
 import ConsentBanner from "../_components/ConsentBanner";
+import { PRICE_LABEL } from "@/lib/ap1/topics";
 
 export default function PremiumPage() {
   const [authChecked, setAuthChecked] = useState(false);
@@ -26,23 +27,30 @@ export default function PremiumPage() {
     }
   }, [searchParams]);
 
-  // Auth + premium check
+  // Auth + premium check. Right after a Stripe checkout the webhook may still
+  // be on its way, so retry for a few seconds before showing the paywall.
   useEffect(() => {
+    let cancelled = false;
+    const justPaid = searchParams.get("checkout") === "success";
     const check = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.push("/auth/login"); return; }
 
-      const { data } = await supabase
-        .from("users")
-        .select("premium")
-        .eq("real_member_id", user.id)
-        .maybeSingle<{ premium: boolean | null }>();
-
-      setIsPremium(data?.premium === true);
+      for (let attempt = 0; attempt < (justPaid ? 8 : 1); attempt++) {
+        if (attempt > 0) await new Promise((r) => setTimeout(r, 2000));
+        const { data } = await supabase
+          .from("users")
+          .select("premium")
+          .eq("real_member_id", user.id)
+          .maybeSingle<{ premium: boolean | null }>();
+        if (cancelled) return;
+        if (data?.premium === true) { setIsPremium(true); break; }
+      }
       setAuthChecked(true);
     };
     void check();
-  }, [supabase, router]);
+    return () => { cancelled = true; };
+  }, [supabase, router, searchParams]);
 
   // Loading
   if (!authChecked) {
@@ -56,7 +64,7 @@ export default function PremiumPage() {
     );
   }
 
-  // Not premium
+  // Paywall: everything is part of the Prüfungspaket
   if (!isPremium) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#1a1835] p-6">
@@ -65,28 +73,22 @@ export default function PremiumPage() {
             <span className="text-2xl">🔒</span>
           </div>
           <h1 className="mb-2 bg-gradient-to-r from-[#FF705B] to-[#FFB457] bg-clip-text text-2xl font-bold text-transparent">
-            Schalte dein Prüfungspaket frei
+            Schalte AP1 Ready frei
           </h1>
-          <p className="mb-6 text-sm leading-relaxed text-white/40">
-            Unbegrenzte KI-Übungstests, sofortige Auswertung und dein
-            persönliches Analytics-Dashboard — alles für deinen Eignungstest.
+          <p className="mb-6 text-sm leading-relaxed text-white/50">
+            Einmal {PRICE_LABEL}, danach hast du dauerhaft Zugang zu allem, was du für die AP1 brauchst.
           </p>
-          <ul className="mb-8 space-y-2 text-left text-sm text-white/60">
-            <li>✓ Unbegrenzte KI-generierte Übungstests</li>
-            <li>✓ Sofortige Auswertung &amp; Schwierigkeitsanalyse</li>
-            <li>✓ Einmal zahlen — dauerhafter Zugang, kein Abo</li>
+          <ul className="mb-8 space-y-2 text-left text-sm text-white/70">
+            <li>✓ Alle 9 AP1-Themen mit Rechenwegen und Prüfungstipps</li>
+            <li>✓ Unbegrenzte 90-Minuten-Prüfungssimulationen</li>
+            <li>✓ Fortschritt pro Thema und Notenprognose</li>
+            <li>✓ Unbegrenzte KI-Zusatzaufgaben</li>
           </ul>
           <button
             onClick={() => router.push("/ManageSubscription")}
             className="w-full rounded-2xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-3.5 font-bold text-white shadow-lg shadow-orange-500/25 transition hover:brightness-110"
           >
-            🚀 Freischalten — 14,99€ einmalig
-          </button>
-          <button
-            onClick={() => router.push("/Test_openAi")}
-            className="mt-3 w-full rounded-2xl border border-orange-400/40 py-3 text-sm font-semibold text-orange-300 transition hover:bg-orange-400/10"
-          >
-            🎁 Erst ausprobieren — 3 Tests gratis
+            Jetzt freischalten · {PRICE_LABEL} einmalig
           </button>
           <button
             onClick={() => router.push("/")}
@@ -99,7 +101,6 @@ export default function PremiumPage() {
     );
   }
 
-  // Premium dashboard
   return (
     <div className="flex min-h-screen flex-col bg-[#1a1835]">
       <ConsentBanner />
@@ -108,13 +109,13 @@ export default function PremiumPage() {
       {showSuccess && (
         <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-lg">
           <CheckCircle2 className="h-4 w-4 shrink-0" />
-          🎉 Zahlung erfolgreich! Premium ist jetzt aktiv.
+          🎉 Zahlung erfolgreich! Dein Prüfungspaket ist freigeschaltet.
         </div>
       )}
 
       {/* Full-screen dashboard */}
-      <div className="flex-1 overflow-hidden">
-        <PremiumDahsboard />
+      <div className="flex-1">
+        <Ap1Dashboard isPremium={isPremium} />
       </div>
 
       {/* Feedback widget */}

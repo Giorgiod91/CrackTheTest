@@ -60,14 +60,14 @@ export default function LoginForm({ user }: LoginFormProps) {
           <div className="mb-4 flex items-center justify-center gap-2">
             <Shield className="text-primary h-8 w-8" />
             <h1 className="text-3xl font-bold">
-              Crack
+              AP1
               <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
-                TheTest
+                {" "}Ready
               </span>
             </h1>
           </div>
           <p className="text-base-content/60 text-sm">
-            Sicherer Zugang zu deinem Premium-Konto
+            Willkommen zurück bei AP1 Ready
           </p>
         </div>
 

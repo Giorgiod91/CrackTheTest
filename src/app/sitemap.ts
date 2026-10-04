@@ -1,7 +1,8 @@
 import { type MetadataRoute } from "next";
-import { firmen } from "./eignungstest/_data/firmen";
+import { TOPICS } from "@/lib/ap1/topics";
+import { SITE } from "@/lib/site";
 
-const baseUrl = "https://crack-the-test.vercel.app";
+const baseUrl = SITE.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -12,12 +13,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/eignungstest`,
+      url: `${baseUrl}/ap1-pruefungsvorbereitung`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/ap1`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
-    ...firmen.map((f) => ({
-      url: `${baseUrl}/eignungstest/${f.slug}`,
+    ...TOPICS.map((t) => ({
+      url: `${baseUrl}/ap1/${t.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
