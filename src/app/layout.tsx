@@ -6,28 +6,35 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import ConsentBanner from "./_components/ConsentBanner";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://crack-the-test.vercel.app"),
+  metadataBase: new URL(SITE.url),
+  alternates: { canonical: "/" },
   title: {
-    default: "CrackTheTest – Eignungstest online üben mit KI",
-    template: "%s | CrackTheTest",
+    default: "AP1 Prüfungsvorbereitung Fachinformatiker | AP1 Ready",
+    template: "%s | AP1 Ready",
   },
   description:
-    "Bereite dich mit KI-generierten Übungstests auf deinen Eignungstest vor – für Ausbildung, VW, Continental & mehr. Logik, Mathe und Konzentration gezielt trainieren.",
+    "AP1 Prüfungsvorbereitung für Fachinformatiker (IHK): alle Prüfungsthemen mit Rechenwegen und Prüfungstipps, Fortschritt pro Thema, Notenprognose und 90-Minuten-Prüfungssimulation. 15 € einmalig, kein Abo.",
   keywords: [
-    "Eignungstest üben",
-    "Einstellungstest Ausbildung",
-    "VW Eignungstest",
-    "Eignungstest online",
-    "Einstellungstest Vorbereitung",
+    "AP1 Prüfungsvorbereitung",
+    "Prüfungsvorbereitung Fachinformatiker",
+    "IHK Prüfungsvorbereitung Fachinformatiker",
+    "AP1 Fachinformatiker",
+    "AP1 Fachinformatiker Anwendungsentwicklung",
+    "AP1 Fachinformatiker Systemintegration",
+    "Einrichten eines IT-gestützten Arbeitsplatzes",
+    "AP1 Übungsaufgaben",
+    "AP1 Subnetting",
+    "Abschlussprüfung Teil 1 Fachinformatiker",
   ],
   openGraph: {
-    title: "CrackTheTest – Eignungstest online üben mit KI",
+    title: "AP1 Prüfungsvorbereitung Fachinformatiker | AP1 Ready",
     description:
-      "KI-gestützte Vorbereitung auf Eignungstests und Einstellungstests für Ausbildung und Beruf.",
-    url: "https://crack-the-test.vercel.app",
-    siteName: "CrackTheTest",
+      "Alle AP1-Themen, Fortschritt pro Thema, Notenprognose und Prüfungssimulation. Von einem Azubi, der die AP1 selbst gut bestanden hat.",
+    url: SITE.url,
+    siteName: "AP1 Ready",
     locale: "de_DE",
     type: "website",
   },

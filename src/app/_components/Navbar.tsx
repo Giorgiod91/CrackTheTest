@@ -5,10 +5,10 @@ import { Menu, X, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Features",  href: "#tutorial"           },
+  { label: "So geht's", href: "#tutorial"           },
   { label: "Dashboard", href: "#dashboard-preview"  },
-  { label: "Firmen",    href: "#companies"           },
-  { label: "Preise",    href: "#price"               },
+  { label: "Themen",    href: "#themen"             },
+  { label: "Preis",     href: "#price"              },
 ];
 
 function Navbar() {
@@ -48,9 +48,9 @@ function Navbar() {
             <Zap className="h-4 w-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-lg font-extrabold tracking-tight text-slate-800">
-            Crack
+            AP1
             <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">
-              TheTest
+              {" "}Ready
             </span>
           </span>
         </button>
@@ -80,7 +80,7 @@ function Navbar() {
             onClick={() => router.push("/auth/signup")}
             className="rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-300/30 transition hover:brightness-110 hover:-translate-y-px"
           >
-            Kostenlos starten →
+            Jetzt starten →
           </button>
         </div>
 
@@ -125,7 +125,7 @@ function Navbar() {
                   onClick={() => { setMenuOpen(false); router.push("/auth/signup"); }}
                   className="w-full rounded-xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] py-2.5 text-sm font-semibold text-white"
                 >
-                  Kostenlos starten →
+                  Jetzt starten →
                 </button>
               </li>
             </ul>

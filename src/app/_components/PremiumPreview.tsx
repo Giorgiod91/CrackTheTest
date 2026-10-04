@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, FileText, BarChart2, Settings,
-  Users, TrendingUp, CheckCircle2, Plus, Download,
+  Users, TrendingUp, CheckCircle2, Plus,
   ShieldCheck, Sparkles, BrainCircuit, Lock,
 } from "lucide-react";
 
@@ -11,39 +11,39 @@ import {
 const BAR_HEIGHTS = [30, 55, 42, 78, 50, 95, 70, 62, 85, 45, 68, 90, 74, 88];
 
 const TESTS = [
-  { name: "VW Einstellungstest",     score: 87, cat: "Technik",  diff: "Mittel",   date: "Heute"    },
-  { name: "Telekom Assessment",       score: 94, cat: "Logik",    diff: "Schwer",   date: "Gestern"  },
-  { name: "Textverständnis Basic",    score: 78, cat: "Sprache",  diff: "Einfach",  date: "2 Tage"   },
-  { name: "Mathe & Zahlenreihen",     score: 91, cat: "Mathe",    diff: "Mittel",   date: "3 Tage"   },
-  { name: "Siemens Eignungstest",     score: 83, cat: "Technik",  diff: "Schwer",   date: "5 Tage"   },
+  { name: "Netzwerktechnik",              score: 82, cat: "Netzwerk",   diff: "18/22 sicher", date: "Heute"   },
+  { name: "Angebote & Wirtschaftlichkeit", score: 91, cat: "Rechnen",    diff: "16/18 sicher", date: "Gestern" },
+  { name: "IT-Sicherheit & Datenschutz",  score: 74, cat: "Sicherheit", diff: "14/19 sicher", date: "2 Tage"  },
+  { name: "Speicher & Übertragung",       score: 88, cat: "Rechnen",    diff: "12/14 sicher", date: "3 Tage"  },
+  { name: "Programmierung & Logik",       score: 63, cat: "Logik",      diff: "10/16 sicher", date: "5 Tage"  },
 ];
 
 const METRICS = [
-  { label: "Avg. Schwierigkeit", value: "6.8/10", icon: <BrainCircuit className="h-4 w-4 text-violet-400" /> },
-  { label: "Übungssessions",     value: "124",    icon: <TrendingUp    className="h-4 w-4 text-emerald-400" /> },
-  { label: "Aktive Nutzer",      value: "1.254",  icon: <Users         className="h-4 w-4 text-blue-400"    /> },
+  { label: "Prüfungsreife",     value: "79%",       icon: <BrainCircuit className="h-4 w-4 text-violet-400" /> },
+  { label: "Prognose IHK",      value: "Note 3",    icon: <TrendingUp    className="h-4 w-4 text-emerald-400" /> },
+  { label: "Tage bis zur AP1",  value: "23",        icon: <Users         className="h-4 w-4 text-blue-400"    /> },
 ];
 
 const FEATURES = [
   {
-    icon: <Sparkles   className="h-5 w-5 text-orange-400" />,
-    title: "KI-generierte Tests",
-    desc:  "Unbegrenzt Tests zu jedem Thema, Schwierigkeitsgrad und Unternehmen — in Sekunden generiert.",
-  },
-  {
     icon: <BarChart2  className="h-5 w-5 text-blue-400"   />,
-    title: "Erweiterte Analytik",
-    desc:  "Sieh deinen Fortschritt über Zeit, identifiziere Schwächen und verfolge deine Verbesserungen.",
+    title: "Fortschritt pro Thema",
+    desc:  "Du siehst für jedes AP1-Thema, wie viel du sicher kannst, und bekommst automatisch dein schwächstes Thema als nächsten Schritt.",
   },
   {
-    icon: <Users      className="h-5 w-5 text-violet-400" />,
-    title: "Multi-User & Teams",
-    desc:  "Verwalte mehrere Nutzer, teile Tests und sieh alle Ergebnisse in einem Dashboard.",
+    icon: <ShieldCheck className="h-5 w-5 text-emerald-400"/>,
+    title: "Prüfungssimulation",
+    desc:  "90 Minuten, 4 Handlungsschritte, 100 Punkte. Ausgewertet nach IHK-Notenschlüssel, beliebig oft wiederholbar.",
   },
   {
-    icon: <Download   className="h-5 w-5 text-emerald-400"/>,
-    title: "Export-Funktion",
-    desc:  "Exportiere Tests und Ergebnisse als PDF oder CSV — perfekt für Präsentationen.",
+    icon: <BrainCircuit className="h-5 w-5 text-violet-400" />,
+    title: "Erklärung + Prüfungstipp",
+    desc:  "Zu jeder Aufgabe der Rechenweg und ein Tipp, worauf Prüfer achten und wo die typischen Fallen liegen.",
+  },
+  {
+    icon: <Sparkles   className="h-5 w-5 text-orange-400" />,
+    title: "KI-Zusatzaufgaben",
+    desc:  "Wenn du ein Thema durch hast, erstellt dir die KI beliebig viele neue Aufgaben im AP1-Stil.",
   },
 ];
 
@@ -52,18 +52,18 @@ const FEATURES = [
 function DashSidebar() {
   const items = [
     { icon: <LayoutDashboard className="h-4 w-4" />, label: "Dashboard",    active: true  },
-    { icon: <FileText        className="h-4 w-4" />, label: "Meine Tests",  active: false },
-    { icon: <BarChart2       className="h-4 w-4" />, label: "Analytik",     active: false },
-    { icon: <Users           className="h-4 w-4" />, label: "Nutzer",       active: false },
+    { icon: <FileText        className="h-4 w-4" />, label: "Themen üben",  active: false },
+    { icon: <BarChart2       className="h-4 w-4" />, label: "Simulation",   active: false },
+    { icon: <Users           className="h-4 w-4" />, label: "KI-Tests",     active: false },
     { icon: <Settings        className="h-4 w-4" />, label: "Einstellungen",active: false },
   ];
   return (
     <div className="flex w-44 shrink-0 flex-col border-r border-white/5 bg-[#12112a]">
       <div className="border-b border-white/5 px-4 py-4">
-        <p className="text-xs font-bold text-orange-400">CrackTheTest.ai</p>
+        <p className="text-xs font-bold text-orange-400">AP1 Ready</p>
         <div className="mt-1.5 flex items-center gap-1.5">
           <span className="rounded-full bg-gradient-to-r from-[#FF705B] to-[#FFB457] px-2 py-0.5 text-[10px] font-bold text-white">
-            ⭐ Premium
+            ⭐ Prüfungspaket
           </span>
         </div>
       </div>
@@ -84,7 +84,7 @@ function DashSidebar() {
       </nav>
       <div className="border-t border-white/5 p-3">
         <button className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-2 text-xs font-bold text-white shadow-md shadow-orange-500/20">
-          <Plus className="h-3.5 w-3.5" /> Test erstellen
+          <Plus className="h-3.5 w-3.5" /> Weiter üben
         </button>
       </div>
     </div>
@@ -97,8 +97,8 @@ function DashMain() {
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-bold text-white">Guten Morgen, Max 👋</h2>
-          <p className="text-xs text-white/40">Du hast heute 3 Tests abgeschlossen</p>
+          <h2 className="text-sm font-bold text-white">Hey Max 👋</h2>
+          <p className="text-xs text-white/40">Noch 23 Tage bis zur AP1</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-[10px] font-semibold text-emerald-400">
@@ -111,8 +111,8 @@ function DashMain() {
       {/* Stat cards */}
       <div className="mb-5 grid grid-cols-3 gap-3">
         {[
-          { label: "Tests erstellt",  value: "24",   delta: "+3",  color: "text-white"     },
-          { label: "Ø Score",         value: "86%",  delta: "+4%", color: "text-orange-300"},
+          { label: "Fragen beantwortet", value: "214", delta: "+31", color: "text-white"     },
+          { label: "Trefferquote",    value: "81%",  delta: "+6%", color: "text-orange-300"},
           { label: "Lernstreak",      value: "12 Tage", delta: "🔥", color: "text-amber-300"},
         ].map((stat) => (
           <div key={stat.label} className="rounded-xl border border-white/6 bg-white/5 p-3">
@@ -128,8 +128,8 @@ function DashMain() {
       {/* Bar chart */}
       <div className="mb-5 rounded-xl border border-white/6 bg-white/5 p-4">
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-xs font-semibold text-white/60">Test-Aktivität (14 Tage)</p>
-          <p className="text-[10px] text-white/30">Klicks auf Test erstellen</p>
+          <p className="text-xs font-semibold text-white/60">Lernaktivität (14 Tage)</p>
+          <p className="text-[10px] text-white/30">Beantwortete Fragen pro Tag</p>
         </div>
         <div className="flex h-16 items-end gap-1">
           {BAR_HEIGHTS.map((h, i) => (
@@ -147,13 +147,13 @@ function DashMain() {
 
       {/* Recent tests table */}
       <div>
-        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-white/30">Letzte Tests</p>
+        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-white/30">Stand pro Thema</p>
         <div className="space-y-1">
           {TESTS.map((t) => (
             <div key={t.name} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/3 px-3 py-2">
               <div className="flex items-center gap-2 min-w-0">
                 <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-orange-500/10 text-[10px]">
-                  {t.cat === "Technik" ? "⚙️" : t.cat === "Logik" ? "🧠" : t.cat === "Mathe" ? "📐" : "📝"}
+                  {t.cat === "Netzwerk" ? "🌐" : t.cat === "Logik" ? "🧮" : t.cat === "Rechnen" ? "💶" : "🔐"}
                 </div>
                 <div className="min-w-0">
                   <p className="truncate text-[11px] font-medium text-white/80">{t.name}</p>
@@ -194,7 +194,7 @@ function DashRight() {
 
       <div className="mt-1 rounded-xl border border-white/5 bg-white/5 p-3">
         <p className="mb-2 text-[9px] font-semibold uppercase tracking-wider text-white/30">Quick Actions</p>
-        {["Test erstellen", "Exportieren", "Einstellungen"].map((action) => (
+        {["Simulation starten", "Schwächstes Thema", "Prüfungstermin"].map((action) => (
           <button
             key={action}
             className="mb-1.5 flex w-full items-center gap-1.5 rounded-lg bg-white/5 px-2 py-1.5 text-[10px] text-white/50 hover:bg-white/10 hover:text-white/80"
@@ -224,7 +224,7 @@ export default function PremiumPreview() {
           className="mb-16 text-center"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-orange-500">
-            Premium Dashboard
+            Dein AP1 Dashboard
           </p>
           <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             Wisse, was du bekommst —{" "}
@@ -233,7 +233,7 @@ export default function PremiumPreview() {
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-500">
-            Kein Rätsel über das Premium-Erlebnis. Hier ist dein Dashboard — mit KI-Tests, Analytik und Team-Verwaltung.
+            Du siehst jederzeit, wo du stehst: Prüfungsreife, Prognose nach IHK-Notenschlüssel und Fortschritt in jedem AP1-Thema.
           </p>
         </motion.div>
 
@@ -257,7 +257,7 @@ export default function PremiumPreview() {
               <div className="h-3 w-3 rounded-full bg-green-400/80" />
               <div className="ml-3 flex flex-1 items-center gap-2 overflow-hidden rounded-lg bg-white/8 px-3 py-1">
                 <div className="h-2 w-2 shrink-0 rounded-full bg-emerald-400" />
-                <span className="truncate text-xs text-white/40">app.crackthetest.ai/dashboard</span>
+                <span className="truncate text-xs text-white/40">AP1 Ready · Dashboard</span>
               </div>
               <div className="ml-3 flex gap-1">
                 <div className="h-5 w-12 rounded bg-white/5" />
@@ -313,11 +313,11 @@ export default function PremiumPreview() {
             className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-8 py-4 text-base font-bold text-white shadow-xl shadow-orange-300/30 transition hover:brightness-110 hover:-translate-y-0.5"
           >
             <ShieldCheck className="h-5 w-5" />
-            Premium freischalten · ab 9,99 € / Monat
+            Prüfungspaket freischalten · 15 € einmalig
           </a>
           <p className="text-sm text-slate-400">
             <Lock className="mr-1 inline h-3.5 w-3.5" />
-            Keine Mindestlaufzeit · Jederzeit kündbar
+            Kein Abo · Einmal zahlen, bis zur Prüfung (und danach) nutzen
           </p>
         </motion.div>
       </div>

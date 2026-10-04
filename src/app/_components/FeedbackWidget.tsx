@@ -127,7 +127,7 @@ export default function FeedbackWidget() {
                 Danke für dein Feedback!
               </h4>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Das hilft uns, CrackTheTest besser zu machen. 🚀
+                Das hilft uns, AP1 Ready besser zu machen. 🚀
               </p>
             </div>
           ) : (

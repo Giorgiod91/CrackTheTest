@@ -5,8 +5,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 // One-time products (no subscription). Prices in cents (EUR).
 const PRODUCTS: Record<string, { name: string; amount: number } | undefined> = {
   paket: {
-    name: "CrackTheTest Prüfungspaket – dauerhafter Zugang",
-    amount: 1499,
+    name: "AP1 Ready Prüfungspaket – dauerhafter Zugang",
+    amount: 1500,
   },
 };
 

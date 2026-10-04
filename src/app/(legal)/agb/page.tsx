@@ -15,16 +15,16 @@ export default function AgbPage() {
       <p>
         Diese AGB gelten für alle Verträge zwischen Giorgio Dettmar, [Straße
         und Hausnummer], [PLZ] Hannover (nachfolgend „Anbieter“) und den
-        Nutzern der Plattform CrackTheTest (nachfolgend „Nutzer“).
+        Nutzern der Plattform AP1 Ready (nachfolgend „Nutzer“).
       </p>
 
       <h2>§ 2 Leistungsbeschreibung</h2>
       <p>
-        CrackTheTest ist eine Online-Plattform zur Vorbereitung auf
-        Eignungs- und Einstellungstests mit KI-generierten Übungstests. Der
-        kostenlose Basiszugang umfasst eine begrenzte Anzahl an Tests. Mit dem
-        einmalig zu bezahlenden „Prüfungspaket“ erhält der Nutzer erweiterten
-        Zugang gemäß der Leistungsbeschreibung auf der Bestellseite.
+        AP1 Ready ist eine Online-Plattform zur Vorbereitung auf Teil 1
+        der Abschlussprüfung (AP1) für Fachinformatiker mit Übungsaufgaben,
+        Prüfungssimulationen und KI-generierten Übungstests. Mit dem
+        einmalig zu bezahlenden „Prüfungspaket“ erhält der Nutzer Zugang zu
+        den Inhalten gemäß der Leistungsbeschreibung auf der Bestellseite.
       </p>
 
       <h2>§ 3 Vertragsschluss</h2>
@@ -64,8 +64,9 @@ export default function AgbPage() {
         Der Anbieter strebt eine hohe Verfügbarkeit an, schuldet jedoch keine
         ununterbrochene Erreichbarkeit. Die Übungstests werden automatisiert
         durch KI erstellt und dienen ausschließlich der Übung; eine Garantie
-        für die inhaltliche Übereinstimmung mit realen Eignungstests einzelner
-        Unternehmen oder für das Bestehen solcher Tests wird nicht übernommen.
+        für die inhaltliche Übereinstimmung mit realen IHK-Prüfungen oder für
+        das Bestehen der Prüfung wird nicht übernommen. Die Plattform steht
+        in keiner Verbindung zur IHK.
       </p>
 
       <h2>§ 8 Haftung</h2>

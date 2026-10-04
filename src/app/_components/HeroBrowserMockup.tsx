@@ -8,24 +8,24 @@ import {
 const BAR_HEIGHTS = [38, 62, 48, 80, 55, 92, 68];
 
 const RECENT_TESTS = [
-  { name: "VW Einstellungstest",    score: 87, date: "Heute",    cat: "Technik"  },
-  { name: "Logik & Konzentration",  score: 92, date: "Gestern",  cat: "Logik"    },
-  { name: "Sprache & Textverst.",   score: 78, date: "3 Tage",   cat: "Sprache"  },
+  { name: "Subnetting /26 /27",       score: 87, date: "Heute",    cat: "Netzwerk"     },
+  { name: "Angebotsvergleich",        score: 92, date: "Gestern",  cat: "Wirtschaft"   },
+  { name: "Backupstrategien",         score: 78, date: "3 Tage",   cat: "IT-Sicherheit"},
 ];
 
 function MiniSidebar() {
   const items = [
     { icon: <LayoutDashboard className="h-3 w-3" />, label: "Dashboard", active: true  },
-    { icon: <FileText          className="h-3 w-3" />, label: "Tests",     active: false },
-    { icon: <BarChart2         className="h-3 w-3" />, label: "Analytik",  active: false },
-    { icon: <Users             className="h-3 w-3" />, label: "Nutzer",    active: false },
+    { icon: <FileText          className="h-3 w-3" />, label: "Themen",    active: false },
+    { icon: <BarChart2         className="h-3 w-3" />, label: "Simulation", active: false },
+    { icon: <Users             className="h-3 w-3" />, label: "KI-Tests",  active: false },
     { icon: <Settings          className="h-3 w-3" />, label: "Einstellungen", active: false },
   ];
   return (
     <div className="flex w-28 flex-col border-r border-white/5 bg-[#12112a]">
       <div className="border-b border-white/5 px-3 py-2.5">
-        <p className="text-[9px] font-bold text-orange-400 uppercase tracking-wider">CrackTheTest</p>
-        <p className="mt-0.5 text-[8px] text-white/30">Premium Plan</p>
+        <p className="text-[9px] font-bold text-orange-400 uppercase tracking-wider">AP1 Ready</p>
+        <p className="mt-0.5 text-[8px] text-white/30">Prüfungspaket</p>
       </div>
       <nav className="flex flex-1 flex-col gap-0.5 p-2">
         {items.map((item) => (
@@ -44,7 +44,7 @@ function MiniSidebar() {
       </nav>
       <div className="border-t border-white/5 p-2">
         <button className="flex w-full items-center justify-center gap-1 rounded-md bg-gradient-to-r from-[#FF705B] to-[#FFB457] py-1.5 text-[9px] font-bold text-white">
-          <Plus className="h-2.5 w-2.5" /> Test erstellen
+          <Plus className="h-2.5 w-2.5" /> Weiter üben
         </button>
       </div>
     </div>
@@ -57,24 +57,24 @@ function MiniMain() {
       {/* Stat cards */}
       <div className="mb-3 grid grid-cols-2 gap-2">
         <div className="rounded-lg border border-white/5 bg-white/5 p-2">
-          <p className="text-[8px] text-white/40">Tests erstellt</p>
-          <p className="text-sm font-bold text-white">24</p>
+          <p className="text-[8px] text-white/40">Prüfungsreife</p>
+          <p className="text-sm font-bold text-white">84%</p>
           <p className="mt-0.5 flex items-center gap-0.5 text-[8px] text-emerald-400">
-            <TrendingUp className="h-2 w-2" /> +3 diese Woche
+            <TrendingUp className="h-2 w-2" /> +6 % diese Woche
           </p>
         </div>
         <div className="rounded-lg border border-orange-500/20 bg-orange-500/10 p-2">
-          <p className="text-[8px] text-white/40">Ø Score</p>
-          <p className="text-sm font-bold text-orange-300">86%</p>
+          <p className="text-[8px] text-white/40">Prognose IHK</p>
+          <p className="text-sm font-bold text-orange-300">Note 2</p>
           <p className="mt-0.5 flex items-center gap-0.5 text-[8px] text-emerald-400">
-            <CheckCircle2 className="h-2 w-2" /> Über Durchschnitt
+            <CheckCircle2 className="h-2 w-2" /> Bestanden
           </p>
         </div>
       </div>
 
       {/* Mini bar chart */}
       <div className="mb-3 rounded-lg border border-white/5 bg-white/5 p-2">
-        <p className="mb-1.5 text-[8px] text-white/40">Tests diese Woche</p>
+        <p className="mb-1.5 text-[8px] text-white/40">Fragen diese Woche</p>
         <div className="flex h-10 items-end gap-1">
           {BAR_HEIGHTS.map((h, i) => (
             <motion.div
@@ -94,7 +94,7 @@ function MiniMain() {
       </div>
 
       {/* Recent tests */}
-      <p className="mb-1.5 text-[8px] font-semibold text-white/40 uppercase tracking-wider">Letzte Tests</p>
+      <p className="mb-1.5 text-[8px] font-semibold text-white/40 uppercase tracking-wider">Zuletzt geübt</p>
       {RECENT_TESTS.map((t) => (
         <div key={t.name} className="flex items-center justify-between border-b border-white/5 py-1.5">
           <div className="min-w-0">
@@ -129,7 +129,7 @@ export function HeroBrowserMockup() {
           <div className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
           <div className="ml-2 flex flex-1 items-center gap-1.5 overflow-hidden rounded-md bg-white/8 px-2.5 py-0.5">
             <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-            <span className="truncate text-[10px] text-white/35">app.crackthetest.ai/dashboard</span>
+            <span className="truncate text-[10px] text-white/35">AP1 Ready · Dashboard</span>
           </div>
         </div>
 
@@ -147,7 +147,7 @@ export function HeroBrowserMockup() {
         transition={{ delay: 0.6, type: "spring", stiffness: 260, damping: 20 }}
         className="absolute -right-4 -top-4 flex items-center gap-1.5 rounded-full bg-gradient-to-br from-[#FF705B] to-[#FFB457] px-3 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-orange-400/40"
       >
-        ⭐ Premium
+        ⭐ AP1 Prüfungspaket
       </motion.div>
 
       {/* Floating score pill */}
@@ -157,7 +157,7 @@ export function HeroBrowserMockup() {
         transition={{ delay: 1 }}
         className="absolute -bottom-3 -left-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-white px-3 py-1.5 text-[11px] font-bold text-slate-700 shadow-md"
       >
-        <span className="text-emerald-500">✓</span> 92% Score – Logiktest
+        <span className="text-emerald-500">✓</span> Simulation: 84 Punkte · Note 2
       </motion.div>
     </motion.div>
   );

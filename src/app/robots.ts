@@ -1,4 +1,5 @@
 import { type MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/PremiumUsers", "/ManageSubscription", "/auth", "/api"],
     },
-    sitemap: "https://crack-the-test.vercel.app/sitemap.xml",
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }
