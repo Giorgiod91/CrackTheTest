@@ -1,6 +1,6 @@
 # AP1 Ready
 
-**AP1 Prüfungsvorbereitung für Fachinformatiker (IHK)** · [Live](https://crack-the-test.vercel.app/)
+**AP1 Prüfungsvorbereitung für Fachinformatiker (IHK)** · [Live](https://ap1-ready.vercel.app/)
 
 AP1 Ready bereitet Azubis auf die Abschlussprüfung Teil 1 „Einrichten eines IT-gestützten Arbeitsplatzes“ vor, für alle Fachrichtungen. Die Fragen sind nach den Aufgabentypen aufgebaut, die in den AP1-Prüfungen der letzten Jahre immer wieder vorkamen, jeweils mit Rechenweg und Prüfungstipp.
 
