@@ -56,12 +56,14 @@ export async function POST(req: Request) {
 
     const customerEmail = dbUser?.email ?? user.email ?? undefined;
 
+    // Production always returns buyers to the main domain; VERCEL_URL is the
+    // per-deployment URL and only makes sense for preview deployments.
     const appUrl =
       process.env.NEXT_PUBLIC_APP_URL ??
-      (process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : process.env.NODE_ENV === "production"
-          ? SITE.url
+      (process.env.VERCEL_ENV === "production"
+        ? SITE.url
+        : process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
           : "http://localhost:3000");
 
     // Create Stripe Checkout Session (one-time payment, no subscription).
