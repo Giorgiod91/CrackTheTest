@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   robots: { index: true, follow: true },
+  verification: { google: "qL-fVTG2OBdCoLfHuNzHYyM7oXw4Dv57Dkc4VaEy3CY" },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
