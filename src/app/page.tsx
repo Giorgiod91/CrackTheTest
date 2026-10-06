@@ -1,5 +1,3 @@
-import { auth } from "~/app/auth";
-import { api, HydrateClient } from "~/trpc/server";
 import LandingPage from "./_components/LandingPage";
 import Navbar from "./_components/Navbar";
 import PremiumPreview from "./_components/PremiumPreview";
@@ -39,15 +37,9 @@ const jsonLd = [
   },
 ];
 
-export default async function Home() {
-  const session = await auth();
-
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
-
+export default function Home() {
   return (
-    <HydrateClient>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="mx-auto flex min-h-screen max-w-[100rem] flex-col gap-5">
         <section className="flex justify-center">
@@ -93,6 +85,6 @@ export default async function Home() {
           <Footer />
         </section>
       </main>
-    </HydrateClient>
+    </>
   );
 }

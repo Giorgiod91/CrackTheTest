@@ -6,12 +6,6 @@ import { useRouter } from "next/navigation";
 
 interface TestResponse {
   test_text: string;
-  questions?: string[];
-}
-
-interface PredictionResult {
-  difficulty: string;
-  confidence: number;
 }
 
 export default function CreateTestPage() {
@@ -19,7 +13,6 @@ export default function CreateTestPage() {
   const [content, setContent] = useState("");
   const [subject, setSubject] = useState("");
   const [anzahl, setAnzahl] = useState(20);
-  const [mlprediction, setMlprediction] = useState<PredictionResult[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [test, setTest] = useState<string>("");
   const [generating, setGenerating] = useState(false);
@@ -66,7 +59,6 @@ export default function CreateTestPage() {
     setGenerating(true);
     setError(null);
     setTest("");
-    setMlprediction([]);
     setSaved(false);
 
     try {
@@ -86,24 +78,6 @@ export default function CreateTestPage() {
 
       const data = (await response.json()) as TestResponse;
       setTest(data.test_text);
-
-      const questions = data.questions ?? [];
-      const predictions: PredictionResult[] = [];
-
-      for (const question of questions) {
-        const predictionResponse = await fetch("/api/predict-difficulty", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: question }),
-        });
-        if (predictionResponse.ok) {
-          const prediction =
-            (await predictionResponse.json()) as PredictionResult;
-          predictions.push(prediction);
-        }
-      }
-
-      setMlprediction(predictions);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unbekannter Fehler");
     } finally {
@@ -365,79 +339,6 @@ export default function CreateTestPage() {
                       </div>
                     </div>
                   </div>
-
-                  {/* ML Difficulty Analysis */}
-                  {mlprediction.length > 0 && (
-                    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-800">
-                      <div className="border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 dark:border-gray-700 dark:from-gray-700 dark:to-gray-700">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                          🎯 Schwierigkeitsanalyse
-                        </h2>
-                        <p className="mt-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-                          KI-gestützte Bewertung der Fragenkomplexität
-                        </p>
-                      </div>
-                      <div className="p-8">
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                          {mlprediction.map((prediction, index) => (
-                            <div
-                              key={index}
-                              className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all hover:border-[#FF705B]/30 hover:shadow-md dark:border-gray-700 dark:bg-gray-700"
-                            >
-                              <div className="mb-4 flex items-center justify-between">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-sm font-bold text-gray-600 transition-colors group-hover:bg-[#FF705B]/10 group-hover:text-[#FF705B] dark:bg-gray-600 dark:text-gray-300">
-                                  {index + 1}
-                                </div>
-                                <span
-                                  className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold tracking-wide uppercase ${
-                                    prediction.difficulty.toLowerCase() ===
-                                      "easy" ||
-                                    prediction.difficulty.toLowerCase() ===
-                                      "leicht"
-                                      ? "bg-green-100 text-green-700"
-                                      : prediction.difficulty.toLowerCase() ===
-                                            "medium" ||
-                                          prediction.difficulty.toLowerCase() ===
-                                            "mittel"
-                                        ? "bg-yellow-100 text-yellow-700"
-                                        : "bg-red-100 text-red-700"
-                                  }`}
-                                >
-                                  {prediction.difficulty}
-                                </span>
-                              </div>
-                              <div className="flex items-end justify-between">
-                                <span className="text-xs font-medium tracking-wider text-gray-400 uppercase">
-                                  Konfidenz
-                                </span>
-                                <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                                  {(prediction.confidence * 100).toFixed(0)}
-                                  <span className="ml-0.5 text-sm text-gray-400">
-                                    %
-                                  </span>
-                                </span>
-                              </div>
-                              <div
-                                className={`absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transform transition-all duration-500 group-hover:scale-x-100 ${
-                                  prediction.difficulty.toLowerCase() ===
-                                    "easy" ||
-                                  prediction.difficulty.toLowerCase() ===
-                                    "leicht"
-                                    ? "bg-green-500"
-                                    : prediction.difficulty.toLowerCase() ===
-                                          "medium" ||
-                                        prediction.difficulty.toLowerCase() ===
-                                          "mittel"
-                                      ? "bg-yellow-500"
-                                      : "bg-red-500"
-                                }`}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
             </div>
