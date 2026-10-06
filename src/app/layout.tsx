@@ -3,8 +3,6 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
-import { TRPCReactProvider } from "~/trpc/react";
-
 import ConsentBanner from "./_components/ConsentBanner";
 import { SITE } from "@/lib/site";
 
@@ -54,9 +52,8 @@ export default function RootLayout({
     <html lang="de" data-theme="corporate" className={`${geist.variable}`}>
       <head></head>
       <body>
-        <TRPCReactProvider>
-          {children} <ConsentBanner />
-        </TRPCReactProvider>
+        {children}
+        <ConsentBanner />
       </body>
     </html>
   );

@@ -1,9 +1,11 @@
 import "server-only";
 import type { Question } from "@/lib/ap1/types";
 import type { TopicSlug } from "@/lib/ap1/topics";
+import { PRUEFUNGSNAHE_QUESTIONS } from "./questions-pruefungsnah";
 
 // Kuratierte AP1-Fragenbank. IDs niemals ändern: Fortschritt wird pro ID gespeichert.
-export const QUESTIONS: Question[] = [
+// MC-Fragen werden mit der richtigen Antwort an Index 0 notiert und unten gemischt.
+const BASE_QUESTIONS: Question[] = [
   // ── Netzwerktechnik ────────────────────────────────────────────────────────
   {
     id: "nw-01", topic: "netzwerk", level: 1, kind: "number",
@@ -639,6 +641,22 @@ export const QUESTIONS: Question[] = [
     explanation: "Vorrang hat die Nacherfüllung. Erst wenn diese scheitert, verweigert wird oder unzumutbar ist, folgen Rücktritt, Minderung oder Schadensersatz.",
   },
 ];
+
+/** Deterministic per-ID option order, so the solution isn't always A but stays stable across requests. */
+function shuffleOptions(q: Question): Question {
+  if (q.kind !== "mc") return q;
+  let seed = 2166136261;
+  for (const ch of q.id) seed = Math.imul(seed ^ ch.charCodeAt(0), 16777619);
+  const order = q.options.map((_, i) => i);
+  for (let i = order.length - 1; i > 0; i--) {
+    seed = Math.imul(seed ^ (seed >>> 15), 2246822507) >>> 0;
+    const j = seed % (i + 1);
+    [order[i], order[j]] = [order[j]!, order[i]!];
+  }
+  return { ...q, options: order.map((i) => q.options[i]!), correct: order.indexOf(q.correct) };
+}
+
+export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PRUEFUNGSNAHE_QUESTIONS].map(shuffleOptions);
 
 export function questionsForTopic(topic: TopicSlug) {
   return QUESTIONS.filter((q) => q.topic === topic);
