@@ -4,7 +4,9 @@
 
 AP1 Ready bereitet Azubis auf die Abschlussprüfung Teil 1 „Einrichten eines IT-gestützten Arbeitsplatzes“ vor, für alle Fachrichtungen. Die Fragen sind nach den Aufgabentypen aufgebaut, die in den AP1-Prüfungen der letzten Jahre immer wieder vorkamen, jeweils mit Rechenweg und Prüfungstipp.
 
-<img width="1322" height="882" alt="Dashboard" src="https://github.com/user-attachments/assets/c549d2d3-1ead-4666-9e02-fa04f553857e" />
+![Landingpage](docs/screenshots/landingpage.png)
+
+![Dashboard](docs/screenshots/dashboard.png)
 
 ## Funktionen
 
