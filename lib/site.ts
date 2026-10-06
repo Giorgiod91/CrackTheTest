@@ -2,7 +2,7 @@
 // TODO(Giorgio): echte AP1-Punktzahl und Fachrichtung eintragen, das ist dein stärkstes Verkaufsargument.
 export const SITE = {
   name: "AP1 Ready",
-  url: "https://crack-the-test.vercel.app",
+  url: "https://ap1-ready.vercel.app",
 };
 
 export const AUTHOR = {

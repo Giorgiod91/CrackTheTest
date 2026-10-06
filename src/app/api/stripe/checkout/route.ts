@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { SITE } from "@/lib/site";
 
 // One-time products (no subscription). Prices in cents (EUR).
 const PRODUCTS: Record<string, { name: string; amount: number } | undefined> = {
@@ -60,7 +61,7 @@ export async function POST(req: Request) {
       (process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
         : process.env.NODE_ENV === "production"
-          ? "https://crack-the-test.vercel.app"
+          ? SITE.url
           : "http://localhost:3000");
 
     // Create Stripe Checkout Session (one-time payment, no subscription).
