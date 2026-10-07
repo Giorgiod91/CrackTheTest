@@ -79,7 +79,7 @@ export default function PruefungsvorbereitungPage() {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: "AP1 Prüfungsvorbereitung Fachinformatiker: Lernplan, Themen & Tipps",
-      author: { "@type": "Person", name: AUTHOR.name },
+      author: { "@type": "Organization", name: SITE.name, url: SITE.url },
       publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
       mainEntityOfPage: `${SITE.url}${PATH}`,
       inLanguage: "de-DE",
@@ -119,8 +119,8 @@ export default function PruefungsvorbereitungPage() {
         <p className="mt-5 text-lg leading-relaxed">
           Die AP1 ist der erste Teil deiner gestreckten Abschlussprüfung und zählt {AP1_FACTS.gewichtung}.
           Hier erfährst du, wie die Prüfung aufgebaut ist, welche Themen drankommen, wie du dich in vier
-          Wochen strukturiert vorbereitest und welche Fehler die meisten Punkte kosten. Geschrieben von{" "}
-          {AUTHOR.name}, {AUTHOR.role}, AP1 {AUTHOR.ap1Result}.
+          Wochen strukturiert vorbereitest und welche Fehler die meisten Punkte kosten. Geschrieben von einem
+          ehemaligen Fachinformatiker-Azubi, der heute als Software Engineer arbeitet und die AP1 {AUTHOR.ap1Result} hat.
         </p>
 
         <h2 className="mt-12 text-2xl font-bold text-white">So ist die AP1 aufgebaut</h2>

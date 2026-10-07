@@ -20,14 +20,14 @@ export default function AuthorSection() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-2"
         >
-          <p className="mb-3 text-xs font-semibold tracking-widest text-orange-500 uppercase">Von Azubi für Azubi</p>
+          <p className="mb-3 text-xs font-semibold tracking-widest text-orange-500 uppercase">Von jemandem, der den Weg schon gegangen ist</p>
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             Gebaut von jemandem, der die AP1{" "}
             <span className="bg-gradient-to-br from-[#FF705B] to-[#FFB457] bg-clip-text text-transparent">schon hinter sich hat.</span>
           </h2>
           <div className="mt-6 flex items-center gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#FF705B] to-[#FFB457] text-xl font-bold text-white shadow-lg">
-              {AUTHOR.name.charAt(0)}
+              💻
             </div>
             <div>
               <p className="font-bold">{AUTHOR.name}</p>
